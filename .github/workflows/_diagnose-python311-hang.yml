@@ -37,57 +37,75 @@ jobs:
           sink_path = Path("packages/szl-evidence-litellm/src/szl_evidence_litellm/sink.py")
           sink = sink_path.read_text(encoding="utf-8")
 
-          old_close = '''        if flusher is not None and not flusher.done():
-              flusher.cancel()
-              try:
-                  await flusher
-              except asyncio.CancelledError:
-                  pass
-          '''
-          new_close = '''        if flusher is not None and not flusher.done():
-              flusher.cancel()
-              try:
-                  async with asyncio.timeout(timeout_s):
-                      await flusher
-              except asyncio.CancelledError:
-                  pass
-              except TimeoutError as exc:
-                  raise TimeoutError(
-                      f"sink flusher shutdown exceeded {timeout_s}s"
-                  ) from exc
-          '''
+          old_close = (
+              "        if flusher is not None and not flusher.done():\n"
+              "            flusher.cancel()\n"
+              "            try:\n"
+              "                await flusher\n"
+              "            except asyncio.CancelledError:\n"
+              "                pass\n"
+          )
+          new_close = (
+              "        if flusher is not None and not flusher.done():\n"
+              "            flusher.cancel()\n"
+              "            try:\n"
+              "                async with asyncio.timeout(timeout_s):\n"
+              "                    await flusher\n"
+              "            except asyncio.CancelledError:\n"
+              "                pass\n"
+              "            except TimeoutError as exc:\n"
+              "                raise TimeoutError(\n"
+              "                    f\"sink flusher shutdown exceeded {timeout_s}s\"\n"
+              "                ) from exc\n"
+          )
           if sink.count(old_close) != 1:
               raise SystemExit("expected exactly one aclose cancellation block")
           sink = sink.replace(old_close, new_close)
 
-          old_wait = '''            try:
-                  first = await asyncio.wait_for(queue.get(), timeout=self.flush_interval_s)
-              except TimeoutError:
-                  continue  # idle period: nothing signed, nothing to persist
-          '''
-          new_wait = '''            try:
-                  # ``asyncio.wait_for`` can swallow an external cancellation on
-                  # Python 3.11 when queue delivery races shutdown. The timeout
-                  # context distinguishes its own deadline from aclose()'s cancel.
-                  async with asyncio.timeout(self.flush_interval_s):
-                      first = await queue.get()
-              except TimeoutError:
-                  continue  # idle period: nothing signed, nothing to persist
-          '''
-          if sink.count(old_wait) != 1:
+          old_wait = (
+              "            try:\n"
+              "                first = await asyncio.wait_for(\n"
+              "                    queue.get(), timeout=self.flush_interval_s\n"
+              "                )\n"
+              "            except TimeoutError:\n"
+              "                continue  # idle period: nothing signed, nothing to persist\n"
+          )
+          compact_old_wait = (
+              "            try:\n"
+              "                first = await asyncio.wait_for(queue.get(), timeout=self.flush_interval_s)\n"
+              "            except TimeoutError:\n"
+              "                continue  # idle period: nothing signed, nothing to persist\n"
+          )
+          if sink.count(old_wait) == 1:
+              selected_wait = old_wait
+          elif sink.count(compact_old_wait) == 1:
+              selected_wait = compact_old_wait
+          else:
               raise SystemExit("expected exactly one wait_for queue block")
-          sink = sink.replace(old_wait, new_wait)
+          new_wait = (
+              "            try:\n"
+              "                # ``asyncio.wait_for`` can swallow an external cancellation on\n"
+              "                # Python 3.11 when queue delivery races shutdown. The timeout\n"
+              "                # context distinguishes its own deadline from aclose()'s cancel.\n"
+              "                async with asyncio.timeout(self.flush_interval_s):\n"
+              "                    first = await queue.get()\n"
+              "            except TimeoutError:\n"
+              "                continue  # idle period: nothing signed, nothing to persist\n"
+          )
+          sink = sink.replace(selected_wait, new_wait)
           sink_path.write_text(sink, encoding="utf-8")
 
           test_path = Path("packages/szl-evidence-litellm/tests/test_sink.py")
           test = test_path.read_text(encoding="utf-8")
-          old_test = '''            sink.enqueue(make_pending(closed_policy, call_id="a-3"))
-              await sink.aclose()
-          '''
-          new_test = '''            sink.enqueue(make_pending(closed_policy, call_id="a-3"))
-              async with asyncio.timeout(2.0):
-                  await sink.aclose()
-          '''
+          old_test = (
+              "            sink.enqueue(make_pending(closed_policy, call_id=\"a-3\"))\n"
+              "            await sink.aclose()\n"
+          )
+          new_test = (
+              "            sink.enqueue(make_pending(closed_policy, call_id=\"a-3\"))\n"
+              "            async with asyncio.timeout(2.0):\n"
+              "                await sink.aclose()\n"
+          )
           if test.count(old_test) != 1:
               raise SystemExit("expected exactly one shutdown-race regression block")
           test = test.replace(old_test, new_test)
