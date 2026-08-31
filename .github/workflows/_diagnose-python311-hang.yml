@@ -1,4 +1,4 @@
-name: Diagnose Python 3.11 package tests
+name: Diagnose Python 3.11 sink shutdown
 
 on:
   pull_request:
@@ -6,10 +6,7 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - ".github/workflows/_diagnose-python311-hang.yml"
-      - "alignment/**"
-      - "packages/**"
-      - "Makefile"
-      - "pyproject.toml"
+      - "packages/szl-evidence-litellm/**"
 
 permissions:
   contents: read
@@ -19,24 +16,14 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  package:
-    name: test-${{ matrix.package }}
+  sink-shutdown:
+    name: ${{ matrix.mode }}
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 5
     strategy:
       fail-fast: false
       matrix:
-        package:
-          - alignment
-          - packages/kids-sim
-          - packages/szl-adversarial
-          - packages/szl-beacon
-          - packages/szl-claims-api
-          - packages/szl-estate
-          - packages/szl-evidence-litellm
-          - packages/szl-iso42001
-          - packages/szl-payload
-          - packages/szl-receipts
+        mode: [isolated, ordered-suite]
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -49,13 +36,19 @@ jobs:
       - name: Install all packages
         run: make install
 
-      - name: Run package tests with a hard deadline
+      - name: Run bounded traceback probe
         shell: bash
         env:
-          PACKAGE: ${{ matrix.package }}
+          MODE: ${{ matrix.mode }}
           PYTHONUNBUFFERED: "1"
+          PYTHONASYNCIODEBUG: "1"
         run: |
           set -euo pipefail
-          echo "Diagnosing ${PACKAGE}"
-          timeout --signal=TERM --kill-after=15s 180s \
-            python -m pytest -vv -s "${PACKAGE}/tests"
+          target="packages/szl-evidence-litellm/tests/test_sink.py::TestBackpressure::test_drain_after_stall_recovers"
+          if [[ "$MODE" == "ordered-suite" ]]; then
+            target="packages/szl-evidence-litellm/tests"
+          fi
+          echo "Diagnosing ${MODE}: ${target}"
+          timeout --signal=TERM --kill-after=15s 90s \
+            python -X faulthandler -m pytest -vv -s \
+              -o faulthandler_timeout=10 "$target"
