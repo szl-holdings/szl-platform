@@ -43,9 +43,9 @@ def test_seed_writes_valid_all_unknown_claims_file(
     assert claims["api_endpoints"]["expected"] == 5524
     assert claims["monorepo_packages"]["expected"] == 126
     assert claims["lambda_overhead_ms_median"]["expected"] == "<= 0.59 ms"
-    assert claims["hf_models"]["expected"] == 43
-    assert claims["hf_datasets"]["expected"] == 28
-    assert claims["hf_datasets"]["source"] == "SZLHOLDINGS/model-bom snapshot 2026-08-30"
+    assert claims["hf_models"]["expected"] == 44
+    assert claims["hf_datasets"]["expected"] == 30
+    assert claims["hf_datasets"]["source"] == "SZLHOLDINGS/model-bom DATASET_LICENSE_REGISTER.csv refresh 2026-08-31 (30 rows)"
     assert claims["org_repos"]["expected"] == 100
     assert claims["org_repos"]["source"] == "GitHub enumeration 2026-08-31"
 
