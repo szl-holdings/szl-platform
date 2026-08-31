@@ -1,0 +1,4 @@
+# SZL Holdings public proof surface.
+# Canonical surfaces: https://a-11-oy.com (command center) · https://a11oy.net (proof origin)
+User-agent: *
+Allow: /
