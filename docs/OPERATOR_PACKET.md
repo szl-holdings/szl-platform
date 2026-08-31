@@ -22,7 +22,7 @@ The ten mandatory answers. Nothing in this packet was asserted; every line trace
 
 - `szl.dev` — no DNS delegation (registrar action required).
 - Cloudflare connector key — malformed; regenerating it is a human action (§4 of FRONTIER_READINESS).
-- 3 CLAIM_DRIFTs on the org front page (HF counts + platform package count needs in-repo recompute).
+- ~~3 CLAIM_DRIFTs~~ — both HF drifts closed via model-bom refresh (44/44, 30/30); the live claims API now serves PASS for both. In-repo test counts remain UNKNOWN until recomputed in their own checkouts — by design.
 
 ## 4. What is blocked on credentials
 

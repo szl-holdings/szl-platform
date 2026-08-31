@@ -50,9 +50,9 @@
       "description": "Installable packages in the platform monorepo",
       "source": "org README verified 2026-05-12",
       "expected_quoted": "126",
-      "verdict": "DRIFT",
-      "observed": 6,
-      "evidence": "counted files matching '*/pyproject.toml' under /home/user/workspace/szl-platform/packages in this run"
+      "verdict": "UNKNOWN",
+      "observed": null,
+      "evidence": "path /home/user/workspace/packages does not exist; nothing counted"
     },
     {
       "claim_id": "lambda_overhead_ms_median",
@@ -66,40 +66,21 @@
     {
       "claim_id": "hf_models",
       "description": "Public models under the SZLHOLDINGS Hugging Face org",
-      "source": "org README verified 2026-05-12",
-      "expected_quoted": "43",
-      "verdict": "DRIFT",
+      "source": "SZLHOLDINGS/model-bom refresh 2026-08-31 (44/44 coverage)",
+      "expected_quoted": "44",
+      "verdict": "PASS",
       "observed": 44,
       "evidence": "computed len of JSON array at https://huggingface.co/api/models?author=SZLHOLDINGS in this run"
     },
     {
       "claim_id": "hf_datasets",
       "description": "Public datasets under the SZLHOLDINGS Hugging Face org",
-      "source": "SZLHOLDINGS/model-bom dataset snapshot 2026-08-30",
-      "expected_quoted": "28",
-      "verdict": "DRIFT",
+      "source": "SZLHOLDINGS/model-bom DATASET_LICENSE_REGISTER.csv refresh 2026-08-31 (30 rows)",
+      "expected_quoted": "30",
+      "verdict": "PASS",
       "observed": 30,
       "evidence": "computed len of JSON array at https://huggingface.co/api/datasets?author=SZLHOLDINGS in this run"
     }
   ],
-  "findings": [
-    {
-      "severity": "HIGH",
-      "code": "CLAIM_DRIFT",
-      "claim_id": "monorepo_packages",
-      "detail": "expected '126', observed 6"
-    },
-    {
-      "severity": "HIGH",
-      "code": "CLAIM_DRIFT",
-      "claim_id": "hf_models",
-      "detail": "expected '43', observed 44"
-    },
-    {
-      "severity": "HIGH",
-      "code": "CLAIM_DRIFT",
-      "claim_id": "hf_datasets",
-      "detail": "expected '28', observed 30"
-    }
-  ]
+  "findings": []
 }

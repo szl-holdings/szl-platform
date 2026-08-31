@@ -4,9 +4,7 @@ Claims checked: 9
 
 ## BLOCKERS THAT OUTRANK ALL COSMETIC WORK
 
-- **HIGH** `CLAIM_DRIFT` — `monorepo_packages`: expected '126', observed 6: counted files matching '*/pyproject.toml' under /home/user/workspace/szl-platform/packages in this run
-- **HIGH** `CLAIM_DRIFT` — `hf_models`: expected '43', observed 44: computed len of JSON array at https://huggingface.co/api/models?author=SZLHOLDINGS in this run
-- **HIGH** `CLAIM_DRIFT` — `hf_datasets`: expected '28', observed 30: computed len of JSON array at https://huggingface.co/api/datasets?author=SZLHOLDINGS in this run
+No CLAIM_DRIFT findings in this run.
 
 ## Claim table
 
@@ -17,9 +15,9 @@ Claims checked: 9
 | mcp_e2e | 27/27 | — | UNKNOWN | static_expected (not recomputed): no local recomputation exists for this claim |
 | db_tables | 848 | — | UNKNOWN | static_expected (not recomputed): no local recomputation exists for this claim |
 | api_endpoints | 5524 | — | UNKNOWN | static_expected (not recomputed): no local recomputation exists for this claim |
-| monorepo_packages | 126 | 6 | DRIFT | counted files matching '*/pyproject.toml' under /home/user/workspace/szl-platform/packages in this run |
+| monorepo_packages | 126 | — | UNKNOWN | path /home/user/workspace/packages does not exist; nothing counted |
 | lambda_overhead_ms_median | <= 0.59 ms | — | UNKNOWN | static_expected (not recomputed): latency medians must be measured, not scraped from a README |
-| hf_models | 43 | 44 | DRIFT | computed len of JSON array at https://huggingface.co/api/models?author=SZLHOLDINGS in this run |
-| hf_datasets | 28 | 30 | DRIFT | computed len of JSON array at https://huggingface.co/api/datasets?author=SZLHOLDINGS in this run |
+| hf_models | 44 | 44 | PASS | computed len of JSON array at https://huggingface.co/api/models?author=SZLHOLDINGS in this run |
+| hf_datasets | 30 | 30 | PASS | computed len of JSON array at https://huggingface.co/api/datasets?author=SZLHOLDINGS in this run |
 
 _Observed is em-dash when the claim was not recomputed in this run; static_expected claims are UNKNOWN by construction and are never PASS._

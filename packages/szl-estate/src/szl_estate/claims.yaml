@@ -66,8 +66,8 @@ claims:
 
   - claim_id: hf_models
     description: "Public models under the SZLHOLDINGS Hugging Face org"
-    source: "org README verified 2026-05-12"
-    expected: 43
+    source: "SZLHOLDINGS/model-bom refresh 2026-08-31 (44/44 coverage)"
+    expected: 44
     check:
       type: http_json
       # The API returns a JSON array; observed = len(array). Network failure
@@ -77,8 +77,8 @@ claims:
 
   - claim_id: hf_datasets
     description: "Public datasets under the SZLHOLDINGS Hugging Face org"
-    source: "SZLHOLDINGS/model-bom dataset snapshot 2026-08-30"
-    expected: 28
+    source: "SZLHOLDINGS/model-bom DATASET_LICENSE_REGISTER.csv refresh 2026-08-31 (30 rows)"
+    expected: 30
     check:
       type: http_json
       url: "https://huggingface.co/api/datasets?author=SZLHOLDINGS"

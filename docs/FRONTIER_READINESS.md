@@ -50,11 +50,18 @@ Full evidence with citations: `docs/COMPETITIVE_TEARDOWN.md`.
 
 ## 4. Human-only actions — dated, in order
 
-1. **Register the Daybreak Blue FIDO hardware key — deadline 2026-09-01 (tomorrow).** Non-recoverable. Without Advanced Account Security you lose frontier cyber-model access. 20 minutes. Do it before anything else.
-2. **Rotate the Hugging Face OAuth token** — the current one expires **2026-08-31T13:27:22Z (today)**. HF → Settings → Access Tokens.
-3. **Regenerate the Cloudflare API token** (My Profile → API Tokens → "Edit zone DNS" template, `Zone:DNS:Edit` + `Zone:Zone:Read`, scoped to your zones only), then `curl https://api.cloudflare.com/client/v4/user/tokens/verify` must return `"status":"active"`. This unblocks every DNS write.
-4. **`whois szl.dev`** — confirm registrar + renewal state; the domain has no delegation. Then point NS at Cloudflare and re-run `python -m szl_estate doctor`.
-5. **On the origin host: `systemctl status cloudflared` + `journalctl -u cloudflared --since "24 hours ago"`** — tunnel 1033 is an origin-host problem, not DNS.
+~~Daybreak Blue key~~ and ~~HF token rotation~~ — owner-handled, removed from this list 2026-08-31 16:00 ET.
+
+1. **Regenerate the Cloudflare API token** (My Profile → API Tokens → "Edit zone DNS" template, `Zone:DNS:Edit` + `Zone:Zone:Read`, scoped to your zones only), then `curl https://api.cloudflare.com/client/v4/user/tokens/verify` must return `"status":"active"`. This unblocks every DNS write.
+2. **`whois szl.dev`** — confirm registrar + renewal state; the domain has no delegation. Then point NS at Cloudflare and re-run `python -m szl_estate doctor`.
+3. **On the origin host: `systemctl status cloudflared` + `journalctl -u cloudflared --since "24 hours ago"`** — tunnel 1033 is an origin-host problem, not DNS.
+
+## 4b. Completed this session (was pending, now done)
+
+- **HF estate aligned**: `SZLHOLDINGS/model-bom` refresh commits `8f45f2b` + `e92e8b5` — 44/44 models, dataset register 28→30 rows covering all 30 public datasets; both CLAIM_DRIFTs closed and now serving **PASS** from the live claims API.
+- **Org alignment**: 22 PRs opened, 21 merged (a11oy excluded by owner decision — negative-control references stay intentional; the gate needs a semantic allowlist there). Forbidden-domain violations in `szl-command-lab` fixed on main (PR #16).
+- **Domains verified live**: `a-11-oy.com` 200 (command center), `a11oy.net` 200 (proof registry), www→apex redirects, HTTP→HTTPS 301s, HSTS present. `szl-holdings.github.io` now 301→`holdings.a-11-oy.com` 200 after the alignment merge.
+- **Live claims API**: `GET /api/cps/claims` serving PASS/UNKNOWN verdicts with per-claim receipts; wired into the proof explorer preview.
 
 ## 5. Standing operating loop (this is the cadence, not a roadmap)
 

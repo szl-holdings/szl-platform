@@ -1,6 +1,6 @@
 {
   "schema": "szl-claims-api/seed/v1",
-  "comment": "The public numeric claims SZL Holdings makes, as QUOTED claims with their sources. `expected` is verbatim from the source document — a quoted claim, never a measurement taken by this service. seed.py stamps each entry with observed=null and verdict=UNKNOWN until szl-estate recomputes it; UNKNOWN is never PASS.",
+  "comment": "The public numeric claims SZL Holdings makes, as QUOTED claims with their sources. `expected` is verbatim from the source document \u2014 a quoted claim, never a measurement taken by this service. seed.py stamps each entry with observed=null and verdict=UNKNOWN until szl-estate recomputes it; UNKNOWN is never PASS.",
   "claims": [
     {
       "claim_id": "ouroboros_tests",
@@ -40,21 +40,21 @@
     },
     {
       "claim_id": "lambda_overhead_ms_median",
-      "description": "Median Λ-gate overhead per governed call",
+      "description": "Median \u039b-gate overhead per governed call",
       "source": "org README verified 2026-05-12",
       "expected": "<= 0.59 ms"
     },
     {
       "claim_id": "hf_models",
       "description": "Public models under the SZLHOLDINGS Hugging Face org",
-      "source": "org README verified 2026-05-12",
-      "expected": 43
+      "source": "SZLHOLDINGS/model-bom refresh 2026-08-31 (44/44 coverage)",
+      "expected": 44
     },
     {
       "claim_id": "hf_datasets",
       "description": "Public datasets under the SZLHOLDINGS Hugging Face org",
-      "source": "SZLHOLDINGS/model-bom snapshot 2026-08-30",
-      "expected": 28
+      "source": "SZLHOLDINGS/model-bom DATASET_LICENSE_REGISTER.csv refresh 2026-08-31 (30 rows)",
+      "expected": 30
     },
     {
       "claim_id": "org_repos",

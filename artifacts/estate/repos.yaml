@@ -8,7 +8,7 @@
   primary_language: HTML
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T13:42:58Z'
+  pushed_at: '2026-08-31T18:55:53Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/.github
 - name: YARQA-ATTN
@@ -35,7 +35,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T18:06:12Z'
+  pushed_at: '2026-08-31T20:04:56Z'
   stargazer_count: 1
   url: https://github.com/szl-holdings/a11oy
 - name: a11oy-factory
@@ -48,7 +48,7 @@
   primary_language: TypeScript
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T18:02:02Z'
+  pushed_at: '2026-08-31T18:47:21Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/a11oy-factory
 - name: a11oy-net
@@ -61,7 +61,7 @@
   primary_language: HTML
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T13:18:14Z'
+  pushed_at: '2026-08-31T20:04:41Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/a11oy-net
 - name: anatomy
@@ -238,7 +238,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T05:30:28Z'
+  pushed_at: '2026-08-31T19:54:59Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/governance-as-code
 - name: governed-inference-meter
@@ -278,7 +278,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T04:00:47Z'
+  pushed_at: '2026-08-31T20:04:20Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/governed-receipt-spec
 - name: hatun-mcp
@@ -318,7 +318,7 @@
   primary_language: TypeScript
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T12:20:46Z'
+  pushed_at: '2026-08-31T19:55:03Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/immune
 - name: immune-lattice
@@ -385,6 +385,18 @@
   pushed_at: '2026-08-31T12:22:12Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/khipu-sda-core
+- name: khipu-x1
+  visibility: PRIVATE
+  is_private: true
+  is_archived: false
+  is_empty: false
+  description: null
+  primary_language: Python
+  license_spdx: other
+  default_branch: main
+  pushed_at: '2026-08-31T18:59:17Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/khipu-x1
 - name: killinchu
   visibility: PUBLIC
   is_private: false
@@ -395,7 +407,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T13:22:51Z'
+  pushed_at: '2026-08-31T19:56:20Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/killinchu
 - name: lambda-gate-holo
@@ -433,7 +445,7 @@
   primary_language: Lean
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T12:19:27Z'
+  pushed_at: '2026-08-31T19:54:15Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/lutar-lean
 - name: lyte-lattice
@@ -511,7 +523,7 @@
   primary_language: TypeScript
   license_spdx: other
   default_branch: main
-  pushed_at: '2026-08-31T13:12:43Z'
+  pushed_at: '2026-08-31T20:01:47Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/platform
 - name: puriq-live
@@ -575,7 +587,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-30T22:58:27Z'
+  pushed_at: '2026-08-31T19:55:16Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-block-kv
 - name: szl-blocked
@@ -626,7 +638,7 @@
   primary_language: TypeScript
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-30T23:11:19Z'
+  pushed_at: '2026-08-31T20:04:48Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-command-lab
 - name: szl-cookbook
@@ -704,7 +716,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-29T15:59:29Z'
+  pushed_at: '2026-08-31T18:38:21Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-estate-os
 - name: szl-experiments
@@ -743,7 +755,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T04:31:19Z'
+  pushed_at: '2026-08-31T19:12:35Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-forge
 - name: szl-formula-ledger
@@ -795,7 +807,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T13:17:20Z'
+  pushed_at: '2026-08-31T19:55:23Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-gov
 - name: szl-governed-norm
@@ -862,7 +874,7 @@
   primary_language: HTML
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T04:00:41Z'
+  pushed_at: '2026-08-31T19:12:52Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-holdings.github.io
 - name: szl-invariants
@@ -876,7 +888,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T03:33:18Z'
+  pushed_at: '2026-08-31T19:55:13Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-invariants
 - name: szl-kernels
@@ -889,7 +901,7 @@
   primary_language: TeX
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T04:59:31Z'
+  pushed_at: '2026-08-31T19:54:55Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-kernels
 - name: szl-kernels-live
@@ -914,7 +926,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T05:18:19Z'
+  pushed_at: '2026-08-31T19:12:28Z'
   stargazer_count: 1
   url: https://github.com/szl-holdings/szl-khipu
 - name: szl-lake
@@ -928,7 +940,7 @@
   primary_language: Python
   license_spdx: cc-by-4.0
   default_branch: main
-  pushed_at: '2026-08-31T12:53:47Z'
+  pushed_at: '2026-08-31T19:55:01Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-lake
 - name: szl-lambda-gate
@@ -1032,7 +1044,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-30T21:17:13Z'
+  pushed_at: '2026-08-31T19:55:09Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-ouroboros
 - name: szl-papers
@@ -1048,6 +1060,18 @@
   pushed_at: '2026-08-31T04:51:14Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-papers
+- name: szl-platform
+  visibility: PRIVATE
+  is_private: true
+  is_archived: false
+  is_empty: false
+  description: null
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T20:00:09Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-platform
 - name: szl-provctl
   visibility: PUBLIC
   is_private: false
@@ -1083,7 +1107,7 @@
   primary_language: JavaScript
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T12:42:34Z'
+  pushed_at: '2026-08-31T18:36:12Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-quant
 - name: szl-quant-witness
@@ -1123,7 +1147,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T12:19:07Z'
+  pushed_at: '2026-08-31T19:15:05Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-receipt
 - name: szl-receipt-attn
@@ -1136,7 +1160,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T04:51:24Z'
+  pushed_at: '2026-08-31T19:55:20Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-receipt-attn
 - name: szl-router
@@ -1204,7 +1228,7 @@
   primary_language: Python
   license_spdx: apache-2.0
   default_branch: main
-  pushed_at: '2026-08-31T11:05:19Z'
+  pushed_at: '2026-08-31T19:12:16Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-substrate
 - name: szl-telemetry
@@ -1229,7 +1253,7 @@
   primary_language: Python
   license_spdx: cc-by-4.0
   default_branch: main
-  pushed_at: '2026-08-31T04:54:06Z'
+  pushed_at: '2026-08-31T19:57:23Z'
   stargazer_count: 0
   url: https://github.com/szl-holdings/szl-trust
 - name: szl-uds-deployment

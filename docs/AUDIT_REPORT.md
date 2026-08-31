@@ -8,8 +8,8 @@
 
 | Measure | Value | Evidence |
 |---|---|---|
-| GitHub org repos | **101** | `gh repo list` (GraphQL), 2026-08-31; REST cross-check rate-limited → enumeration status honestly **PARTIAL** with both source outcomes recorded |
-| Mid-audit drift | **`szl-v14` appeared during enumeration** (100 → 101 between two runs hours apart) | `discovery/gh_repo_list.json` vs live re-run — the tooling caught it |
+| GitHub org repos | **103** | `gh repo list` (GraphQL), 2026-08-31; REST cross-check rate-limited → enumeration status honestly **PARTIAL** with both source outcomes recorded |
+| Mid-audit drift | **`szl-v14` appeared during enumeration**, then `szl-platform` and `khipu-x1` were added by this session's pushes (100 → 103) | `discovery/gh_repo_list.json` vs live re-runs — the tooling caught each change |
 | Active / archived | 65 active, 35 archived (+ `szl-v14` new) | inventory JSON |
 | Primary language | Python 66, TypeScript 13, Lean 4, HTML 3, Cuda 2, Rust 1, Nix 1, None 4, others 7 | inventory JSON |
 | Private repos | 5 (`gdw-frontier`, `pitch-collateral`, `szl-defensive-control-plane`, `szl-estate-os`, `szl-org-health`) | inventory JSON |
@@ -17,10 +17,10 @@
 
 ## 2. Blockers that outrank all cosmetic work
 
-1. **CRITICAL — forbidden domain in a live publish path.** `szl-command-lab` ships `host: "a11oy.com"` and `href: "https://a11oy.com"` in `src/lib/publish.ts` (lines 37, 41) with two copies in `publish-map.json` (`src/data/`, `public/data/`). `a11oy.com` is a third-party WordPress furniture store. **4 occurrences, 1 repo.** Every other org hit (a11oy's `test_canonical_domain.py`, a11oy-net's FRONT_DOOR.md and index.html footers, szl-holdings.github.io) is prohibition/guard context — the estate's own guard machinery referencing the string to forbid it. Fix: replace with `a-11-oy.com` or remove; the alignment engine prepared the diffs as `NEEDS_REVIEW`.
+1. ~~**CRITICAL — forbidden domain in a live publish path**~~ **RESOLVED 2026-08-31 20:04 UTC** ([szl-command-lab PR #16](https://github.com/szl-holdings/szl-command-lab/pull/16)): the 4 occurrences (`src/lib/publish.ts` L37/L41, two `publish-map.json` copies) now point at canonical `a-11-oy.com`. Every other org hit was verified prohibition/guard context — the estate's own machinery referencing the string to forbid it. Owner decision recorded: a11oy keeps intentional negative-control references; a semantic allowlist (not a raw substring ban) is the accepted gate design there.
 2. **FAIL — `szl.dev` has no delegation.** `dig NS szl.dev` → empty (NXDOMAIN), confirmed by `szl-estate doctor` exit 1. Registrar action required.
-3. **HIGH — 3 public numeric claims are stale (CLAIM_DRIFT, measured today).** HF models 43→44, HF datasets 28→30 (vs `SZLHOLDINGS/model-bom` snapshot 2026-08-30); `monorepo_packages: 126` requires recompute inside a `platform` checkout. The org README's "verified 2026-05-12" stamp is 3.5 months old. The fix is now standing infrastructure: `szl-claims-api` serves claimed/actual/drift per claim with a receipt.
-4. **HIGH — Hugging Face access token expires today** (2026-08-31T13:27:22Z, per `hf_whoami`). Rotate before HF automation stalls.
+3. ~~**HIGH — HF claim drift**~~ **RESOLVED 2026-08-31**: model-bom refreshed to 44/44 models and 30/30 datasets ([commits `8f45f2b`, `e92e8b5`](https://huggingface.co/datasets/SZLHOLDINGS/model-bom)); verify-claims now reports both **PASS** live. Remaining: `monorepo_packages: 126` and the in-repo test counts serve as UNKNOWN until recomputed inside their own checkouts — the claims API publishes exactly that.
+4. ~~**HIGH — HF token expiry**~~ — owner-handled, removed 2026-08-31 16:00 ET.
 5. **MEDIUM — 3 open PRs, all in `a11oy`** (oldest 2026-07-31). The "~12 stuck PRs" from the V11 era is resolved down to 3.
 
 ## 3. Alignment (64 repos scored over full clones — mean 49.5%)

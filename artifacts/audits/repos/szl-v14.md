@@ -1,14 +1,14 @@
 
-# Repo audit — szl-holdings/.github
+# Repo audit — szl-holdings/szl-v14
 
-- **Visibility:** PUBLIC
+- **Visibility:** PRIVATE
 - **Archived:** False
 - **Default branch:** main
-- **Last push:** 2026-08-31T18:55:53Z
-- **Primary language:** HTML
-- **License present:** yes (apache-2.0)
+- **Last push:** 2026-08-31T13:24:46Z
+- **Primary language:** Python
+- **License present:** no
 - **Description present:** yes
-- **URL:** https://github.com/szl-holdings/.github
+- **URL:** https://github.com/szl-holdings/szl-v14
 
 ## Live probes
 
@@ -20,7 +20,7 @@
 
 ## Overall state: ACTIVE
 
-## Findings (3)
+## Findings (4)
 
 
 | Severity | Code | Detail |
@@ -28,5 +28,6 @@
 | MEDIUM | README_PROBE_UNKNOWN | forbidden-link scan could not run: not attempted in offline mode |
 | INFO | CI_PROBE_UNKNOWN | CI state unknown: not attempted in offline mode |
 | INFO | PR_COUNT_UNKNOWN | open-PR count unknown: not attempted in offline mode |
+| LOW | LICENSE_MISSING | no license detected by GitHub |
 
 

@@ -7,7 +7,7 @@
   "sources": {
     "source_a": {
       "ok": true,
-      "count": 101,
+      "count": 103,
       "names": [
         ".github",
         "YARQA-ATTN",
@@ -39,6 +39,7 @@
         "khipu-lab",
         "khipu-pages",
         "khipu-sda-core",
+        "khipu-x1",
         "killinchu",
         "lambda-gate-holo",
         "lean-kernel",
@@ -90,6 +91,7 @@
         "szl-otel-mesh",
         "szl-ouroboros",
         "szl-papers",
+        "szl-platform",
         "szl-provctl",
         "szl-provctl-live",
         "szl-quant",

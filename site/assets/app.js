@@ -49,6 +49,41 @@ async function loadArtifact(path) {
 }
 
 function rec(path) { return store.get(path) || { bytes: null, text: null, sha256: null, error: "not loaded" }; }
+
+/* Live claims API: when this page is served with the claims backend attached
+   (the deploy pipeline rewrites __PORT_8011__ to the API origin), the claims
+   wall and counters prefer the live endpoint over the committed snapshot.
+   Any failure falls back to the committed data/claims.json — honest either way. */
+async function loadLiveClaims() {
+  const url = "__PORT_8011__/api/cps/claims";
+  if (url.includes("__PORT_")) return false; // no backend wired in this build
+  try {
+    const ctl = new AbortController();
+    const t = setTimeout(() => ctl.abort(), 4000);
+    const res = await fetch(url, { cache: "no-store", signal: ctl.signal });
+    clearTimeout(t);
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const api = await res.json();
+    if (!api || !Array.isArray(api.claims)) return false;
+    const normalized = {
+      live: true,
+      generated_at: api.generated_at,
+      results: api.claims.map(c => ({
+        claim_id: c.claim_id,
+        description: c.claim_id + " (live)",
+        source: "live GET /api/cps/claims",
+        expected_quoted: String(c.claimed),
+        observed: c.actual,
+        verdict: c.verdict,
+        evidence: "receipt " + String(c.receipt_id || "").slice(0, 16) + " · last_run " + (c.last_run || "never") + " · " + c.receipt_url,
+      })),
+      findings: [],
+    };
+    const text = JSON.stringify(normalized);
+    store.set("data/claims.json", { bytes: null, text, sha256: null, error: null });
+    return true;
+  } catch { return false; }
+}
 function jsonOf(path) {
   const r = rec(path);
   if (!r.text) return null;
@@ -463,8 +498,10 @@ function buildClaimsWall() {
   const frag = document.createDocumentFragment();
   const claims = jsonOf("data/claims.json");
   frag.append(artifactCard({
-    kind: "9 CLAIMS", tone: "unknown", file: "data/claims.json",
-    blurb: "Every public numeric claim, re-checked against the world. DRIFT and UNKNOWN are first-class honest states here — they are published, styled, and never hidden.",
+    kind: (claims ? String(claims.results.length) : "?") + " CLAIMS" + (claims && claims.live ? " · LIVE API" : ""), tone: "unknown", file: "data/claims.json",
+    blurb: (claims && claims.live
+      ? "Served live from GET /api/cps/claims (with receipt ids per claim) — the committed snapshot is the fallback, not the source. "
+      : "From the committed snapshot produced by szl-estate verify-claims. ") + "DRIFT and UNKNOWN are first-class honest states — published, styled, never hidden.",
     verify: "pip install -e packages/szl-estate\npython -m szl_estate.verify_claims --out artifacts/claims\n# UNKNOWN is never PASS: un-recomputed claims stay UNKNOWN",
   }));
   if (!claims) { frag.append(fetchRefusedNote("data/claims.json")); return frag; }
@@ -775,6 +812,13 @@ async function boot() {
   await Promise.all(paths.map(loadArtifact));
   renderCounters();
   initTabs();
+  /* live claims override: if the claims API is attached to this deployment,
+     prefer it over the committed snapshot and re-render what changed */
+  loadLiveClaims().then(applied => {
+    if (!applied) return;
+    renderCounters();
+    if ($("#tab-claims") && $("#tab-claims").getAttribute("aria-selected") === "true") selectTab("claims");
+  });
   renderEnum();
   renderTimeline();
   renderMatrix();
