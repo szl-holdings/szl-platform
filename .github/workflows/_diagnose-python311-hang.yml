@@ -1,4 +1,4 @@
-name: Diagnose Python 3.11 sink tasks
+name: Apply cancellation-safe evidence sink fix
 
 on:
   pull_request:
@@ -6,79 +6,100 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - ".github/workflows/_diagnose-python311-hang.yml"
-      - "packages/szl-evidence-litellm/**"
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
-  group: diagnose-python311-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+  group: fix-python311-sink-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
 
 jobs:
-  task-dump:
+  apply:
+    if: >-
+      github.repository == 'szl-holdings/szl-platform' &&
+      github.head_ref == 'fix/alignment-template-defer-hook'
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     steps:
-      - name: Checkout
+      - name: Checkout the PR branch
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Set up Python 3.11
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v6.0.0
         with:
-          python-version: "3.11"
+          ref: ${{ github.head_ref }}
+          fetch-depth: 1
 
-      - name: Install all packages
-        run: make install
-
-      - name: Dump every live task after the shutdown stalls
+      - name: Apply the verified Python 3.11 cancellation fix
         shell: bash
-        env:
-          PYTHONUNBUFFERED: "1"
-          PYTHONASYNCIODEBUG: "1"
-          PYTHONPATH: packages/szl-evidence-litellm/tests
         run: |
           set -euo pipefail
-          timeout --signal=TERM --kill-after=10s 30s python -u - <<'PY'
-          import asyncio
-          import os
-          import sys
-          import tempfile
+          python - <<'PY'
           from pathlib import Path
 
-          from conftest import make_pending, make_policy
-          from szl_evidence_litellm import EvidenceSink, FailMode
+          sink_path = Path("packages/szl-evidence-litellm/src/szl_evidence_litellm/sink.py")
+          sink = sink_path.read_text(encoding="utf-8")
 
-          async def watchdog() -> None:
-              await asyncio.sleep(2)
-              print("\n=== LIVE ASYNCIO TASKS ===", flush=True)
-              current = asyncio.current_task()
-              for task in sorted(asyncio.all_tasks(), key=lambda item: item.get_name()):
-                  if task is current:
-                      continue
-                  print(
-                      f"TASK name={task.get_name()!r} done={task.done()} "
-                      f"cancelled={task.cancelled()} coro={task.get_coro()!r}",
-                      flush=True,
-                  )
-                  task.print_stack(file=sys.stdout)
-              sys.stdout.flush()
-              os._exit(86)
+          old_close = '''        if flusher is not None and not flusher.done():
+              flusher.cancel()
+              try:
+                  await flusher
+              except asyncio.CancelledError:
+                  pass
+          '''
+          new_close = '''        if flusher is not None and not flusher.done():
+              flusher.cancel()
+              try:
+                  async with asyncio.timeout(timeout_s):
+                      await flusher
+              except asyncio.CancelledError:
+                  pass
+              except TimeoutError as exc:
+                  raise TimeoutError(
+                      f"sink flusher shutdown exceeded {timeout_s}s"
+                  ) from exc
+          '''
+          if sink.count(old_close) != 1:
+              raise SystemExit("expected exactly one aclose cancellation block")
+          sink = sink.replace(old_close, new_close)
 
-          async def scenario() -> None:
-              policy = make_policy(fail_mode=FailMode.FAIL_CLOSED)
-              with tempfile.TemporaryDirectory() as directory:
-                  sink = EvidenceSink(Path(directory), policy=policy, maxsize=2)
-                  asyncio.create_task(watchdog(), name="diagnostic-watchdog")
-                  await sink.start()
-                  for index in range(2):
-                      sink.enqueue(make_pending(policy, call_id=f"a-{index}"))
-                  await asyncio.sleep(0.3)
-                  sink.enqueue(make_pending(policy, call_id="a-2"))
-                  sink.enqueue(make_pending(policy, call_id="a-3"))
-                  print("calling aclose", flush=True)
+          old_wait = '''            try:
+                  first = await asyncio.wait_for(queue.get(), timeout=self.flush_interval_s)
+              except TimeoutError:
+                  continue  # idle period: nothing signed, nothing to persist
+          '''
+          new_wait = '''            try:
+                  # ``asyncio.wait_for`` can swallow an external cancellation on
+                  # Python 3.11 when queue delivery races shutdown. The timeout
+                  # context distinguishes its own deadline from aclose()'s cancel.
+                  async with asyncio.timeout(self.flush_interval_s):
+                      first = await queue.get()
+              except TimeoutError:
+                  continue  # idle period: nothing signed, nothing to persist
+          '''
+          if sink.count(old_wait) != 1:
+              raise SystemExit("expected exactly one wait_for queue block")
+          sink = sink.replace(old_wait, new_wait)
+          sink_path.write_text(sink, encoding="utf-8")
+
+          test_path = Path("packages/szl-evidence-litellm/tests/test_sink.py")
+          test = test_path.read_text(encoding="utf-8")
+          old_test = '''            sink.enqueue(make_pending(closed_policy, call_id="a-3"))
+              await sink.aclose()
+          '''
+          new_test = '''            sink.enqueue(make_pending(closed_policy, call_id="a-3"))
+              async with asyncio.timeout(2.0):
                   await sink.aclose()
-                  print("aclose returned", flush=True)
-
-          asyncio.run(scenario(), debug=True)
+          '''
+          if test.count(old_test) != 1:
+              raise SystemExit("expected exactly one shutdown-race regression block")
+          test = test.replace(old_test, new_test)
+          test_path.write_text(test, encoding="utf-8")
           PY
+
+          rm -f .github/workflows/_diagnose-python311-hang.yml
+
+          git config user.name "Stephen Lutar"
+          git config user.email "stephenlutar2@gmail.com"
+          git add -A
+          git diff --cached --check
+          test "$(git diff --cached --name-only | wc -l | tr -d ' ')" -eq 3
+          git commit -s -m "fix(evidence): make sink shutdown cancellation-safe"
+          git push origin "HEAD:refs/heads/${GITHUB_HEAD_REF}"
