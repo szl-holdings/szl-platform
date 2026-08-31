@@ -2,7 +2,10 @@
 # Every target is safe to run repeatedly. Nothing here mutates the world:
 # audits read, builders write only under ./dist and ./artifacts.
 PY ?= python3
-PACKAGES := $(wildcard packages/*) alignment
+# packages/szl-receipts is the trust core and a path/peer dependency of
+# sibling packages (szl-adversarial, szl-payload, szl-evidence-litellm, ...).
+# It is not published to any index, so it must be editable-installed FIRST.
+PACKAGES := packages/szl-receipts $(filter-out packages/szl-receipts,$(wildcard packages/*)) alignment
 
 .PHONY: install test lint verify audit doctor clean
 
@@ -32,13 +35,13 @@ lint:
 ## verify: receipts must verify, payload must rebuild byte-identical
 verify: test
 	$(PY) -m szl_receipts.cli --help >/dev/null
-	@if [ -d packages/szl-payload ]; then $(PY) -m szl_payload.build verify; fi
+	@if [ -d packages/szl-payload ]; then $(PY) -m szl_payload.build verify --root packages/szl-payload; fi
 
 ## idempotent: build twice, outputs must be byte-identical (determinism gate)
 idempotent:
 	@if [ -d packages/szl-payload ]; then \
-		$(PY) -m szl_payload.build && cp dist/SZL_MASTER_PAYLOAD_V14.md /tmp/_p1.md && \
-		$(PY) -m szl_payload.build && diff -q /tmp/_p1.md dist/SZL_MASTER_PAYLOAD_V14.md; \
+		$(PY) -m szl_payload.build --root packages/szl-payload && cp packages/szl-payload/dist/SZL_MASTER_PAYLOAD_V14.md /tmp/_p1.md && \
+		$(PY) -m szl_payload.build --root packages/szl-payload && diff -q /tmp/_p1.md packages/szl-payload/dist/SZL_MASTER_PAYLOAD_V14.md; \
 	else echo "szl-payload not present yet"; fi
 
 ## audit: read-only estate audit (requires GH_TOKEN in env)

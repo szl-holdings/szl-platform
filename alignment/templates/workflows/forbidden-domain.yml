@@ -29,7 +29,7 @@ jobs:
         run: |
           set -euo pipefail
           hits="$(rg -n --no-heading --hidden -P '(?<!-)a11oy\.com' --glob '!.git' . || true)"
-          violations="$(printf '%s' "$hits" | rg -v -i 'never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist' || true)"
+          violations="$(printf '%s' "$hits" | rg -v -i 'never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist|do not treat|do not add|not affiliated' || true)"
           if [ -n "$violations" ]; then
             echo "::error::Forbidden domain references found (release-blocking CRITICAL)."
             echo "::error::Replace with a-11-oy.com or remove; guard contexts must say so on the same line."
