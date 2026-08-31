@@ -1,0 +1,61 @@
+name: Diagnose Python 3.11 package tests
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".github/workflows/_diagnose-python311-hang.yml"
+      - "alignment/**"
+      - "packages/**"
+      - "Makefile"
+      - "pyproject.toml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: diagnose-python311-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: test-${{ matrix.package }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          - alignment
+          - packages/kids-sim
+          - packages/szl-adversarial
+          - packages/szl-beacon
+          - packages/szl-claims-api
+          - packages/szl-estate
+          - packages/szl-evidence-litellm
+          - packages/szl-iso42001
+          - packages/szl-payload
+          - packages/szl-receipts
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v6.0.0
+        with:
+          python-version: "3.11"
+
+      - name: Install all packages
+        run: make install
+
+      - name: Run package tests with a hard deadline
+        shell: bash
+        env:
+          PACKAGE: ${{ matrix.package }}
+          PYTHONUNBUFFERED: "1"
+        run: |
+          set -euo pipefail
+          echo "Diagnosing ${PACKAGE}"
+          timeout --signal=TERM --kill-after=15s 180s \
+            python -m pytest -vv -s "${PACKAGE}/tests"
