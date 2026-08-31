@@ -1,4 +1,4 @@
-name: Diagnose Python 3.11 sink shutdown
+name: Diagnose Python 3.11 sink tasks
 
 on:
   pull_request:
@@ -16,14 +16,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  sink-shutdown:
-    name: ${{ matrix.mode }}
+  task-dump:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    strategy:
-      fail-fast: false
-      matrix:
-        mode: [isolated, ordered-suite]
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -36,19 +31,54 @@ jobs:
       - name: Install all packages
         run: make install
 
-      - name: Run bounded traceback probe
+      - name: Dump every live task after the shutdown stalls
         shell: bash
         env:
-          MODE: ${{ matrix.mode }}
           PYTHONUNBUFFERED: "1"
           PYTHONASYNCIODEBUG: "1"
+          PYTHONPATH: packages/szl-evidence-litellm/tests
         run: |
           set -euo pipefail
-          target="packages/szl-evidence-litellm/tests/test_sink.py::TestBackpressure::test_drain_after_stall_recovers"
-          if [[ "$MODE" == "ordered-suite" ]]; then
-            target="packages/szl-evidence-litellm/tests"
-          fi
-          echo "Diagnosing ${MODE}: ${target}"
-          timeout --signal=TERM --kill-after=15s 90s \
-            python -X faulthandler -m pytest -vv -s \
-              -o faulthandler_timeout=10 "$target"
+          timeout --signal=TERM --kill-after=10s 30s python -u - <<'PY'
+          import asyncio
+          import os
+          import sys
+          import tempfile
+          from pathlib import Path
+
+          from conftest import make_pending, make_policy
+          from szl_evidence_litellm import EvidenceSink, FailMode
+
+          async def watchdog() -> None:
+              await asyncio.sleep(2)
+              print("\n=== LIVE ASYNCIO TASKS ===", flush=True)
+              current = asyncio.current_task()
+              for task in sorted(asyncio.all_tasks(), key=lambda item: item.get_name()):
+                  if task is current:
+                      continue
+                  print(
+                      f"TASK name={task.get_name()!r} done={task.done()} "
+                      f"cancelled={task.cancelled()} coro={task.get_coro()!r}",
+                      flush=True,
+                  )
+                  task.print_stack(file=sys.stdout)
+              sys.stdout.flush()
+              os._exit(86)
+
+          async def scenario() -> None:
+              policy = make_policy(fail_mode=FailMode.FAIL_CLOSED)
+              with tempfile.TemporaryDirectory() as directory:
+                  sink = EvidenceSink(Path(directory), policy=policy, maxsize=2)
+                  asyncio.create_task(watchdog(), name="diagnostic-watchdog")
+                  await sink.start()
+                  for index in range(2):
+                      sink.enqueue(make_pending(policy, call_id=f"a-{index}"))
+                  await asyncio.sleep(0.3)
+                  sink.enqueue(make_pending(policy, call_id="a-2"))
+                  sink.enqueue(make_pending(policy, call_id="a-3"))
+                  print("calling aclose", flush=True)
+                  await sink.aclose()
+                  print("aclose returned", flush=True)
+
+          asyncio.run(scenario(), debug=True)
+          PY
