@@ -54,7 +54,7 @@ jobs:
       # non-blocking so repos keep visibility without a forced flag day; repos
       # with their own ruff config in pyproject.toml already get stricter
       # behavior from their primary CI.
-      - name: Ruff (blocking: E9/F)
+      - name: "Ruff (blocking: E9/F)"
         run: ruff check . --output-format github --select E9,F
 
       - name: Ruff (full ruleset, informational)
