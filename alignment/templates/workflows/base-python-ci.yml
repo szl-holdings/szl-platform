@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v6.0.0
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -37,7 +37,12 @@ jobs:
         run: |
           set -euo pipefail
           if [ -f .github/base-python-ci.defer ]; then
-            echo "::notice::Install deferred to repo-specific CI: $(head -1 .github/base-python-ci.defer)"
+            reason="$(head -n 1 .github/base-python-ci.defer)"
+            if [ -z "${reason//[[:space:]]/}" ]; then
+              echo "::error::.github/base-python-ci.defer must state a non-empty reason on its first line"
+              exit 1
+            fi
+            echo "::notice::Install deferred to repo-specific CI: ${reason}"
             exit 0
           fi
           if [ -f pyproject.toml ]; then
@@ -70,8 +75,14 @@ jobs:
       # minimal install does not provide. Repos with no tests/ skip honestly.
       - name: Pytest (blocking)
         run: |
+          set -euo pipefail
           if [ -f .github/base-python-ci.defer ]; then
-            echo "::notice::Tests deferred to repo-specific CI: $(head -1 .github/base-python-ci.defer)"
+            reason="$(head -n 1 .github/base-python-ci.defer)"
+            if [ -z "${reason//[[:space:]]/}" ]; then
+              echo "::error::.github/base-python-ci.defer must state a non-empty reason on its first line"
+              exit 1
+            fi
+            echo "::notice::Tests deferred to repo-specific CI: ${reason}"
             exit 0
           fi
           if [ -d tests ]; then
