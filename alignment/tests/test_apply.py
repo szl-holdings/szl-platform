@@ -22,12 +22,23 @@ def _git(repo: Path, *args: str) -> str:
     ).stdout.strip()
 
 
+def _worktree_snapshot(repo: Path) -> dict[str, bytes | None]:
+    """Capture paths and file bytes while excluding Git's transient internals."""
+    snapshot: dict[str, bytes | None] = {}
+    for path in repo.rglob("*"):
+        relative = path.relative_to(repo)
+        if relative.parts and relative.parts[0] == ".git":
+            continue
+        snapshot[relative.as_posix()] = path.read_bytes() if path.is_file() else None
+    return snapshot
+
+
 def test_dry_run_writes_nothing(git_repo: Path) -> None:
-    before = {p.relative_to(git_repo).as_posix() for p in git_repo.rglob("*")}
+    before = _worktree_snapshot(git_repo)
     plan = plan_alignment(inspect_repo(git_repo))
     result = apply_plan(git_repo, plan, dry_run=True)
-    after = {p.relative_to(git_repo).as_posix() for p in git_repo.rglob("*")}
-    assert before == after  # dry-run must not touch the disk
+    after = _worktree_snapshot(git_repo)
+    assert before == after  # dry-run must not alter worktree paths or bytes
     assert result.dry_run is True
     assert result.changed == len(plan)
     assert "DRY-RUN" in format_summary(result)
