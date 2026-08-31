@@ -1,0 +1,66 @@
+{
+  "schema": "szl-claims-api/seed/v1",
+  "comment": "The public numeric claims SZL Holdings makes, as QUOTED claims with their sources. `expected` is verbatim from the source document — a quoted claim, never a measurement taken by this service. seed.py stamps each entry with observed=null and verdict=UNKNOWN until szl-estate recomputes it; UNKNOWN is never PASS.",
+  "claims": [
+    {
+      "claim_id": "ouroboros_tests",
+      "description": "Ouroboros self-test suite is fully green",
+      "source": "org README verified 2026-05-12",
+      "expected": "218/218"
+    },
+    {
+      "claim_id": "platform_tests",
+      "description": "Platform monorepo test suite is fully green",
+      "source": "org README verified 2026-05-12",
+      "expected": "1220/1220 across 76 packages"
+    },
+    {
+      "claim_id": "mcp_e2e",
+      "description": "MCP end-to-end scenarios pass",
+      "source": "org README verified 2026-05-12",
+      "expected": "27/27"
+    },
+    {
+      "claim_id": "db_tables",
+      "description": "Database tables across estate services",
+      "source": "org README verified 2026-05-12",
+      "expected": 848
+    },
+    {
+      "claim_id": "api_endpoints",
+      "description": "API endpoints across estate services",
+      "source": "org README verified 2026-05-12",
+      "expected": 5524
+    },
+    {
+      "claim_id": "monorepo_packages",
+      "description": "Installable packages in the platform monorepo",
+      "source": "org README verified 2026-05-12",
+      "expected": 126
+    },
+    {
+      "claim_id": "lambda_overhead_ms_median",
+      "description": "Median Λ-gate overhead per governed call",
+      "source": "org README verified 2026-05-12",
+      "expected": "<= 0.59 ms"
+    },
+    {
+      "claim_id": "hf_models",
+      "description": "Public models under the SZLHOLDINGS Hugging Face org",
+      "source": "org README verified 2026-05-12",
+      "expected": 43
+    },
+    {
+      "claim_id": "hf_datasets",
+      "description": "Public datasets under the SZLHOLDINGS Hugging Face org",
+      "source": "SZLHOLDINGS/model-bom snapshot 2026-08-30",
+      "expected": 28
+    },
+    {
+      "claim_id": "org_repos",
+      "description": "Public repositories in the SZL Holdings GitHub org",
+      "source": "GitHub enumeration 2026-08-31",
+      "expected": 100
+    }
+  ]
+}

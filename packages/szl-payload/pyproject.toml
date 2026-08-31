@@ -1,0 +1,52 @@
+# szl-payload — deterministic SZL master-payload builder with hard compile gates.
+#
+# Doctrine invariants enforced by this package:
+#   * sections/ is the source of truth; dist/ is derived and never hand-edited.
+#   * the payload body carries no timestamps (build time lives only in the
+#     export receipt); the build is a pure function of sections + manifest.
+#   * UNKNOWN is never PASS.
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-payload"
+version = "14.0.0"
+description = "Deterministic SZL master-payload builder with hard compile gates"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+dependencies = [
+    # RFC 8785 JCS canonicalization, pinned exact per the builder contract.
+    # json.dumps(sort_keys=True) is NOT JCS — number/unicode serialization
+    # differ, false drift kills gates and missed drift lets poison through.
+    # NOTE: rfc8785==1.0.2 does not exist on PyPI (max published: 0.1.4).
+    # szl-receipts ships a stdlib-only RFC 8785 implementation used as the
+    # primary backend; the rfc8785 package is preferred only when present.
+    "szl-receipts",
+    "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+szl-payload = "szl_payload.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+# ../szl-receipts/src makes the estate JCS fallback (szl_receipts.jcs)
+# importable when the pinned rfc8785 distribution is unavailable offline.
+pythonpath = ["src", "../szl-receipts/src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "../szl-receipts/src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]

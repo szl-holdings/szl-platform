@@ -1,0 +1,32 @@
+[
+  {
+    "claim_id": "monorepo_packages",
+    "description": "Installable packages in the platform monorepo",
+    "source": "org README verified 2026-05-12",
+    "expected": 126,
+    "observed": 126,
+    "verdict": "PASS",
+    "evidence": "counted files matching '*/pyproject.toml' under packages/ in this run",
+    "last_run": "2026-08-31T07:30:00Z"
+  },
+  {
+    "claim_id": "hf_models",
+    "description": "Public models under the SZLHOLDINGS Hugging Face org",
+    "source": "org README verified 2026-05-12",
+    "expected": 43,
+    "observed": 41,
+    "verdict": "DRIFT",
+    "evidence": "computed len of JSON array at https://huggingface.co/api/models?author=SZLHOLDINGS in this run",
+    "last_run": "2026-08-31T07:30:00Z"
+  },
+  {
+    "claim_id": "lambda_overhead_ms_median",
+    "description": "Median Λ-gate overhead per governed call",
+    "source": "org README verified 2026-05-12",
+    "expected": "<= 0.59 ms",
+    "observed": null,
+    "verdict": "UNKNOWN",
+    "evidence": "static_expected (not recomputed): latency medians must be measured, not scraped from a README",
+    "last_run": null
+  }
+]

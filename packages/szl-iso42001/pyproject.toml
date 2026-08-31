@@ -1,0 +1,28 @@
+# szl-iso42001 — free, offline ISO/IEC 42001 + EU AI Act Art. 50 readiness checker.
+# src-layout, independently installable: pip install -e packages/szl-iso42001
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-iso42001"
+version = "0.1.0"
+description = "Free, offline ISO/IEC 42001 + EU AI Act Article 50 readiness self-assessment that emits a tamper-evident receipt of its own findings."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "SZL Holdings" }]
+keywords = ["iso42001", "eu-ai-act", "ai-governance", "compliance", "aims"]
+# Runtime needs exactly one third-party package: YAML for the corpus + answers.
+# Everything else (hashing, JSON, CLI) is the standard library — the tool must
+# run fully offline on an auditor's laptop.
+dependencies = ["pyyaml>=6"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+szl-iso42001 = "szl_iso42001.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

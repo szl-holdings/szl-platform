@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.szlholdings.com/khipu-package/v0.1",
+  "title": ".khipu package format",
+  "description": "Safe model package binding graph, weights, ABI, quantization, hashes and signatures. Inherits the four correctness fixes at birth: byte digests over weight files, real RFC 8785 JCS manifest digest, honest *.unsigned.json naming when signatures is empty, specVersion never hardcoded elsewhere.",
+  "type": "object",
+  "required": [
+    "format", "specVersion", "graph", "weights", "abi",
+    "quantization", "manifestJcsSha256", "signatures"
+  ],
+  "properties": {
+    "format": { "const": "khipu-package" },
+    "specVersion": {
+      "type": "string",
+      "description": "Package spec version string. NOT hardcoded anywhere else; the package file is the single source of truth."
+    },
+    "graph": {
+      "type": "object",
+      "description": "Computation graph (KIDS program plus tensor metadata)."
+    },
+    "weights": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": { "type": "string" },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$",
+            "description": "Digest of the actual weight FILE BYTES (chunked sha256_file), never of a name or label."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "abi": {
+      "type": "object",
+      "required": ["kidsVersion"],
+      "properties": {
+        "kidsVersion": { "type": "string" }
+      }
+    },
+    "quantization": {
+      "type": "object",
+      "description": "Quantization scheme descriptor (dtype, scales)."
+    },
+    "manifestJcsSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 over the RFC 8785 JCS canonicalization of the manifest. Real JCS, not json.dumps(sort_keys=True)."
+    },
+    "signatures": {
+      "type": "array",
+      "description": "Signature wrappers. EMPTY ARRAY IS ALLOWED and means unsigned: the file MUST then be named *.unsigned.json. An empty signatures array is never 'signed'.",
+      "items": {
+        "type": "object",
+        "required": ["keyid", "sig"],
+        "properties": {
+          "keyid": { "type": "string", "minLength": 1 },
+          "sig": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

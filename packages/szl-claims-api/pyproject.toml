@@ -1,0 +1,43 @@
+# szl-claims-api — the live Covenant Proof Standard service.
+#
+# This package is independently installable (`pip install -e packages/szl-claims-api`)
+# and serves the organization's own marketing held to its own proof standard:
+# every public numeric claim, recomputable and receipted, at GET /api/cps/claims.
+#
+# Shared pytest/ruff/mypy configuration lives in the workspace-root
+# pyproject.toml; this file intentionally carries no [tool.ruff] section so the
+# root lint policy (E, F, I, W, UP, B, S) applies verbatim to this package.
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-claims-api"
+version = "0.1.0"
+description = "The live Covenant Proof Standard service: every public numeric claim SZL Holdings makes, receipted and recomputable, at GET /api/cps/claims."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "SZL Holdings" }]
+keywords = ["governance", "receipts", "covenant-proof-standard", "claims", "szl-holdings"]
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
+    "szl-receipts",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "httpx"]
+
+[project.scripts]
+szl-claims-api = "szl_claims_api.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# The seed registry is runtime data, not code; ship it so `seed` works anywhere.
+[tool.setuptools.package-data]
+szl_claims_api = ["claims_registry.seed.json"]

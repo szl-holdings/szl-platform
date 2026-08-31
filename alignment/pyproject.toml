@@ -1,0 +1,40 @@
+# szl-alignment — the org alignment engine for the szl-holdings estate.
+# Independently installable: pip install -e alignment/
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-alignment"
+version = "14.0.0"
+description = "szl-holdings org alignment engine: inspect, plan, apply, and report repo governance alignment across the estate."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "SZL Holdings" }]
+
+[project.scripts]
+szl-alignment = "szl_alignment.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Import the package straight from src/ — the suite runs without installation.
+pythonpath = ["src"]
+addopts = "-q"
+# Receipts, audits and alignment must never hit the network in unit tests.
+filterwarnings = ["error::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["tests/fixtures"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "S"]
+# S101 (assert) is fine inside tests.
+[tool.ruff.lint.per-file-ignores]
+# tests assert freely (S101) and run git via PATH (S607) with fixed argv, no shell
+"tests/**" = ["S101", "S607"]

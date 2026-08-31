@@ -1,0 +1,39 @@
+{
+  "name": "receipt_chain_01",
+  "kids_version": "0.1",
+  "seed": 48869,
+  "kind": "receipt_chain",
+  "events": [
+    {
+      "seq": 0,
+      "op": "GEMM_TILED",
+      "status": "EXECUTED",
+      "detail": "",
+      "hw_timestamp": 0,
+      "dma_seq": 0
+    },
+    {
+      "seq": 1,
+      "op": "RMSNORM",
+      "status": "EXECUTED",
+      "detail": "",
+      "hw_timestamp": 48,
+      "dma_seq": 0
+    },
+    {
+      "seq": 2,
+      "op": "RECEIPT_EMIT",
+      "status": "EXECUTED",
+      "detail": "",
+      "hw_timestamp": 96,
+      "dma_seq": 0
+    }
+  ],
+  "expected": {
+    "receipts": [
+      "0737c5bac737ca8c9c3cb0730d96667fd7b544507a738bf41938114acafafe2f",
+      "3b8cb3d362f95410af751c29649276bccb71cc4ce14b770f9802e8adb054ecf3",
+      "aa71c60fa983b1190ccd1b05c0da271a8bfac82e1e600731ecdd41d472270ec6"
+    ]
+  }
+}

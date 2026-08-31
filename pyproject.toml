@@ -1,0 +1,42 @@
+# SZL Platform — workspace root.
+# This file is the umbrella: it carries pytest/ruff/mypy configuration for every
+# package under packages/. Each package also has its own pyproject.toml and is
+# independently installable (pip install -e packages/<name>).
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-platform"
+version = "14.0.0"
+description = "SZL Holdings governed-AI platform: receipts, payload builder, estate control plane, KIDS golden simulator, evidence plugins."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "SZL Holdings" }]
+
+# The root project ships no code itself; it exists to anchor shared tool config.
+[tool.setuptools]
+py-modules = []
+
+[tool.pytest.ini_options]
+# NOTE: run tests per package (`make test` loops). A single root run mixes
+# same-basename test modules and conftest-helper imports across packages.
+addopts = "-q"
+# Receipts, simulators and audits must never hit the network in unit tests.
+filterwarnings = ["error::DeprecationWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B", "S"]
+# S101 (assert) is fine inside tests; we gate that per-directory below.
+[tool.ruff.lint.per-file-ignores]
+"packages/*/tests/**" = ["S101"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = false
+ignore_missing_imports = true

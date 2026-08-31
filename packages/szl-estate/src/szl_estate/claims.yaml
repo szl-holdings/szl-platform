@@ -1,0 +1,85 @@
+# Public numeric claims made by the SZL Holdings estate, and how this tool
+# re-checks each one. The `expected` values are QUOTED CLAIMS, not measurements
+# taken here — verify-claims either recomputes a value and compares it, or
+# reports UNKNOWN. A claim with check type `static_expected` has no local
+# recomputation in this repo and is therefore NEVER passable by this tool.
+#
+# Sources are recorded per claim so an auditor can see which artifact made the
+# claim and when it was last human-verified.
+schema: szl-estate/claims/v1
+claims:
+  - claim_id: ouroboros_tests
+    description: "Ouroboros self-test suite is fully green"
+    source: "org README verified 2026-05-12"
+    expected: "218/218"
+    check:
+      type: static_expected
+      note: "test counts are only meaningful inside the ouroboros repo checkout"
+
+  - claim_id: platform_tests
+    description: "Platform monorepo test suite is fully green"
+    source: "org README verified 2026-05-12"
+    expected: "1220/1220 across 76 packages"
+    check:
+      type: static_expected
+      note: "requires a platform checkout and a full pytest run; not recomputed here"
+
+  - claim_id: mcp_e2e
+    description: "MCP end-to-end scenarios pass"
+    source: "org README verified 2026-05-12"
+    expected: "27/27"
+    check:
+      type: static_expected
+
+  - claim_id: db_tables
+    description: "Database tables across estate services"
+    source: "org README verified 2026-05-12"
+    expected: 848
+    check:
+      type: static_expected
+
+  - claim_id: api_endpoints
+    description: "API endpoints across estate services"
+    source: "org README verified 2026-05-12"
+    expected: 5524
+    check:
+      type: static_expected
+
+  - claim_id: monorepo_packages
+    description: "Installable packages in the platform monorepo"
+    source: "org README verified 2026-05-12"
+    expected: 126
+    check:
+      type: count_files
+      # Offline and honestly computable from any checkout: count package
+      # manifests under packages/. Run from the monorepo root.
+      base_path: "packages"
+      glob: "*/pyproject.toml"
+
+  - claim_id: lambda_overhead_ms_median
+    description: "Median Λ-gate overhead per governed call"
+    source: "org README verified 2026-05-12"
+    expected: "<= 0.59 ms"
+    check:
+      type: static_expected
+      note: "latency medians must be measured, not scraped from a README"
+
+  - claim_id: hf_models
+    description: "Public models under the SZLHOLDINGS Hugging Face org"
+    source: "org README verified 2026-05-12"
+    expected: 43
+    check:
+      type: http_json
+      # The API returns a JSON array; observed = len(array). Network failure
+      # degrades to UNKNOWN, never to a remembered count.
+      url: "https://huggingface.co/api/models?author=SZLHOLDINGS"
+      path: ""
+
+  - claim_id: hf_datasets
+    description: "Public datasets under the SZLHOLDINGS Hugging Face org"
+    source: "SZLHOLDINGS/model-bom dataset snapshot 2026-08-30"
+    expected: 28
+    check:
+      type: http_json
+      url: "https://huggingface.co/api/datasets?author=SZLHOLDINGS"
+      path: ""

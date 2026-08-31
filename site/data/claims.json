@@ -1,0 +1,105 @@
+{
+  "results": [
+    {
+      "claim_id": "ouroboros_tests",
+      "description": "Ouroboros self-test suite is fully green",
+      "source": "org README verified 2026-05-12",
+      "expected_quoted": "218/218",
+      "verdict": "UNKNOWN",
+      "observed": null,
+      "evidence": "static_expected (not recomputed): test counts are only meaningful inside the ouroboros repo checkout"
+    },
+    {
+      "claim_id": "platform_tests",
+      "description": "Platform monorepo test suite is fully green",
+      "source": "org README verified 2026-05-12",
+      "expected_quoted": "1220/1220 across 76 packages",
+      "verdict": "UNKNOWN",
+      "observed": null,
+      "evidence": "static_expected (not recomputed): requires a platform checkout and a full pytest run; not recomputed here"
+    },
+    {
+      "claim_id": "mcp_e2e",
+      "description": "MCP end-to-end scenarios pass",
+      "source": "org README verified 2026-05-12",
+      "expected_quoted": "27/27",
+      "verdict": "UNKNOWN",
+      "observed": null,
+      "evidence": "static_expected (not recomputed): no local recomputation exists for this claim"
+    },
+    {
+      "claim_id": "db_tables",
+      "description": "Database tables across estate services",
+      "source": "org README verified 2026-05-12",
+      "expected_quoted": "848",
+      "verdict": "UNKNOWN",
+      "observed": null,
+      "evidence": "static_expected (not recomputed): no local recomputation exists for this claim"
+    },
+    {
+      "claim_id": "api_endpoints",
+      "description": "API endpoints across estate services",
+      "source": "org README verified 2026-05-12",
+      "expected_quoted": "5524",
+      "verdict": "UNKNOWN",
+      "observed": null,
+      "evidence": "static_expected (not recomputed): no local recomputation exists for this claim"
+    },
+    {
+      "claim_id": "monorepo_packages",
+      "description": "Installable packages in the platform monorepo",
+      "source": "org README verified 2026-05-12",
+      "expected_quoted": "126",
+      "verdict": "DRIFT",
+      "observed": 6,
+      "evidence": "counted files matching '*/pyproject.toml' under /home/user/workspace/szl-platform/packages in this run"
+    },
+    {
+      "claim_id": "lambda_overhead_ms_median",
+      "description": "Median \u039b-gate overhead per governed call",
+      "source": "org README verified 2026-05-12",
+      "expected_quoted": "<= 0.59 ms",
+      "verdict": "UNKNOWN",
+      "observed": null,
+      "evidence": "static_expected (not recomputed): latency medians must be measured, not scraped from a README"
+    },
+    {
+      "claim_id": "hf_models",
+      "description": "Public models under the SZLHOLDINGS Hugging Face org",
+      "source": "org README verified 2026-05-12",
+      "expected_quoted": "43",
+      "verdict": "DRIFT",
+      "observed": 44,
+      "evidence": "computed len of JSON array at https://huggingface.co/api/models?author=SZLHOLDINGS in this run"
+    },
+    {
+      "claim_id": "hf_datasets",
+      "description": "Public datasets under the SZLHOLDINGS Hugging Face org",
+      "source": "SZLHOLDINGS/model-bom dataset snapshot 2026-08-30",
+      "expected_quoted": "28",
+      "verdict": "DRIFT",
+      "observed": 30,
+      "evidence": "computed len of JSON array at https://huggingface.co/api/datasets?author=SZLHOLDINGS in this run"
+    }
+  ],
+  "findings": [
+    {
+      "severity": "HIGH",
+      "code": "CLAIM_DRIFT",
+      "claim_id": "monorepo_packages",
+      "detail": "expected '126', observed 6"
+    },
+    {
+      "severity": "HIGH",
+      "code": "CLAIM_DRIFT",
+      "claim_id": "hf_models",
+      "detail": "expected '43', observed 44"
+    },
+    {
+      "severity": "HIGH",
+      "code": "CLAIM_DRIFT",
+      "claim_id": "hf_datasets",
+      "detail": "expected '28', observed 30"
+    }
+  ]
+}

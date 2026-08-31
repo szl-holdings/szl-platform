@@ -1,0 +1,306 @@
+{
+  "blocked": 19,
+  "broken": [],
+  "duration_seconds": 0.07530546188354492,
+  "limitations_documented": 1,
+  "passed": true,
+  "results": [
+    {
+      "blocked": true,
+      "category": "FORGERY",
+      "detail": "envelope signed with an attacker-controlled Ed25519 key was rejected when verified against the org public key",
+      "evidence": {
+        "attacker_sig_keyid": "629c1e37d77af20c3a4a5cabe766c5ce9d6a02ab0ca98b18d79a8d8e708120be",
+        "verify_envelope_returned": false
+      },
+      "limitation": false,
+      "name": "forge-wrong-key",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "FORGERY",
+      "detail": "a purely fabricated 64-byte signature blob failed verification",
+      "evidence": {
+        "verify_envelope_returned": false
+      },
+      "limitation": false,
+      "name": "forge-fabricated-signature",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "TAMPER",
+      "detail": "one flipped byte in the stored receipt produced verification findings",
+      "evidence": {
+        "findings": [
+          "receipt_id mismatch: declared 1a06992cd78522f2d46212f8c436ca8ed45e4da9f8cd052779153a02853ebcde, recomputed 0a06992cd78522f2d46212f8c436ca8ed45e4da9f8cd052779153a02853ebcde \u2014 body was tampered or produced by a non-canonical builder"
+        ],
+        "flip": "0->1 @byte 555"
+      },
+      "limitation": false,
+      "name": "tamper-bitflip",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "TAMPER",
+      "detail": "a silent FAIL->PASS edit was caught: the entry no longer hashes to its recorded entry_digest",
+      "evidence": {
+        "chain_ok": false,
+        "finding_codes": [
+          "digest-mismatch"
+        ]
+      },
+      "limitation": false,
+      "name": "tamper-decision-no-digest-fix",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "TAMPER",
+      "detail": "even with the edited entry's own digests correctly recomputed, the successor's prev pointer no longer matches \u2014 the link break is flagged",
+      "evidence": {
+        "chain_ok": false,
+        "finding_codes": [
+          "broken-prev-link"
+        ]
+      },
+      "limitation": false,
+      "name": "tamper-recompute-digest",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "CANONICALIZATION",
+      "detail": "JCS canonical equivalence holds in both directions: reordering keys changes neither the canonical bytes nor signature validity \u2014 the library's contract is 'key order is semantically void'",
+      "evidence": {
+        "canonical_bytes_after_reorder_identical": true,
+        "signature_survives_reserialization": true
+      },
+      "limitation": false,
+      "name": "canon-key-reorder",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "CANONICALIZATION",
+      "detail": "whitespace-only edits canonicalize to byte-identical output ('{\"a\":1,\"b\":{\"c\":[2,3],\"d\":\"x\"},\"e\":true}'); no drift",
+      "evidence": {
+        "compact_canonical": "{\"a\":1,\"b\":{\"c\":[2,3],\"d\":\"x\"},\"e\":true}",
+        "spaced_canonical": "{\"a\":1,\"b\":{\"c\":[2,3],\"d\":\"x\"},\"e\":true}"
+      },
+      "limitation": false,
+      "name": "canon-whitespace-drift",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "CANONICALIZATION",
+      "detail": "no silent unicode normalization: \u00e9 (U+00E9) and e+\u25cc\u0301 (U+0065 U+0301) canonicalize to DISTINCT bytes, so visually identical but distinct documents cannot collide",
+      "evidence": {
+        "nfc_bytes_hex": "7b2276223a22c3a9227d",
+        "nfd_bytes_hex": "7b2276223a2265cc81227d"
+      },
+      "limitation": false,
+      "name": "canon-unicode-equivalence",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "CANONICALIZATION",
+      "detail": "all spelling variants of the value 1 canonicalize to the single fixed string '1' (object form {\"v\":1}); no number-format tunnel exists",
+      "evidence": {
+        "float 1.0": "1",
+        "int 1": "1",
+        "text 1.00": "{\"v\":1}",
+        "text 1e0": "{\"v\":1}"
+      },
+      "limitation": false,
+      "name": "canon-number-format",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "CHAIN",
+      "detail": "with expected_entries/expected_head anchors supplied, tail truncation raises both 'truncated' and 'head-mismatch'",
+      "evidence": {
+        "chain_ok": false,
+        "finding_codes": [
+          "truncated",
+          "head-mismatch"
+        ]
+      },
+      "limitation": false,
+      "name": "chain-truncate-tail-anchored",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": false,
+      "category": "CHAIN",
+      "detail": "LIMITATION DOCUMENTED: without an external anchor (expected_entries/expected_head), silently dropping the newest entries yields a shorter chain that verify_chain accepts \u2014 this is inherent to any self-verifying log. The estate mitigates by publishing its head digest out-of-band; always pass anchors.",
+      "evidence": {
+        "chain_ok_without_anchor": true,
+        "original_length": 7,
+        "truncated_length": 5
+      },
+      "limitation": true,
+      "name": "chain-truncate-tail-no-anchor",
+      "result": "WARN"
+    },
+    {
+      "blocked": true,
+      "category": "CHAIN",
+      "detail": "swapping two entries fires the 'reorder' finding (plus broken links)",
+      "evidence": {
+        "chain_ok": false,
+        "finding_codes": [
+          "gap",
+          "broken-prev-link",
+          "reorder",
+          "broken-prev-link",
+          "gap",
+          "broken-prev-link"
+        ]
+      },
+      "limitation": false,
+      "name": "chain-reorder",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "CHAIN",
+      "detail": "a duplicated entry fires the 'replay' finding",
+      "evidence": {
+        "chain_ok": false,
+        "finding_codes": [
+          "replay",
+          "reorder",
+          "broken-prev-link"
+        ]
+      },
+      "limitation": false,
+      "name": "chain-replay",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "CHAIN",
+      "detail": "a same-seq different-digest entry fires the 'fork' finding",
+      "evidence": {
+        "chain_ok": false,
+        "finding_codes": [
+          "fork",
+          "reorder",
+          "broken-prev-link",
+          "broken-prev-link"
+        ]
+      },
+      "limitation": false,
+      "name": "chain-fork",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "NAMING/DOWNGRADE",
+      "detail": "a signed envelope renamed to *.unsigned.json raises NamingError \u2014 the name cannot lie about the signature state",
+      "evidence": {
+        "naming_error": "/tmp/szl-adversarial-lla0niro/stolen.unsigned.json: named unsigned but contains 1 signature(s) \u2014 tampered rename"
+      },
+      "limitation": false,
+      "name": "naming-rename-unsigned",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "NAMING/DOWNGRADE",
+      "detail": "both downgrade shapes are rejected: an empty signatures array under a signed name, and a signatures-less file under any name, raise NamingError ('an empty signatures array is not a signature')",
+      "evidence": {
+        "empty_array_error": "/tmp/szl-adversarial-dhob0rgt/downgraded.json: named signed but signatures is empty \u2014 an empty signatures array is not a signature",
+        "missing_key_error": "envelope has no 'signatures' key: not a DSSE envelope"
+      },
+      "limitation": false,
+      "name": "naming-strip-signatures",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "NAMING/DOWNGRADE",
+      "detail": "both grafted envelopes fail verification \u2014 a signature cannot be transplanted onto a different payload",
+      "evidence": {
+        "payload_b_prefix_b64": "eyJhY3Rpb24iOiJmaXh0dQ==",
+        "swap_ab_verified": false,
+        "swap_ba_verified": false
+      },
+      "limitation": false,
+      "name": "naming-cross-envelope-confusion",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "PAE",
+      "detail": "every tested (payloadType, payload) pair whose raw concatenation collides encodes to DISTINCT PAE bytes \u2014 length prefixes fix the field boundaries, so no type/payload smear exists",
+      "evidence": {
+        "collisions_found": [],
+        "example_pae_a": "b'DSSEv1 2 ab 1 c'",
+        "example_pae_b": "b'DSSEv1 1 a 2 bc'"
+      },
+      "limitation": false,
+      "name": "pae-prefix-confusion",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "OUTCOME",
+      "detail": "is_passing(UNKNOWN) is False and promotion_gate refuses: 'UNKNOWN: no verdict recorded; UNKNOWN is never promotable'",
+      "evidence": {
+        "gate_allowed": false,
+        "gate_reason": "UNKNOWN: no verdict recorded; UNKNOWN is never promotable",
+        "is_passing": false
+      },
+      "limitation": false,
+      "name": "outcome-promote-unknown",
+      "result": "BLOCKED"
+    },
+    {
+      "blocked": true,
+      "category": "OUTCOME",
+      "detail": "every off-vocabulary outcome string (lowercase, whitespace-padded, garbage, empty) is rejected by verify_receipt findings",
+      "evidence": {
+        "' PASS'": [
+          "decision.outcome ' PASS' is outside the vocabulary: PASS, WARN, FAIL, BLOCKED, UNKNOWN",
+          "receipt_id mismatch: declared f225d8158966c481aaeb7756b4924451a268f80e539e3d9bb6719725f32caf2a, recomputed 8918a97734951e579a8afc5fca40ec520ae9f076f929fedd97fbb5378ce93543 \u2014 body was tampered or produced by a non-canonical builder"
+        ],
+        "''": [
+          "decision.outcome '' is outside the vocabulary: PASS, WARN, FAIL, BLOCKED, UNKNOWN",
+          "receipt_id mismatch: declared f225d8158966c481aaeb7756b4924451a268f80e539e3d9bb6719725f32caf2a, recomputed e973b97d3ce32847dd8f6c94eb126bb466bbd97b32232897ee41d5dba5cafbdc \u2014 body was tampered or produced by a non-canonical builder"
+        ],
+        "'PASS '": [
+          "decision.outcome 'PASS ' is outside the vocabulary: PASS, WARN, FAIL, BLOCKED, UNKNOWN",
+          "receipt_id mismatch: declared f225d8158966c481aaeb7756b4924451a268f80e539e3d9bb6719725f32caf2a, recomputed 0094f7439dc0b0987bd44348c463553df31e6f73b15152c0eee1de478511390c \u2014 body was tampered or produced by a non-canonical builder"
+        ],
+        "'Pass'": [
+          "decision.outcome 'Pass' is outside the vocabulary: PASS, WARN, FAIL, BLOCKED, UNKNOWN",
+          "receipt_id mismatch: declared f225d8158966c481aaeb7756b4924451a268f80e539e3d9bb6719725f32caf2a, recomputed 5329e73fc5a9df4202d3ab7874e4bb917ee608e29a898e8d5808ab77828a793a \u2014 body was tampered or produced by a non-canonical builder"
+        ],
+        "'green'": [
+          "decision.outcome 'green' is outside the vocabulary: PASS, WARN, FAIL, BLOCKED, UNKNOWN",
+          "receipt_id mismatch: declared f225d8158966c481aaeb7756b4924451a268f80e539e3d9bb6719725f32caf2a, recomputed 05d76057d61713cff2d51753add6c00442ed91685b53ea80ebdbfeee0cd9d696 \u2014 body was tampered or produced by a non-canonical builder"
+        ],
+        "'unknown'": [
+          "decision.outcome 'unknown' is outside the vocabulary: PASS, WARN, FAIL, BLOCKED, UNKNOWN",
+          "receipt_id mismatch: declared f225d8158966c481aaeb7756b4924451a268f80e539e3d9bb6719725f32caf2a, recomputed 30a3e277949e4a2dbdd34b2f32f8c66915d9e9967a24d7654245bdf457ed67ed \u2014 body was tampered or produced by a non-canonical builder"
+        ]
+      },
+      "limitation": false,
+      "name": "outcome-garbage-schema",
+      "result": "BLOCKED"
+    }
+  ],
+  "started_at_unix": 1788202718.0144563,
+  "total": 20,
+  "verdict": "receipt chain resisted 19/19 non-limitation attacks",
+  "warnings": [
+    "WARN: chain-truncate-tail-no-anchor: LIMITATION DOCUMENTED: without an external anchor (expected_entries/expected_head), silently dropping the newest entries yields a shorter chain that verify_chain accepts \u2014 this is inherent to any self-verifying log. The estate mitigates by publishing its head digest out-of-band; always pass anchors."
+  ]
+}

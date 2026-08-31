@@ -1,0 +1,31 @@
+# --- szl alignment targets ---------------------------------------------------
+# Adopted manually: paste into the repo Makefile (or `include` this file) to
+# get the standard alignment commands. The szl-alignment engine never installs
+# this itself — Makefiles are build files and merges are a human decision.
+# Requires: python>=3.11, rg, and the szl-alignment package:
+#     pip install -e alignment/        # from the szl-platform checkout
+
+ALIGN ?= python -m szl_alignment
+
+.PHONY: align-inspect align-plan align-check
+
+## align-inspect: show this repo's alignment report (read-only)
+align-inspect:
+	$(ALIGN) inspect .
+
+## align-plan: show the alignment action plan (no changes)
+align-plan:
+	$(ALIGN) plan .
+
+## align-check: release-blocking forbidden-domain gate — same rule as CI:
+## (?<!-)a11oy\.com must never appear outside prohibition/guard lines
+## (never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist)
+align-check:
+	@hits="$$(rg -n --no-heading --hidden -P '(?<!-)a11oy\.com' --glob '!.git' . || true)"; \
+	violations="$$(printf '%s' "$$hits" | rg -v -i 'never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist' || true)"; \
+	if [ -n "$$violations" ]; then \
+		echo "FORBIDDEN domain references (release-blocking):"; \
+		printf '%s\n' "$$violations"; \
+		exit 1; \
+	fi; \
+	echo "align-check: clean"

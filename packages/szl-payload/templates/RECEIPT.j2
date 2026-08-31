@@ -1,0 +1,24 @@
+{# Export receipt — the ONLY export artifact that may carry a timestamp.
+   The payload body stays timeless (embed_build_time_in_body = false) so the
+   idempotency proof holds; build time lives here, in the receipt predicate. #}
+# SZL Payload Export Receipt
+
+- generated_by: {{ generated_by }}
+- generated_at: {{ generated_at }}
+- payload: `{{ payload.path }}`
+- payload_sha256: `{{ payload.sha256 }}`
+- export_manifest: `{{ export_manifest.path }}`
+- export_manifest_sha256: `{{ export_manifest.sha256 }}`
+- signatures: `[]` (empty → file named `.unsigned.json`, honest naming)
+- publication_eligible: {{ publication_eligible }}
+- jcs_backend: `{{ jcs_backend }}`
+
+Safe defaults at export time:
+
+```
+{{ safe_defaults }}
+```
+
+This receipt asserts the build happened and the digests above. It asserts
+nothing about deployment, DNS state, or eligibility — those are computed
+elsewhere and are UNKNOWN by default.

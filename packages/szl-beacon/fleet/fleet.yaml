@@ -1,0 +1,279 @@
+# Reference only. Zero units deployed. Not a claim of fielded hardware.
+#
+# beacon-50: the SZL Beacon 50-unit REFERENCE fleet configuration spanning
+# maritime, disaster, and legal groupings. This file is a design artifact for
+# integration planning and protocol development. It describes NO units in the
+# field; per the Beacon RFQ, procurement scope is one (1) engineering
+# prototype and even that is not yet manufactured.
+#
+# Loaded by szl_beacon.fleet (stdlib-only YAML subset parser; production uses
+# a conformant YAML 1.2 parser — the file stays inside the intersection of
+# the two grammars).
+
+schema: szl-beacon-fleet/1
+fleet_name: beacon-reference-50
+revision: REFERENCE-ONLY
+deployed_units: 0
+regions: [maritime, disaster, legal]
+
+witness_groups:
+  maritime-alpha: [INDEPENDENT_SENSOR, SECOND_NODE, RECIPIENT_CONFIRMATION]
+  maritime-bravo: [SECOND_NODE, AUTHENTICATED_WITNESS]
+  disaster-alpha: [INDEPENDENT_SENSOR, SECOND_NODE]
+  disaster-bravo: [RECIPIENT_CONFIRMATION, AUTHENTICATED_WITNESS]
+  legal-alpha: [SECOND_NODE, AUTHENTICATED_WITNESS, RECIPIENT_CONFIRMATION]
+
+nodes:
+  # ---- maritime grouping (20) ----
+  - node_id: beacon-mar-001
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-alpha, maritime-bravo]
+  - node_id: beacon-mar-002
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-alpha]
+  - node_id: beacon-mar-003
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-bravo]
+  - node_id: beacon-mar-004
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 120
+    witness_groups: [maritime-alpha, maritime-bravo]
+  - node_id: beacon-mar-005
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 120
+    witness_groups: [maritime-alpha]
+  - node_id: beacon-mar-006
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-bravo]
+  - node_id: beacon-mar-007
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-alpha, maritime-bravo]
+  - node_id: beacon-mar-008
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 120
+    witness_groups: [maritime-alpha]
+  - node_id: beacon-mar-009
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-bravo]
+  - node_id: beacon-mar-010
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-alpha, maritime-bravo]
+  - node_id: beacon-mar-011
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 120
+    witness_groups: [maritime-alpha]
+  - node_id: beacon-mar-012
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-bravo]
+  - node_id: beacon-mar-013
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 60
+    witness_groups: [maritime-alpha, maritime-bravo]
+  - node_id: beacon-mar-014
+    role: FIELD
+    region: maritime
+    sync_window_minutes: 120
+    witness_groups: [maritime-alpha]
+  - node_id: beacon-mar-015
+    role: RELAY
+    region: maritime
+    sync_window_minutes: 30
+    witness_groups: [maritime-alpha, maritime-bravo]
+  - node_id: beacon-mar-016
+    role: RELAY
+    region: maritime
+    sync_window_minutes: 30
+    witness_groups: [maritime-alpha]
+  - node_id: beacon-mar-017
+    role: RELAY
+    region: maritime
+    sync_window_minutes: 30
+    witness_groups: [maritime-bravo]
+  - node_id: beacon-mar-018
+    role: RELAY
+    region: maritime
+    sync_window_minutes: 30
+    witness_groups: [maritime-alpha, maritime-bravo]
+  - node_id: beacon-mar-019
+    role: OPERATOR
+    region: maritime
+    sync_window_minutes: 15
+    witness_groups: [maritime-alpha, maritime-bravo]
+  - node_id: beacon-mar-020
+    role: OPERATOR
+    region: maritime
+    sync_window_minutes: 15
+    witness_groups: [maritime-alpha]
+  # ---- disaster grouping (18) ----
+  - node_id: beacon-dis-001
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-alpha, disaster-bravo]
+  - node_id: beacon-dis-002
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-alpha]
+  - node_id: beacon-dis-003
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-bravo]
+  - node_id: beacon-dis-004
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 10
+    witness_groups: [disaster-alpha, disaster-bravo]
+  - node_id: beacon-dis-005
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-alpha]
+  - node_id: beacon-dis-006
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-bravo]
+  - node_id: beacon-dis-007
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 10
+    witness_groups: [disaster-alpha, disaster-bravo]
+  - node_id: beacon-dis-008
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-alpha]
+  - node_id: beacon-dis-009
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-bravo]
+  - node_id: beacon-dis-010
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 10
+    witness_groups: [disaster-alpha, disaster-bravo]
+  - node_id: beacon-dis-011
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-alpha]
+  - node_id: beacon-dis-012
+    role: FIELD
+    region: disaster
+    sync_window_minutes: 15
+    witness_groups: [disaster-bravo]
+  - node_id: beacon-dis-013
+    role: RELAY
+    region: disaster
+    sync_window_minutes: 10
+    witness_groups: [disaster-alpha, disaster-bravo]
+  - node_id: beacon-dis-014
+    role: RELAY
+    region: disaster
+    sync_window_minutes: 10
+    witness_groups: [disaster-alpha]
+  - node_id: beacon-dis-015
+    role: RELAY
+    region: disaster
+    sync_window_minutes: 10
+    witness_groups: [disaster-bravo]
+  - node_id: beacon-dis-016
+    role: RELAY
+    region: disaster
+    sync_window_minutes: 10
+    witness_groups: [disaster-alpha, disaster-bravo]
+  - node_id: beacon-dis-017
+    role: OPERATOR
+    region: disaster
+    sync_window_minutes: 5
+    witness_groups: [disaster-alpha, disaster-bravo]
+  - node_id: beacon-dis-018
+    role: OPERATOR
+    region: disaster
+    sync_window_minutes: 5
+    witness_groups: [disaster-alpha]
+  # ---- legal grouping (12) ----
+  - node_id: beacon-leg-001
+    role: FIELD
+    region: legal
+    sync_window_minutes: 30
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-002
+    role: FIELD
+    region: legal
+    sync_window_minutes: 30
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-003
+    role: FIELD
+    region: legal
+    sync_window_minutes: 30
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-004
+    role: FIELD
+    region: legal
+    sync_window_minutes: 30
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-005
+    role: FIELD
+    region: legal
+    sync_window_minutes: 60
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-006
+    role: FIELD
+    region: legal
+    sync_window_minutes: 60
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-007
+    role: FIELD
+    region: legal
+    sync_window_minutes: 60
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-008
+    role: FIELD
+    region: legal
+    sync_window_minutes: 60
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-009
+    role: RELAY
+    region: legal
+    sync_window_minutes: 30
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-010
+    role: RELAY
+    region: legal
+    sync_window_minutes: 30
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-011
+    role: OPERATOR
+    region: legal
+    sync_window_minutes: 15
+    witness_groups: [legal-alpha]
+  - node_id: beacon-leg-012
+    role: OPERATOR
+    region: legal
+    sync_window_minutes: 15
+    witness_groups: [legal-alpha]

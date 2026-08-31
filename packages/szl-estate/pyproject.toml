@@ -1,0 +1,41 @@
+# szl-estate — the estate control plane for the SZL Holdings GitHub org and
+# Hugging Face org. This file makes the package independently installable:
+#
+#     pip install -e packages/szl-estate
+#
+# Shared pytest/ruff/mypy configuration lives in the workspace-root
+# pyproject.toml; this file intentionally carries no [tool.ruff] section so the
+# root lint policy (E, F, I, W, UP, B, S) applies verbatim to this package.
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-estate"
+version = "0.1.0"
+description = "Estate control plane: two-source GitHub org enumeration that must agree, per-repo audits, environment doctor, and claim re-computation. UNKNOWN is never PASS."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "SZL Holdings" }]
+keywords = ["governance", "audit", "github", "receipts", "szl-holdings"]
+dependencies = [
+    "httpx>=0.27",   # REST enumeration, Cloudflare token verify, HF claim counts
+    "pydantic>=2",   # every emitted record is a validated model, not a dict of hope
+    "jinja2>=3.1",   # per-repo audit rendering (templates/REPO_AUDIT.j2)
+    "pyyaml>=6",     # repos.yaml + claims.yaml
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+szl-estate = "szl_estate.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# claims.yaml and the Jinja2 template are runtime data, not code; ship them.
+[tool.setuptools.package-data]
+szl_estate = ["claims.yaml", "templates/*.j2", "fixtures/*.json"] # offline fixture ships with the wheel so --offline works anywhere
+

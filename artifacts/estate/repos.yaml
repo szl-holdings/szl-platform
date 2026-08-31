@@ -1,0 +1,1313 @@
+- name: .github
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Holdings org profile. Product a-11-oy.com · Proof a11oy.net. Doctrine,
+    reusable workflows, community health.
+  primary_language: HTML
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T13:42:58Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/.github
+- name: YARQA-ATTN
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: KERNEL original SZL attention kernel (YARQA canal/compartment silhouette).
+    Receipt-aware, honesty-labeled. Not a Flash/Sage/Flex clone, not a weight, not
+    an alias of the Triton trio. Doctrine v11, Λ=Conjecture 1, Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:13Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/YARQA-ATTN
+- name: a11oy
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: a11oy — governed-AI Command Center. Deny by default. Signed receipts.
+    Trust ceiling 0.97. Λ = Conjecture 1.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T18:06:12Z'
+  stargazer_count: 1
+  url: https://github.com/szl-holdings/a11oy
+- name: a11oy-factory
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Bind as an a11oy package. Decision Cell Compiler, admitted Lyte cell,
+    frontier N1–N8.
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T18:02:02Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/a11oy-factory
+- name: a11oy-net
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: a11oy.net — public proof origin. RECORD, atlas, ROADMAP, diligence.
+    Static. Not runtime.
+  primary_language: HTML
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T13:18:14Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/a11oy-net
+- name: anatomy
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Living Anatomy — 3D navigable governed-AI organ substrate. Visualizes
+    the 5 organs (reasoning cortex, trust gate, receipt bus, consensus, egress) powering
+    a11oy + killinchu. Doctrine v11 LOCKED · 8 proven formulas · Λ = Conjecture 1.
+  primary_language: JavaScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:52:58Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/anatomy
+- name: ayllu
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Ayllu Counsel — evidence-bound holographic agent council. 11 Quechua
+    seats, fail-closed Λ-gate, debate-then-converge, UNSIGNED-honest receipts. SOFTWARE/LIVE
+    honesty. Apache-2.0 · Doctrine v11 · Λ = Conjecture 1.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:21Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/ayllu
+- name: cosmos
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/anatomy'
+  primary_language: JavaScript
+  license_spdx: null
+  default_branch: main
+  pushed_at: '2026-08-29T16:15:45Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/cosmos
+- name: counsel
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/ayllu'
+  primary_language: Python
+  license_spdx: null
+  default_branch: main
+  pushed_at: '2026-08-29T16:57:45Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/counsel
+- name: david-leads
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/a11oy'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-28T18:48:14Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/david-leads
+- name: developers
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/a11oy-net'
+  primary_language: HTML
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-07-29T23:07:25Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/developers
+- name: docs-site
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/a11oy-net'
+  primary_language: JavaScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-28T15:41:19Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/docs-site
+- name: energy-attest-holo
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/szl-energy-attest'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-18T00:23:33Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/energy-attest-holo
+- name: evidence-doctrine
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Decision-SLSA v1.4 fail-closed maturity model and TypeScript/Python
+    reference evaluators
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T22:30:51Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/evidence-doctrine
+- name: evidence-studio
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Canonical merge sink for holographic and receipt Spaces. One writer.
+    Bind as an a11oy package.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T21:17:16Z'
+  stargazer_count: 1
+  url: https://github.com/szl-holdings/evidence-studio
+- name: evidence-typed-formula-governance
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: Archival preprint and reproducibility package for evidence-typed governance
+    of a mixed Lean and executable formula corpus.
+  primary_language: null
+  license_spdx: null
+  default_branch: main
+  pushed_at: '2026-07-21T03:28:34Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/evidence-typed-formula-governance
+- name: fail-closed-governed-ai-services
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: Archival preprint and reproducibility package for fail-closed epistemic
+    boundaries in governed AI services.
+  primary_language: null
+  license_spdx: null
+  default_branch: main
+  pushed_at: '2026-07-21T03:28:38Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/fail-closed-governed-ai-services
+- name: gdw-frontier
+  visibility: PRIVATE
+  is_private: true
+  is_archived: false
+  is_empty: false
+  description: MODELED self-defending observability core for the Governed Delta Workspace
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-26T13:45:06Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/gdw-frontier
+- name: governance-as-code
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: GovernedAction/v1 receipt format, CI gates, and the 12-step governed-action
+    demo. Give away the format; sell the control plane.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T05:30:28Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/governance-as-code
+- name: governed-inference-meter
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'DEPRECATED. Canonical: https://github.com/szl-holdings/szl-energy-attest.
+    Archived frozen for provenance; HF model SZLHOLDINGS/governed-inference-meter
+    remains tagged deprecated. Apache-2.0.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T13:35:31Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/governed-inference-meter
+- name: governed-norm-holo
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/szl-lambda-gate'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T01:32:19Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/governed-norm-holo
+- name: governed-receipt-spec
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'Open format for a governed AI inference decision receipt (decision,
+    Λ status, measured-or-null energy, hash chain, DSSE) + a dependency-free offline
+    verifier. Receipt-tier trust: honest, replayable, not zero-knowledge. By SZL Holdings.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:00:47Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/governed-receipt-spec
+- name: hatun-mcp
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Hatun-MCP — doctrine-aware Model Context Protocol server. 16 SZL tools
+    under PURIQ governance (Yuyay-13 gate, Khipu receipts, DSSE-signed). Streamable
+    HTTP + SSE.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:22:35Z'
+  stargazer_count: 1
+  url: https://github.com/szl-holdings/hatun-mcp
+- name: holographic-unify
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/a11oy'
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T17:04:52Z'
+  stargazer_count: 1
+  url: https://github.com/szl-holdings/holographic-unify
+- name: immune
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: IMMUNE — Verifiable-AI Defense Matrix. Append-only SHA-256 receipt
+    chain (YAWAR) + SENTRA/GATE admission + HUKLLA tripwires. Source of the live Hugging
+    Face Space SZLHOLDINGS/immune.
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:20:46Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/immune
+- name: immune-lattice
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/immune'
+  primary_language: TypeScript
+  license_spdx: other
+  default_branch: main
+  pushed_at: '2026-08-29T16:49:22Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/immune-lattice
+- name: khipu-consensus
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'BFT 3-of-4 multi-party-witnessed agreement — each witness signs an
+    action hash with its own ECDSA P-256 cosign key over DSSE. The category SZL invents:
+    multi-party-witnessed AI. Doctrine v11 LOCKED (749/14/163).'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:21:51Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/khipu-consensus
+- name: khipu-lab
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/szl-khipu'
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T17:20:40Z'
+  stargazer_count: 1
+  url: https://github.com/szl-holdings/khipu-lab
+- name: khipu-pages
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/szl-khipu'
+  primary_language: HTML
+  license_spdx: null
+  default_branch: main
+  pushed_at: '2026-08-29T16:08:16Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/khipu-pages
+- name: khipu-sda-core
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL khipu-sda-core — sovereign clean-room anomaly/SDA engine (Domain-Superiority).
+    Signed receipts + Λ-gated honest confidence. Doctrine v11. Clean-room from permissive
+    lineage; inspired by True Anomaly Mosaic (not affiliated).
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:22:12Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/khipu-sda-core
+- name: killinchu
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Counter-UAS reference at /elite. Tracks, fusion, ROE, BFT, DSSE per
+    interdiction. Public synthetic — no public effector. Λ = Conjecture 1.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T13:22:51Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/killinchu
+- name: lambda-gate-holo
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/szl-lambda-gate'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T00:08:48Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/lambda-gate-holo
+- name: lean-kernel
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/lutar-lean'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-28T04:49:20Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/lean-kernel
+- name: lutar-lean
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Lean 4 + Mathlib formalization of the Λ aggregator — Λ uniqueness as
+    Conjecture 1 (not a closed theorem). 749 declarations · 14 axioms · 163 tracked
+    sorries. Backs the SZL governance gate. Doctrine v11 LOCKED · DOI 10.5281/zenodo.20434308
+  primary_language: Lean
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:19:27Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/lutar-lean
+- name: lyte-lattice
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: BIND hologram for named frontiers N1–N25. BIND_AS_A11OY_PACKAGE. Not
+    a flagship. Not a product certificate.
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T05:14:42Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/lyte-lattice
+- name: lyte-services
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Lyte design-partner cell. Same factory compiler, Lyte window. Bind
+    as an a11oy package.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T21:17:29Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/lyte-services
+- name: nexus
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Holographic analog computer — Lorenz core, ouroboros, five organs.
+    Incubator package AO-2026-08-29-001. Bind as an a11oy package.
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T05:14:39Z'
+  stargazer_count: 1
+  url: https://github.com/szl-holdings/nexus
+- name: ouroboros
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/platform
+    (agentic loops) + https://github.com/szl-holdings/szl-ouroboros (loop-tax kernel)'
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-28T04:40:58Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/ouroboros
+- name: pitch-collateral
+  visibility: PRIVATE
+  is_private: true
+  is_archived: false
+  is_empty: false
+  description: SZL Holdings Series-A pitch collateral (PRIVATE, IP-sensitive) — one-pager,
+    deck outline, demo scripts, design-partner outreach. Doctrine v11 LOCKED (749/14/163).
+  primary_language: null
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:11Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/pitch-collateral
+- name: platform
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Holdings monorepo — substrate runtime, agentic loops, MCP server
+    (11 tools), reusable workflows, CI gates. Doctrine v11 LOCKED (749/14/163)
+  primary_language: TypeScript
+  license_spdx: other
+  default_branch: main
+  pushed_at: '2026-08-31T13:12:43Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/platform
+- name: puriq-live
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: PURIQ Live — execute the SZL formula corpus against live public signals.
+    Symmetric vs Egyptian Λ, maxAgg counterexample, fail-closed Yuyay-13. Λ = Conjecture
+    1. Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:30Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/puriq-live
+- name: receipt-chain-live
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/szl-receipt'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-26T16:17:28Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/receipt-chain-live
+- name: sda
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'Investor-facing sovereign domain-awareness surface for khipu-sda-core:
+    anomaly detection, sensor fusion, governed advisory verdicts, and receipt evidence.'
+  primary_language: JavaScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:03Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/sda
+- name: szl-atelier
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/szl-forge'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T03:40:58Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-atelier
+- name: szl-block-kv
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Original SZL Triton paged KV cache with block-table SHA3 receipts.
+    PagedAttention silhouette, not a rehost. Doctrine v11, Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T22:58:27Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-block-kv
+- name: szl-blocked
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Canonical GitHub source for the szl-blocked Kernel Hub package (honest
+    BLOCKED, fail-closed). Hub is the publish mirror. Apache-2.0 · Doctrine v11.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T21:17:11Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-blocked
+- name: szl-brand
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Brand assets, logos, social-preview templates, and visual doctrine
+    for SZL Holdings — Sovereign Governed AI. Doctrine v11 LOCKED.
+  primary_language: Python
+  license_spdx: cc-by-4.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:54:09Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-brand
+- name: szl-build-env
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/szl-forge'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-28T15:41:13Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-build-env
+- name: szl-command-lab
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Holographic command body. Energy MEASURED from RAPL/NVML. GPU train
+    fail-closed. Not flagship.
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T23:11:19Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-command-lab
+- name: szl-cookbook
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/szl-forge'
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T01:32:26Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-cookbook
+- name: szl-defensive-control-plane
+  visibility: PRIVATE
+  is_private: true
+  is_archived: false
+  is_empty: false
+  description: Evidence-bound defensive security control plane for signed event ingestion,
+    governed response, and tamper-evident case evidence.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:57:56Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-defensive-control-plane
+- name: szl-doctrine
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL doctrine + org-wide governance workflows (secret health, etc.)
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T11:29:28Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-doctrine
+- name: szl-drift
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'Origin-drift receipts: compare a-11-oy.com, a11oy.net, and a Ring
+    1 preview. Λ = Conjecture 1. Apache-2.0.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T22:31:29Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-drift
+- name: szl-energy-attest
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Attestable energy receipts for governed compute — MEASURED-NVML joules
+    (or honest UNAVAILABLE null), cheapest-watt placement, hash-chained signable receipts.
+    Vendors szl_energy_core. Λ = Conjecture 1 (advisory) · never fabricates a joule
+    · Mirrors HF SZLHOLDINGS/szl-energy-attest · Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:19:44Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-energy-attest
+- name: szl-estate-os
+  visibility: PRIVATE
+  is_private: true
+  is_archived: false
+  is_empty: false
+  description: Governed, evidence-aware control plane for the SZL GitHub, Hugging
+    Face, and domain estate.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T15:59:29Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-estate-os
+- name: szl-experiments
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/a11oy'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T16:16:52Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-experiments
+- name: szl-fleet-overlay
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: ARCHIVED WarHacker-2026 UDS fleet-overlay evidence snapshot. Frozen
+    for provenance; terminal by design with no active software successor. Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-26T14:25:23Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-fleet-overlay
+- name: szl-forge
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'SZL Forge — train SZL Holdings own sovereign model (SZL-1) on SZL
+    own hardware. QLoRA fine-tune kit: dataset, Unsloth training script, Ollama Modelfile,
+    runbook.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:31:19Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-forge
+- name: szl-formula-ledger
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/lutar-lean'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-07-22T03:31:12Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-formula-ledger
+- name: szl-formulas
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Canonical GitHub source for the szl-formulas Kernel Hub package (21
+    canonical formulas, locked-proven exactly 8). Hub is the publish mirror. Apache-2.0
+    · Doctrine v11.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T21:17:05Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-formulas
+- name: szl-frontier
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Frontier — Memory Covenant v0.3. Deny-by-default governed memory
+    plane. Approval cannot lift a hard deny. Doctrine v11. Λ = Conjecture 1.
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T05:25:17Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-frontier
+- name: szl-gov
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'Estate truth layer: signed, offline-verifiable audit of the SZL estate
+    + gates that keep it honest'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T13:17:20Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-gov
+- name: szl-governed-norm
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'DEPRECATED. Canonical: https://github.com/szl-holdings/szl-lambda-gate.
+    Archived frozen for provenance; HF model SZLHOLDINGS/szl-governed-norm remains
+    available. Apache-2.0.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-08T23:49:00Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-governed-norm
+- name: szl-govsign
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Canonical GitHub source for the szl-govsign Kernel Hub package (DSSE/in-toto
+    governance signatures). Hub is the publish mirror. Apache-2.0 · Doctrine v11.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T21:17:08Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-govsign
+- name: szl-gpu-bridge
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'Doctrine-governed training bridge: DSSE-signed job specs → owner GPU
+    metal → signed receipts back. Fail-closed both directions.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:18Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-gpu-bridge
+- name: szl-guardrail-receipt
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Wrap any LLM guardrail (Llama-Guard / NeMo / guardrails-ai / your callable)
+    and emit a signed, hash-chained DSSE decision receipt — aligned with governed-receipt-spec.
+    UNSIGNED-honest fallback; never fabricates a signature, energy joule, or a Λ 'proven'.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-07-09T15:35:14Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-guardrail-receipt
+- name: szl-holdings.github.io
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Holdings — cryptographic proof infrastructure. One doctrine, many
+    organs.
+  primary_language: HTML
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:00:41Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-holdings.github.io
+- name: szl-invariants
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Canonical GitHub source for the szl-invariants Kernel Hub package (8
+    falsifiable receipt invariants). Hub is the publish mirror. Apache-2.0 · Doctrine
+    v11.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T03:33:18Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-invariants
+- name: szl-kernels
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Canonical source for the SZL governed-kernel suite and receipted MiniEmbed
+    artifact
+  primary_language: TeX
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:59:31Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-kernels
+- name: szl-kernels-live
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/szl-kernels'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-18T00:24:31Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-kernels-live
+- name: szl-khipu
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL KHIPU — live Python kernels and tiny trained silhouettes. Knot
+    the run. Hash the proof. Fail closed. Doctrine v11 LOCKED. Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T05:18:19Z'
+  stargazer_count: 1
+  url: https://github.com/szl-holdings/szl-khipu
+- name: szl-lake
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Holdings Lake — append-only DSSE receipt store (GitHub origin,
+    HF dataset SZLHOLDINGS/szl-lake mirror). Doctrine v11 LOCKED. Live receipt infrastructure
+    for the a11oy command platform.
+  primary_language: Python
+  license_spdx: cc-by-4.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:53:47Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-lake
+- name: szl-lambda-gate
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Λ (Lambda-Spine) aggregator universal kernel — weighted geometric mean
+    over axis scores in [0,1] with an ADVISORY governance gate + A1-A4 axiom self-checks.
+    Λ = Conjecture 1 (advisory, uniqueness open) · NOT proven trust. Mirrors HF SZLHOLDINGS/szl-lambda-gate
+    · Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:20:32Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-lambda-gate
+- name: szl-maskmod
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Original SZL Triton score_mod + block-sparse mask attention with receipts.
+    FlexAttention silhouette, not a rehost. Doctrine v11, Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T21:17:19Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-maskmod
+- name: szl-mesh
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/szl-substrate'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-26T13:49:48Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-mesh
+- name: szl-nemo
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'SOFTWARE/SURROGATE: doctrine rule_check for recipe conformance. Not
+    Nemotron, not an LLM, not a CUDA kernel. joblib quarantined.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T00:13:14Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-nemo
+- name: szl-org-health
+  visibility: PRIVATE
+  is_private: true
+  is_archived: false
+  is_empty: false
+  description: Live org-health dashboard — real GitHub CI/security, Hugging Face Space
+    health, and DNS/email-auth posture. Honest UNKNOWN over fabricated green.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:40:30Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-org-health
+- name: szl-organ-integrity
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/a11oy'
+  primary_language: HTML
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T03:11:59Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-organ-integrity
+- name: szl-otel-mesh
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: ARCHIVED OpenTelemetry/DSSE research artifact for the SZL mesh. DOI
+    10.5281/zenodo.20434276. Immutable evidence terminal by design. Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-07-17T15:11:02Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-otel-mesh
+- name: szl-ouroboros
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Canonical GitHub source for the szl-ouroboros Kernel Hub package (bounded
+    loop-tax accounting). Hub is the publish mirror. Apache-2.0 · Doctrine v11.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T21:17:13Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-ouroboros
+- name: szl-papers
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Holdings academic corpus — preprints, thesis lineage, bounty problems,
+    prior-art disclosures. Doctrine v11 LOCKED 749/14/163.
+  primary_language: TeX
+  license_spdx: cc-by-4.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:14Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-papers
+- name: szl-provctl
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Canonical GitHub source for the szl-provctl Kernel Hub package (in-toto/SLSA
+    provenance controller). Hub is the publish mirror. Apache-2.0 · Doctrine v11.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T21:17:10Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-provctl
+- name: szl-provctl-live
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED hologram/duplicate. Canonical: https://github.com/szl-holdings/szl-provctl'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-18T00:23:15Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-provctl-live
+- name: szl-quant
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Doctrine-governed quant research engine — every advisory signal ships
+    a DSSE-signed receipt. Paper-only. Not financial advice.
+  primary_language: JavaScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:42:34Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-quant
+- name: szl-quant-witness
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Second observer for the szl-quant ledger — independent scheduled vantage
+    point that cross-logs signed gossip observations (REPORTED, offline-replayable).
+    Paper-only estate; not financial advice.
+  primary_language: JavaScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T14:26:46Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-quant-witness
+- name: szl-real-estate
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Real Estate — public-records underwriting. Not an MLS. Occupancy
+    UNAVAILABLE. PLUTO MEASURED on Kings/Queens. Nassau has no PLUTO. Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T01:41:09Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-real-estate
+- name: szl-receipt
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Shared signed-receipt library — DSSE/ECDSA-P256, cosign-compatible,
+    UNSIGNED-honest fallback. The one signing primitive every SZL component shares.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:19:07Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-receipt
+- name: szl-receipt-attn
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Original SZL Triton tiled fused attention with UnifiedReceiptChain.
+    FlashAttention silhouette, not a rehost. Doctrine v11, Λ=Conjecture 1, Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:24Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-receipt-attn
+- name: szl-router
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/a11oy'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-26T13:47:06Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-router
+- name: szl-second-brain
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: Public second-brain retrieval hologram. Handles only. SOFTWARE navigator
+    over 575 chunks. Λ = Conjecture 1.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:27Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-second-brain
+- name: szl-serve
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'Canonical SZL governed serve recipe: llama.cpp/Ollama CPU honest path
+    for Khipu GGUF, schema validation outside the weights, energy MEASURED or UNAVAILABLE,
+    GPU ROADMAP. Not a vLLM/TGI/TRT-LLM copy. Doctrine v11, Apache-2.0.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:51:15Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-serve
+- name: szl-sovereign-os
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Sovereign OS — fail-closed operator kernel. Five organs, five verticals,
+    eleven category captures. Take the JOB from the leader, never the code. Λ = Conjecture
+    1. Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-30T23:11:25Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-sovereign-os
+- name: szl-substrate
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: szl-substrate — installable shared substrate package for a11oy + killinchu.
+    Eliminates 69-file source duplication. Pure-stdlib where possible; DSSE-signed
+    receipts; Λ = Conjecture 1 (advisory). SLSA L1 honest · L2 roadmap · Apache-2.0.
+    Doctrine v11 LOCKED (749/14/163).
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T11:05:19Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-substrate
+- name: szl-telemetry
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/szl-substrate'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-29T06:37:05Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-telemetry
+- name: szl-trust
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: SZL Holdings Public Trust Portal — Covenant Proof Standard run artifacts,
+    deterministic replay receipts. Doctrine v11 LOCKED (749/14/163)
+  primary_language: Python
+  license_spdx: cc-by-4.0
+  default_branch: main
+  pushed_at: '2026-08-31T04:54:06Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-trust
+- name: szl-uds-deployment
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: ARCHIVED WarHacker-2026 UDS deployment evidence snapshot (k3d + uds-cli
+    + Pepr DSSE). Frozen for reproducibility; terminal by design. Apache-2.0.
+  primary_language: Shell
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-07-01T22:05:30Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-uds-deployment
+- name: szl-v14
+  visibility: PRIVATE
+  is_private: true
+  is_archived: false
+  is_empty: false
+  description: 'SZL V14: payload builder + estate control plane + live audit bundle
+    (read-only control plane; authorization packets for mutations)'
+  primary_language: Python
+  license_spdx: null
+  default_branch: main
+  pushed_at: '2026-08-31T13:24:46Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/szl-v14
+- name: uds-bundles
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: SZL UDS Zarf bundles for the two products (a11oy + killinchu) and their
+    capability services — airgap-deployable, cosign-signed, SLSA L1+L2. Doctrine v11
+    LOCKED (749/14/163) · Apache-2.0.
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-06-30T01:19:53Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/uds-bundles
+- name: vsp-otel
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED duplicate/hologram. Canonical: https://github.com/szl-holdings/szl-substrate'
+  primary_language: TypeScript
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-26T13:49:32Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/vsp-otel
+- name: warhacker-demo
+  visibility: PUBLIC
+  is_private: false
+  is_archived: true
+  is_empty: false
+  description: 'ARCHIVED WarHacker-2026 RTX 4060 Ti tower dry-run snapshot: GPU k3d/UDS,
+    air-gap, thermal guard, Khipu kill-move. Terminal evidence artifact. Apache-2.0.'
+  primary_language: Shell
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-07-21T03:28:30Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/warhacker-demo
+- name: yarqa
+  visibility: PUBLIC
+  is_private: false
+  is_archived: false
+  is_empty: false
+  description: 'yarqa — plug-flow compartmentalization with signed provenance receipts.
+    Converts CFD velocity fields into auditable compartmental networks. Clean-room
+    Apache-2.0. Quechua: irrigation canal that divides flow.'
+  primary_language: Python
+  license_spdx: apache-2.0
+  default_branch: main
+  pushed_at: '2026-08-31T12:43:51Z'
+  stargazer_count: 0
+  url: https://github.com/szl-holdings/yarqa

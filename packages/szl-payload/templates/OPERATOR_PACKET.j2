@@ -1,0 +1,30 @@
+{# OPERATOR_PACKET.md — the top human-facing output.
+   Ten mandatory answers, each rendered UNKNOWN until evidence exists.
+   Per doctrine: never "fixed" without a post-fix check, never "deployed"
+   without a serving revision, and UNKNOWN is never promoted to PASS. #}
+# OPERATOR PACKET
+
+generated_by: {{ generated_by }}
+generated_at: {{ generated_at }}
+payload_sha256: `{{ payload.sha256 }}`
+
+## The ten mandatory answers
+
+{% for item in answers -%}
+{{ loop.index }}. **{{ item.question }}** — {{ item.status }} ({{ item.detail }})
+{% endfor %}
+## Reading this packet
+
+Every answer above is `UNKNOWN` in the default build — that is the honest
+state, not a failure: this builder produces doctrine and scaffold, and only
+an instrumented Pass 1/Pass 2 run can turn any of these into PASS with
+evidence. Per-domain pass state stays UNKNOWN per domain until the DNS/TLS/app
+probes run; the V11 artifact state stays UNKNOWN until `verify-v11` runs;
+the forbidden-link answer stays UNKNOWN until the dist/ grep gate runs
+(`verify` in this package performs it).
+
+Safe defaults in force:
+
+```
+{{ safe_defaults }}
+```

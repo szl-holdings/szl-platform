@@ -1,0 +1,32 @@
+# szl-adversarial — the public attack harness for the SZL receipt chain.
+#
+# Independently installable (`pip install -e packages/szl-adversarial`). Every
+# attack function attacks the REAL receipt core (packages/szl-receipts), never
+# a mock: the point of this package is that its result cannot be tuned.
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-adversarial"
+version = "1.0.0"
+description = "Public adversarial attack harness for the SZL receipt chain: forgery, tamper, canonicalization, chain, naming, PAE, and outcome attacks against the real szl-receipts core, with published results either way."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "SZL Holdings" }]
+keywords = ["security", "adversarial", "receipts", "dsse", "audit", "redteam"]
+dependencies = ["szl-receipts>=14"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+szl-adversarial = "szl_adversarial.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,60 @@
+{
+  "kids_version": "0.1",
+  "vectors": [
+    {
+      "name": "attn_causal_01",
+      "status": "PASS",
+      "detail": "rtol<=1e-3",
+      "digest": "8da90c70777496a4"
+    },
+    {
+      "name": "gemm_bf16_01",
+      "status": "PASS",
+      "detail": "exact match",
+      "digest": "5be35b0755da6e06"
+    },
+    {
+      "name": "gemm_int8_01",
+      "status": "PASS",
+      "detail": "int32 accumulator exact equality",
+      "digest": ""
+    },
+    {
+      "name": "kv_commit_01",
+      "status": "PASS",
+      "detail": "Merkle root match",
+      "digest": "52a970869db6ee4b"
+    },
+    {
+      "name": "receipt_chain_01",
+      "status": "PASS",
+      "detail": "3 receipts, chain verified",
+      "digest": "aa71c60fa983b119"
+    },
+    {
+      "name": "receipt_domain_vector",
+      "status": "PASS",
+      "detail": "sha3_256(DOMAIN||prev||event) cross-check",
+      "digest": "e247dbbb39003111"
+    },
+    {
+      "name": "rmsnorm_01",
+      "status": "PASS",
+      "detail": "rtol<=1e-3",
+      "digest": "9c5875a7e8ce7976"
+    },
+    {
+      "name": "yarqa_01",
+      "status": "PASS",
+      "detail": "rtol<=1e-3",
+      "digest": "059330300c0d7820"
+    }
+  ],
+  "corrupt": [],
+  "summary": {
+    "total": 8,
+    "pass": 8,
+    "fail": 0,
+    "error": 0
+  }
+}

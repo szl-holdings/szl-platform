@@ -1,0 +1,19 @@
+{
+  "name": "receipt_domain_vector",
+  "kids_version": "0.1",
+  "seed": 48869,
+  "kind": "receipt_domain",
+  "domain": "SZL-KIDS-RECEIPT-V1",
+  "prev_digest": "0000000000000000000000000000000000000000000000000000000000000000",
+  "event": {
+    "seq": 0,
+    "op": "RECEIPT_EMIT",
+    "status": "EXECUTED",
+    "detail": "domain-separation check",
+    "hw_timestamp": 0,
+    "dma_seq": 0,
+    "counter": 0
+  },
+  "expected_digest": "e247dbbb39003111dfaa300540edaa2a60f7ab41d7c62c57aac9cc597c9895c2",
+  "cross_check": "python3 -c \"import hashlib,json; print(hashlib.sha3_256(b'SZL-KIDS-RECEIPT-V1' + bytes(32) + json.dumps(EVENT, sort_keys=True, separators=(',',':')).encode()).hexdigest())\" with EVENT the 'event' object above; must equal expected_digest. This vector pins the domain separation resolving the estate SHA-256-vs-SHA3-256 cross-domain concern (fork_findings section 3)."
+}

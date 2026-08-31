@@ -1,0 +1,36 @@
+{# Per-repo audit file. Rendered once per enumerated repo by audit.py.
+   Every field is either a value computed in this run or the literal string
+   UNKNOWN with its error attached. There is deliberately no "generated at"
+   timestamp: audit files are evidence of measured state, and determinism
+   review diffs stay clean; timing evidence belongs in receipts. #}
+# Repo audit — {{ org }}/{{ repo.name }}
+
+- **Visibility:** {{ repo.visibility or "UNKNOWN" }}
+- **Archived:** {{ repo.is_archived if repo.is_archived is not none else "UNKNOWN" }}
+- **Default branch:** {{ repo.default_branch or "UNKNOWN" }}
+- **Last push:** {{ repo.pushed_at or "UNKNOWN" }}
+- **Primary language:** {{ repo.primary_language or "UNKNOWN" }}
+- **License present:** {% if repo.license_spdx %}yes ({{ repo.license_spdx }}){% else %}no{% endif %}
+- **Description present:** {{ "yes" if repo.description else "no" }}
+- **URL:** {{ repo.url or "UNKNOWN" }}
+
+## Live probes
+
+| Probe | Result | Error |
+|---|---|---|
+| Open PR count | {{ probes.open_prs.value if probes.open_prs.value is not none else "UNKNOWN" }} | {{ probes.open_prs.error or "—" }} |
+| Latest CI run conclusion | {{ probes.ci_latest.value if probes.ci_latest.value is not none else "UNKNOWN" }} | {{ probes.ci_latest.error or "—" }} |
+| Forbidden-link scan of README | {{ probes.forbidden_link.value if probes.forbidden_link.value is not none else "UNKNOWN" }} | {{ probes.forbidden_link.error or "—" }} |
+
+## Overall state: {{ state }}
+
+## Findings ({{ findings | length }})
+
+{% if findings %}
+| Severity | Code | Detail |
+|---|---|---|
+{% for f in findings %}| {{ f.severity }} | {{ f.code }} | {{ f.detail | replace("|", "\\|") }} |
+{% endfor %}
+{% else %}
+None. Absence of findings is itself bounded by the UNKNOWN probes above.
+{% endif %}

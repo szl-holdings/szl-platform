@@ -1,0 +1,106 @@
+# SZL master payload manifest — the build contract.
+#
+# The [[sections]] array is an EXPLICIT ordered list. Never replace it with a
+# glob: a glob silently reorders sections and DNS stops being Phase -1.
+# Each section declares must_contain token assertions; a missing token fails
+# the build. Sections are the source; dist/ is derived, never hand-edited.
+
+[output]
+path = "dist/SZL_MASTER_PAYLOAD_V14.md"
+
+[export]
+dir = "dist/export"
+# Build time is never embedded in the payload body; it lives only in the
+# export receipt. This is what makes the idempotency proof possible.
+embed_build_time_in_body = false
+# Computed AND-chain elsewhere; the builder always serializes false.
+publication_eligible = false
+
+[gates]
+require_dns_first = true
+forbidden_patterns = "lint/forbidden.txt"
+banned_claims = "lint/banned_claims.txt"
+
+[[sections]]
+id = "phase_neg1_dns"
+path = "sections/phase_neg1_dns.md"
+must_contain = [
+    "/user/tokens/verify",
+    "Zone:DNS:Edit",
+    "185.199.108.153",
+    "hf.space",
+    "HSTS",
+    "rollback",
+    "1033",
+]
+
+[[sections]]
+id = "phase0_doctor"
+path = "sections/phase0_doctor.md"
+must_contain = ["BLOCKERS THAT OUTRANK ALL COSMETIC WORK", "list_user_repos"]
+
+[[sections]]
+id = "phase1_correctness"
+path = "sections/phase1_correctness.md"
+must_contain = ["sha256_file", "RFC 8785", "unsigned.json", "UNKNOWN is never PASS"]
+
+[[sections]]
+id = "phase2_audit"
+path = "sections/phase2_audit.md"
+must_contain = ["two-source enumeration", "REPOSITORY_MATRIX.csv", "per-repo audit"]
+
+[[sections]]
+id = "phase3_intel"
+path = "sections/phase3_intel.md"
+must_contain = ["weekly trending delta", "verify-claims", "CLAIM_DRIFT"]
+
+[[sections]]
+id = "phase4_intake"
+path = "sections/phase4_intake.md"
+must_contain = ["license tiers A-D", "DISCOVER_ONLY", "TRAINING_ALLOWED", "BLOCKED"]
+
+[[sections]]
+id = "phase5_corpus"
+path = "sections/phase5_corpus.md"
+must_contain = [
+    "13-stage pipeline",
+    "source-repo lineage",
+    "reasoning floor",
+    "75%",
+    "seal BEFORE training",
+]
+
+[[sections]]
+id = "phase6_mcp"
+path = "sections/phase6_mcp.md"
+must_contain = ["13 drift classes", "exit 2", "whitespace-only"]
+
+[[sections]]
+id = "phase7_train_sft"
+path = "sections/phase7_train_sft.md"
+must_contain = [
+    "baseline-first",
+    "unmodified base",
+    "sealed suite",
+    "delta is the only claim",
+]
+
+[[sections]]
+id = "phase8_train_rl"
+path = "sections/phase8_train_rl.md"
+must_contain = ["GSPO", 'importance_sampling_level="sequence"', "over-refusal penalty", "-3.0"]
+
+[[sections]]
+id = "phase9_attest"
+path = "sections/phase9_attest.md"
+must_contain = ["byte digests", "cosign attest-blob", "publication_eligible"]
+
+[[sections]]
+id = "phase10_prs"
+path = "sections/phase10_prs.md"
+must_contain = ["resolve existing open PRs before opening more", "AUTO_MERGE=false"]
+
+[[sections]]
+id = "phase_b_builder"
+path = "sections/phase_b_builder.md"
+must_contain = ["never a glob", "must_contain", "require_dns_first", "dist/ is derived"]

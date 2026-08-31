@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a11oy.net/schemas/reality_event.schema.json",
+  "title": "SZL Beacon Reality Event",
+  "description": "One signed-style event of the A11oy Beacon REALITY PROTOCOL. Reference schema for the reference implementation (szl-beacon). Zero physical units exist; this schema describes protocol software records only. Every event carries exactly one evidence label; an event without a label is a protocol violation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "seq",
+    "prev",
+    "state_from",
+    "state_to",
+    "actor",
+    "payload",
+    "evidence_refs",
+    "label",
+    "created_at"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 hex digest of the canonical body (all fields except event_id). Canonical form in this reference implementation: JSON, sorted keys, no whitespace, UTF-8. NOT RFC 8785; production canonicalizes via szl-receipts."
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Monotonic position in the local append-only log. Genesis is 0."
+    },
+    "prev": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "Digest of the previous event; null exactly when seq is 0."
+    },
+    "state_from": {
+      "type": ["string", "null"],
+      "description": "Protocol state the transition leaves; null at genesis.",
+      "enum": [
+        "INTENT", "EVIDENCE", "PROPOSAL", "SIMULATION", "POLICY", "CONSENT",
+        "ACTION", "WITNESS", "OUTCOME", "RECONCILIATION", "RECEIPT",
+        "RC1", "SAFE_STATE", null
+      ]
+    },
+    "state_to": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Protocol state the transition enters. Non-standard values (e.g. RC1, SAFE_STATE) are used by node-level events outside the transaction spine."
+    },
+    "actor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "minLength": 1,
+          "description": "human | operator | node | sensor | machine | peer. kind=machine is HARD-TYPED: the event's label must be MACHINE_INFERENCE."
+        },
+        "id": {"type": "string", "minLength": 1}
+      }
+    },
+    "payload": {
+      "type": "object",
+      "description": "Transition-specific body."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "description": "Content digests of the evidence this event relies on. WITNESS events must carry the witness's own evidence ref."
+    },
+    "label": {
+      "type": "string",
+      "enum": [
+        "VERIFIED_SOURCE",
+        "AUTHORIZED_OPERATOR",
+        "COMMUNITY_REPORT",
+        "MACHINE_INFERENCE",
+        "CONFLICTING_EVIDENCE",
+        "UNVERIFIED",
+        "OUTCOME_VERIFIED"
+      ],
+      "description": "REQUIRED evidence label. Machine-originated content is hard-typed MACHINE_INFERENCE and is never rendered as official authority."
+    },
+    "created_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$",
+      "description": "ISO-8601 UTC timestamp."
+    }
+  }
+}

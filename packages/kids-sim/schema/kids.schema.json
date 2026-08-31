@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.szlholdings.com/kids/v0.1",
+  "title": "KIDS v0.1 Program",
+  "description": "A KIDS v0.1 program: an ordered array of commands for the KHIPU-X1 governance-first LLM accelerator ISA.",
+  "type": "object",
+  "required": ["kidsVersion", "domainSeparation", "program"],
+  "properties": {
+    "kidsVersion": { "const": "0.1" },
+    "domainSeparation": {
+      "const": "SZL-KIDS-RECEIPT-V1",
+      "description": "Mandatory domain-separation constant for the SHA3-256 receipt chain. Resolves the estate SHA-256-vs-SHA3-256 cross-domain concern (fork_findings section 3)."
+    },
+    "program": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/command" }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "command": {
+      "type": "object",
+      "required": ["op"],
+      "properties": {
+        "op": {
+          "enum": [
+            "GEMM_TILED", "RMSNORM", "DMA_LOAD", "DMA_STORE",
+            "ATTN_CAUSAL", "YARQA_COMPARTMENT", "KV_APPEND", "KV_COMMIT",
+            "LGATE_CHECK", "RC1_SEND", "RC1_RECV", "RECEIPT_EMIT"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "op": { "const": "GEMM_TILED" } } },
+          "then": {
+            "required": ["M", "N", "K", "tile", "dtype", "scale_id"],
+            "properties": {
+              "M": { "type": "integer", "exclusiveMinimum": 0 },
+              "N": { "type": "integer", "exclusiveMinimum": 0 },
+              "K": { "type": "integer", "exclusiveMinimum": 0 },
+              "tile": { "type": "integer", "exclusiveMinimum": 0 },
+              "dtype": { "enum": ["int8", "bf16", "fp32"] },
+              "scale_id": { "type": "integer" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "op": { "const": "RMSNORM" } } },
+          "then": {
+            "required": ["eps", "dtype"],
+            "properties": {
+              "eps": { "type": "number", "exclusiveMinimum": 0 },
+              "dtype": { "enum": ["bf16", "fp32"] }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "op": { "enum": ["DMA_LOAD", "DMA_STORE"] } } },
+          "then": {
+            "required": ["descriptor_id", "src", "dst", "bytes", "seq"],
+            "properties": {
+              "descriptor_id": { "type": "integer" },
+              "src": { "type": "integer", "minimum": 0 },
+              "dst": { "type": "integer", "minimum": 0 },
+              "bytes": { "type": "integer", "exclusiveMinimum": 0 },
+              "seq": { "type": "integer", "minimum": 0 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "op": { "const": "ATTN_CAUSAL" } } },
+          "then": {
+            "required": ["head_dim", "seq_len", "scale"],
+            "properties": {
+              "head_dim": { "type": "integer", "exclusiveMinimum": 0 },
+              "seq_len": { "type": "integer", "exclusiveMinimum": 0 },
+              "scale": { "type": "number" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "op": { "const": "YARQA_COMPARTMENT" } } },
+          "then": {
+            "required": ["compartment_descriptor"],
+            "properties": {
+              "compartment_descriptor": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": { "type": "integer", "minimum": 0 }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "op": { "const": "KV_APPEND" } } },
+          "then": {
+            "required": ["block_id", "tokens"],
+            "properties": {
+              "block_id": { "type": "integer", "minimum": 0 },
+              "tokens": { "type": "integer", "exclusiveMinimum": 0 }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "op": { "const": "LGATE_CHECK" } } },
+          "then": {
+            "required": ["policy_digest", "command_digest"],
+            "properties": {
+              "policy_digest": { "type": "string" },
+              "command_digest": { "type": "string" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "op": { "enum": ["RC1_SEND", "RC1_RECV"] } } },
+          "then": {
+            "required": ["mailbox"],
+            "properties": { "mailbox": { "type": "integer", "minimum": 0 } }
+          }
+        }
+      ]
+    }
+  }
+}

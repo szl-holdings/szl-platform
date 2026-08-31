@@ -1,0 +1,17 @@
+SZL Beacon REALITY PROTOCOL demo (reference implementation, 0.1.0)
+transaction: tx-1e4a3124cac6
+  seq  0  None -> INTENT               aeb4cd693e365138…  [COMMUNITY_REPORT]
+  seq  1  INTENT -> EVIDENCE           aa28fb61fe2e6b7c…  [COMMUNITY_REPORT]
+  seq  2  EVIDENCE -> PROPOSAL         987b3718b28ee1ba…  [MACHINE_INFERENCE]
+  seq  3  PROPOSAL -> SIMULATION       93b90fdc4feaec0f…  [MACHINE_INFERENCE]
+  seq  4  SIMULATION -> POLICY         56e7317ef4fb7b7c…  [AUTHORIZED_OPERATOR]
+  seq  5  POLICY -> CONSENT            c8fa2be375b5b6aa…  [AUTHORIZED_OPERATOR]
+  seq  6  CONSENT -> ACTION            b8a185595aae1095…  [VERIFIED_SOURCE]
+  seq  7  ACTION -> WITNESS            c733a816855747de…  [VERIFIED_SOURCE]
+  seq  8  WITNESS -> WITNESS           48a0bfd2c4ed0f15…  [COMMUNITY_REPORT]
+  seq  9  WITNESS -> OUTCOME           19ddf7bec6e73a8a…  [OUTCOME_VERIFIED]
+  seq 10  OUTCOME -> RECONCILIATION    b402ac8c4b38ea53…  [AUTHORIZED_OPERATOR]
+  seq 11  RECONCILIATION -> RECEIPT    0c11292b48481538…  [OUTCOME_VERIFIED]
+chain verifies: YES
+receipt: {"canonicalization": "json-sortkeys-nowhitespace (reference); RFC 8785 in production", "node_id": "beacon-demo-00", "open_debt": [], "outcome_status": "VERIFIED", "physical_units_fielded": 0, "protocol": "beacon-reality-protocol/0.1-reference", "refusals": [], "transaction_id": "tx-1e4a3124cac6", "witness_classes": ["INDEPENDENT_SENSOR", "RECIPIENT_CONFIRMATION"]}
+verifiable chain written to: /tmp/szl-beacon-demo-246f_yqo

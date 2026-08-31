@@ -1,0 +1,44 @@
+{# Export report — build provenance + gate posture at export time. #}
+# SZL Payload Export Report
+
+- generated_by: {{ generated_by }}
+- generated_at: {{ generated_at }}
+- payload: `{{ payload.path }}`
+- payload_sha256: `{{ payload.sha256 }}`
+- export_manifest: `{{ export_manifest.path }}` (sha256 `{{ export_manifest.sha256 }}`)
+- publication_eligible: {{ publication_eligible }} (computed AND-chain elsewhere; the builder never asserts it)
+- canonicalization backend: `{{ jcs_backend }}` (RFC 8785 JCS — never sorted-key dumps)
+
+## Gates in force at build time
+
+- require_dns_first: {{ gates.require_dns_first }}
+- forbidden patterns: `{{ gates.forbidden_patterns }}`
+- banned claims: `{{ gates.banned_claims }}`
+- compound rule: proxied flag near a Pages apex address (enforced in code)
+- banned-claims proximity rule (enforced in code)
+
+## Section digests (manifest order)
+
+| # | Section | sha256 |
+| --- | --- | --- |
+{% for section in sections -%}
+| {{ loop.index }} | `{{ section.id }}` | `{{ section.sha256 }}` |
+{% endfor %}
+
+## Extracted-file subjects ({{ subject_rows | length }})
+
+{% if subject_rows -%}
+| File | sha256 |
+| --- | --- |
+{% for subject in subject_rows -%}
+| `{{ subject.path }}` (mode {{ subject.mode }}) | `{{ subject.sha256 }}` |
+{% endfor %}
+{%- else -%}
+No extract tags in this build.
+{%- endif %}
+
+## Safe defaults
+
+```
+{{ safe_defaults }}
+```

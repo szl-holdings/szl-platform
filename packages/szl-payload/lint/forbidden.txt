@@ -1,0 +1,33 @@
+# Forbidden patterns — one Python regex per line. Blank lines and lines
+# starting with '#' are ignored. Each pattern is scanned over the BUILT
+# payload output; any match is a compile-blocking FAIL reported with line
+# numbers. These patterns describe estate defects that must never ship in
+# doctrine or scaffold code again.
+
+# Name-hashing: sha256 of a string literal (a label), not of artifact bytes.
+# A digest of a name is diligence-ending; always chunk-read the file.
+sha256\(\s*["'][A-Za-z0-9_/-]+["']\s*\.encode\(\)\s*\)
+
+# Empty signature field shipped in a receipt envelope.
+"sig"\s*:\s*""
+
+# Placeholder sigstore key identity presented in an envelope.
+keyid"\s*:\s*"PENDING-SIGSTORE
+
+# Hardcoded CycloneDX spec version (read configs/export_policy.json instead).
+specVersion"\s*:\s*"1\.6"
+
+# Hub collections listing queried by author= (misses buckets; use owner=).
+api/collections\?author=
+
+# Secret logging: never pass a credential value into print().
+print\([^)]*(TOKEN|SECRET|API_KEY|PAT)\b
+
+# Forbidden domain (third-party WordPress furniture store; brand collision).
+# The negative lookbehind keeps the canonical a-11oy.com / a-11-oy.com forms
+# and any hyphen-prefixed label from tripping the gate.
+(?<!-)a11oy\.com
+
+# NOTE — compound rule enforced in code (gates.py: proxied_pages_apex), not
+# here: a `proxied: true` flag appearing near a 185.199.* address is the
+# orange-cloud-on-Pages-apex bug and fails the build.

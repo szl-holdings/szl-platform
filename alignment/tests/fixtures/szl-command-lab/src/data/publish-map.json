@@ -1,0 +1,7 @@
+{
+  "origins": [
+    { "host": "a-11-oy.com", "role": "Product surface" },
+    { "host": "a11oy.net", "role": "Proof surface" },
+    { "host": "a11oy.com", "role": "Not SZL" }
+  ]
+}

@@ -1,0 +1,42 @@
+# szl-beacon — reference implementation of the A11oy Beacon REALITY PROTOCOL.
+#
+# This package is independently installable (`pip install -e packages/szl-beacon`)
+# and deliberately depends on NOTHING outside the Python standard library at
+# runtime: the protocol core must stay reviewable end to end. Development
+# requires only pytest (and ruff for linting).
+#
+# Canonical form note: production canonicalizes events with RFC 8785 (JCS) via
+# the szl-receipts package; this reference implementation uses stdlib JSON
+# (sorted keys, no whitespace) and says so. Do not claim JCS conformance for
+# digests produced here.
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "szl-beacon"
+version = "0.1.0"
+description = "Reference implementation of the A11oy Beacon REALITY PROTOCOL: Reality Transaction state machine, Reality Debt, witness diversity, Rev A policy engine, RC1 governance-boundary simulation, offline-first sync, fleet validation."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Proprietary" }
+authors = [{ name = "SZL Holdings" }]
+keywords = [
+    "beacon",
+    "reality-protocol",
+    "offline-first",
+    "reality-debt",
+    "witness-diversity",
+    "edge",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,15 @@
+# Banned claims — one Python regex per line (matched case-insensitively over
+# the BUILT payload output). These are unprovable superiority/priority claims
+# and honesty violations; any match is a compile-blocking FAIL reported with
+# line numbers. Blank lines and lines starting with '#' are ignored.
+
+first governance kernel
+state of the art
+production-ready
+world.?first
+
+# Proximity rule — parsed and enforced in code (gates.py), not as a plain
+# regex: the standalone word "signed" may not appear within 200 characters of
+# an "unsigned.json" reference. An unsigned artifact must never be described
+# as carrying a signature.
+signed within 200 chars of unsigned\.json
