@@ -51,8 +51,6 @@ python -m szl_adversarial run         # attack ourselves before someone else doe
 
 Solo build: **zero open PRs org-wide**; required PR review and admin enforcement removed on the 12 protected repos (CI checks remain required — only green merges land); the daily standing loop merges green PRs autonomously and reports. a11oy keeps its intentional negative-control domain references by owner decision. The GAR draft is published with DOI [10.5281/zenodo.22217725](https://doi.org/10.5281/zenodo.22217725) (concept 10.5281/zenodo.22217724), idnits 0 errors; datatracker submission is the owner's one remaining click (legal IPR attestation).
 
-Solo build: **zero open PRs org-wide**; required PR review and admin enforcement removed on the 12 protected repos (CI checks remain required — only green merges land); the daily standing loop merges green PRs autonomously and reports. a11oy keeps its intentional negative-control domain references by owner decision.
-
 ## 8. Per-domain pass state
 
 | Domain | State |
