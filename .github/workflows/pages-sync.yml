@@ -1,0 +1,31 @@
+name: pages-sync
+# Deploys site/ to the gh-pages branch using only the SHA-pinned checkout action
+# plus shell — the org action policy forbids tag references, which rules out the
+# official upload-pages-artifact/deploy-pages actions (they internally compose
+# actions/upload-artifact@v4 by tag). GitHub Pages serves the gh-pages branch
+# directly (legacy build), so no artifact actions are needed.
+on:
+  push:
+    branches: [main]
+    paths: ["site/**", ".github/workflows/pages-sync.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: push site/ to gh-pages
+        run: |
+          set -euo pipefail
+          git config user.name "szl-pages-bot"
+          git config user.email "actions@users.noreply.github.com"
+          TMP=$(mktemp -d)
+          git worktree add "$TMP/gh" origin/gh-pages
+          rsync -a --delete --exclude '.git' site/ "$TMP/gh/"
+          cd "$TMP/gh"
+          git add -A
+          git diff --cached --quiet && { echo "no site changes"; exit 0; }
+          git commit -m "pages-sync: site@$GITHUB_SHA"
+          git push origin HEAD:gh-pages
