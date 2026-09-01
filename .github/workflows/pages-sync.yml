@@ -21,6 +21,9 @@ jobs:
           set -euo pipefail
           git config user.name "szl-pages-bot"
           git config user.email "actions@users.noreply.github.com"
+          # Default checkout fetches only the triggering branch; fetch gh-pages
+          # explicitly or the worktree add fails with 'invalid reference'.
+          git fetch --depth=1 origin gh-pages
           TMP=$(mktemp -d)
           git worktree add "$TMP/gh" origin/gh-pages
           rsync -a --delete --exclude '.git' site/ "$TMP/gh/"
