@@ -1,0 +1,83 @@
+name: Execute A11oy Edge Repair from Platform Control Plane
+
+on:
+  push:
+    branches:
+      - "ops/a11oy-edge-repair-20260901"
+    paths:
+      - ".github/workflows/execute-a11oy-edge-repair-20260901.yml"
+
+permissions:
+  contents: write
+
+env:
+  EDGE_REPORT: /tmp/a11oy-edge-repair.json
+  SOURCE_SHA: 3747387d30cad6d5b6252ec5fc2fa80d36eef539
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN || secrets.CF_API_TOKEN || secrets.CLOUDFLARE_TOKEN }}
+    steps:
+      - name: Check out bounded control branch
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ops/a11oy-edge-repair-20260901
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Fetch exact reviewed controller bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://raw.githubusercontent.com/szl-holdings/a11oy/${SOURCE_SHA}"
+          curl --fail --silent --show-error --location "$base/scripts/repair_cloudflare_product_edge.py" --output /tmp/repair_cloudflare_product_edge.py
+          curl --fail --silent --show-error --location "$base/cloudflare/a11oy-product-root-worker.mjs" --output /tmp/a11oy-product-root-worker.mjs
+          python -m py_compile /tmp/repair_cloudflare_product_edge.py
+          node --check /tmp/a11oy-product-root-worker.mjs
+      - name: Reconcile exact routes and prove public root
+        id: repair
+        shell: bash
+        run: |
+          set +e
+          python /tmp/repair_cloudflare_product_edge.py \
+            --worker /tmp/a11oy-product-root-worker.mjs \
+            --report "$EDGE_REPORT"
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload secret-free edge receipt
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: a11oy-edge-platform-control-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ env.EDGE_REPORT }}
+          if-no-files-found: error
+          retention-days: 90
+      - name: Remove bounded executor from its control branch
+        if: always()
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/execute-a11oy-edge-repair-20260901.yml
+          git config user.name "SZL Edge Controller"
+          git config user.email "stephenlutar2@gmail.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -s -m "chore(edge): retire bounded A11oy executor"
+            git push origin HEAD:ops/a11oy-edge-repair-20260901
+          fi
+      - name: Enforce proved live result
+        if: always()
+        shell: bash
+        run: |
+          code="${{ steps.repair.outputs.exit_code }}"
+          test -n "$code"
+          if [ "$code" -ne 0 ]; then
+            cat "$EDGE_REPORT"
+            exit "$code"
+          fi
