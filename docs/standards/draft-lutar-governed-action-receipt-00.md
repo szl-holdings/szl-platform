@@ -94,21 +94,21 @@ evident record that binds an actor, an action, a governing policy identified by
 the SHA-256 digest of the policy document, a decision outcome drawn from a
 closed vocabulary, the subjects of the action identified by digests of their
 bytes, and references to evidence. A receipt is canonicalized with the JSON
-Canonicalization Scheme {{RFC8785}} and is self-identifying: its receipt_id is
+Canonicalization Scheme (RFC 8785) and is self-identifying: its receipt_id is
 the SHA-256 digest of its canonical body with the identity field removed, so any
 field-level modification is detectable by any verifier without trusting a
 registry.
 
-Receipts are carried in DSSE envelopes {{DSSE}} signed with Ed25519 {{RFC8032}},
-or are published honestly unsigned under a naming convention that makes the
-absence of a signature legible from the filename. Receipts may be linked into an
-append-only hash-chained log in which each entry commits to its predecessor; the
-limits of that construction, in particular the undetectability of tail
-truncation without an external anchor, are stated explicitly. The outcome
-vocabulary forbids promoting an unknown verdict to a passing one. This document
-specifies the receipt format, canonicalization, signing, chaining, naming,
-outcomes, and verifier behavior, and matches the reference implementation (szl-
-receipts 14.0.0 {{SZLR}}) statement for statement.
+Receipts are carried in DSSE envelopes signed with Ed25519 (RFC 8032), or are
+published honestly unsigned under a naming convention that makes the absence of
+a signature legible from the filename. Receipts may be linked into an append-
+only hash-chained log in which each entry commits to its predecessor; the limits
+of that construction, in particular the undetectability of tail truncation
+without an external anchor, are stated explicitly. The outcome vocabulary
+forbids promoting an unknown verdict to a passing one. This document specifies
+the receipt format, canonicalization, signing, chaining, naming, outcomes, and
+verifier behavior, and matches the reference implementation (szl-receipts
+14.0.0) statement for statement.
 
 --- middle
 

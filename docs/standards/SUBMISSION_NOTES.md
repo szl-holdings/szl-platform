@@ -123,3 +123,12 @@ second-class path:
   receipt, envelope, and chain from the rendered document itself.
 - `reproduce-appendix-b.py` must stay byte-identical to the listing in
   Appendix B.2 (the validator enforces this).
+
+## idnits result (2026-08-31, author-tools.ietf.org/api/idnits)
+
+`Summary: 0 errors (**), 0 flaws (~~), 1 warning (==), 0 comments (--)`
+The one warning is "couldn't figure out when the document was first submitted" —
+expected for a -00 individual submission and not actionable. The draft is
+submission-clean: boilerplate (RFC 5378 trust), 1id-guidelines, checklist, and
+references all report "No issues found". Re-run any time:
+`curl -F "file=@draft-lutar-governed-action-receipt-00.txt" https://author-tools.ietf.org/api/idnits`

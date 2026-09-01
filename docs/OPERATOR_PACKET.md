@@ -20,8 +20,9 @@ The ten mandatory answers. Nothing in this packet was asserted; every line trace
 
 ## 3. What is still failing
 
-- `szl.dev` — no DNS delegation (registrar action required).
-- Cloudflare connector key — malformed; regenerating it is a human action (§4 of FRONTIER_READINESS).
+- `szl.dev` — **root cause found 2026-08-31: the domain is UNREGISTERED** (registry RDAP returns 404). Fix = register it (3 min, ~$12/yr: [Cloudflare Registrar](https://domains.cloudflare.com/) at-cost, or [Porkbun search](https://porkbun.com/checkout/search?q=szl.dev)), then point NS at Cloudflare. No DNS record work was ever going to fix this.
+- Cloudflare connector key — malformed (6003 confirmed live); nothing is currently blocked on it. Regenerate only when DNS *writes* are needed (e.g., after szl.dev registration).
+- Tunnel hosts: 4 down (gateway/gpu/meter/meter2, 530 — origin `cloudflared` down; one command on the box: `systemctl restart cloudflared`). gpu2 403 is Access working correctly.
 - ~~3 CLAIM_DRIFTs~~ — both HF drifts closed via model-bom refresh (44/44, 30/30); the live claims API now serves PASS for both. In-repo test counts remain UNKNOWN until recomputed in their own checkouts — by design.
 
 ## 4. What is blocked on credentials
@@ -45,6 +46,10 @@ cd szl-platform && make doctor        # env + DNS + credentials, exits non-zero 
 python -m szl_estate verify-claims    # recompute every public number
 python -m szl_adversarial run         # attack ourselves before someone else does
 ```
+
+## 7b. Operating mode (owner-directed 2026-08-31)
+
+Solo build: **zero open PRs org-wide**; required PR review and admin enforcement removed on the 12 protected repos (CI checks remain required — only green merges land); the daily standing loop merges green PRs autonomously and reports. a11oy keeps its intentional negative-control domain references by owner decision.
 
 ## 8. Per-domain pass state
 
