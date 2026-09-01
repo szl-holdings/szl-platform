@@ -26,3 +26,11 @@ there would mint a record with the wrong title). a11oy's v1.1.0 deposit is still
 `PENDING_ZENODO_READBACK`. A new work gets its own concept DOI from a clean repo — that
 is this one, per the szl-papers deposit policy ("confirm no record exists, create exactly
 one concept").
+
+## OUTCOME (2026-09-01)
+
+Done via the Zenodo API instead of the webhook: deposition 22217725 created, three files uploaded, metadata set, published.
+
+- Version DOI: https://doi.org/10.5281/zenodo.22217725
+- Concept DOI: https://doi.org/10.5281/zenodo.22217724
+- Record: https://zenodo.org/records/22217725

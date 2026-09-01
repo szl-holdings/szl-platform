@@ -2,6 +2,8 @@
 
 Author: Stephen Lutar, SZL Holdings <stephen@szlholdings.com>
 Date: 2026-08-31
+
+**DOI: [10.5281/zenodo.22217725](https://doi.org/10.5281/zenodo.22217725)** (concept: 10.5281/zenodo.22217724) — deposited and published via the Zenodo API on 2026-09-01T00:55Z; files: rendered .txt, kramdown .md, these notes.
 Files: `draft-lutar-governed-action-receipt-00.md` (kramdown-rfc2629 source),
 `draft-lutar-governed-action-receipt-00.txt` (rendered plain text, 33 pages,
 72 columns, form feeds, ToC — passes every local format check; see
