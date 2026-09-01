@@ -1,0 +1,42 @@
+{
+  "title": "Governed Action Receipt (GAR): A Canonical, Verifiable Record of Policy-Governed Actions — draft-lutar-governed-action-receipt-00",
+  "upload_type": "publication",
+  "publication_type": "technicalnote",
+  "description": "<p>IETF individual Internet-Draft specifying the Governed Action Receipt (GAR): a compact, tamper-evident record binding actor, action, policy digest, decision outcome (closed vocabulary — UNKNOWN is never PASS), byte-level subject digests, and evidence references. Canonicalized with RFC 8785, carried in DSSE envelopes (Ed25519) or honestly unsigned under the *.unsigned.json naming convention, and linkable into append-only hash-chained logs with the tail-truncation limitation stated explicitly. The specification matches the reference implementation (szl-receipts 14.0.0, Apache-2.0) statement for statement; every worked example is computed by the library at build time and independently re-derived by the validator. idnits 2.17.1: 0 errors. Files: draft-lutar-governed-action-receipt-00.txt (rendered, 33pp), .md (kramdown source), build_draft.py, validate_draft.py.</p>",
+  "creators": [
+    {
+      "name": "Lutar, Stephen P., Jr.",
+      "orcid": "0009-0001-0110-4173",
+      "affiliation": "SZL Holdings"
+    }
+  ],
+  "keywords": [
+    "governed AI",
+    "audit trail",
+    "receipts",
+    "DSSE",
+    "RFC 8785",
+    "in-toto",
+    "tamper-evident logging",
+    "IETF Internet-Draft",
+    "AI governance",
+    "provenance"
+  ],
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "version": "00",
+  "language": "eng",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/szl-holdings/szl-platform",
+      "relation": "isSupplementedBy",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://datatracker.ietf.org/doc/draft-sharif-agent-audit-trail/",
+      "relation": "references",
+      "scheme": "url"
+    }
+  ],
+  "notes": "Deposited via GitHub release on szl-holdings/szl-platform after the repository was enabled in the owner's Zenodo account. This is a NEW work (not a version of any existing SZL record) per the szl-papers deposit policy."
+}
