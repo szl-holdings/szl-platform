@@ -20,9 +20,9 @@ The ten mandatory answers. Nothing in this packet was asserted; every line trace
 
 ## 3. What is still failing
 
-- `szl.dev` — **root cause found 2026-08-31: the domain is UNREGISTERED** (registry RDAP returns 404). Fix = register it (3 min, ~$12/yr: [Cloudflare Registrar](https://domains.cloudflare.com/) at-cost, or [Porkbun search](https://porkbun.com/checkout/search?q=szl.dev)), then point NS at Cloudflare. No DNS record work was ever going to fix this.
-- Cloudflare connector key — malformed (6003 confirmed live); nothing is currently blocked on it. Regenerate only when DNS *writes* are needed (e.g., after szl.dev registration).
-- Tunnel hosts: 4 down (gateway/gpu/meter/meter2, 530 — origin `cloudflared` down; one command on the box: `systemctl restart cloudflared`). gpu2 403 is Access working correctly.
+- ~~`szl.dev`~~ — **resolved the free way (owner decision, 2026-08-31):** the dev surface now lives at **https://dev.a-11-oy.com** (200, HTTPS-enforced) — GitHub Pages serving `gh-pages` from szl-platform, CNAME DNS-only in Cloudflare, policy-compliant pages-sync workflow (the org SHA-pin rule forbids the official Pages actions; documented in the workflow header). szl.dev remains an optional ~$12/yr brand purchase, no longer needed for function.
+- ~~Cloudflare connector key~~ — the vaulted clean token verifies **active**; both zones audited via API; `dev.a-11-oy.com` CNAME created through it. Zone DNS writes are unblocked.
+- Tunnel hosts: 4 still 530 from outside probes (gateway/gpu/meter/meter2). If the boxes report healthy locally, the likely cause is tunnel-ID drift: the CNAMEs point at `edaf5825…` and `66e5a763…`; run `cloudflared tunnel list` on the box and if the IDs differ, I will repoint the CNAMEs via the working token. gpu2 403 is Access working correctly.
 - ~~3 CLAIM_DRIFTs~~ — both HF drifts closed via model-bom refresh (44/44, 30/30); the live claims API now serves PASS for both. In-repo test counts remain UNKNOWN until recomputed in their own checkouts — by design.
 
 ## 4. What is blocked on credentials
@@ -48,6 +48,8 @@ python -m szl_adversarial run         # attack ourselves before someone else doe
 ```
 
 ## 7b. Operating mode (owner-directed 2026-08-31)
+
+Solo build: **zero open PRs org-wide**; required PR review and admin enforcement removed on the 12 protected repos (CI checks remain required — only green merges land); the daily standing loop merges green PRs autonomously and reports. a11oy keeps its intentional negative-control domain references by owner decision. The GAR draft is published with DOI [10.5281/zenodo.22217725](https://doi.org/10.5281/zenodo.22217725) (concept 10.5281/zenodo.22217724), idnits 0 errors; datatracker submission is the owner's one remaining click (legal IPR attestation).
 
 Solo build: **zero open PRs org-wide**; required PR review and admin enforcement removed on the 12 protected repos (CI checks remain required — only green merges land); the daily standing loop merges green PRs autonomously and reports. a11oy keeps its intentional negative-control domain references by owner decision.
 
