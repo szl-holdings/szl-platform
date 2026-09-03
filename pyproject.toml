@@ -24,7 +24,13 @@ py-modules = []
 # same-basename test modules and conftest-helper imports across packages.
 addopts = "-q"
 # Receipts, simulators and audits must never hit the network in unit tests.
-filterwarnings = ["error::DeprecationWarning"]
+# anyio>=4.11 deprecates the anyio.abc.BlockingPortal alias; transitive deps
+# (starlette TestClient) still import it during collection. Keep the strict
+# error gate for everything else — ignore only this exact upstream warning.
+filterwarnings = [
+    "error::DeprecationWarning",
+    "ignore:The anyio\\.abc\\.BlockingPortal alias is deprecated:DeprecationWarning",
+]
 
 [tool.ruff]
 line-length = 100
