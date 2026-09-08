@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from szl_alignment.inspect import inspect_repo
-from szl_alignment.plan import ActionKind, plan_alignment
+from szl_alignment.plan import ActionKind, plan_alignment, template_text
 
 
 def _kinds(plan):
@@ -52,6 +52,17 @@ def test_license_never_planned(bare_repo: Path) -> None:
 def test_python_repo_gets_base_ci(python_repo: Path) -> None:
     plan = plan_alignment(inspect_repo(python_repo))
     assert ".github/workflows/base-python-ci.yml" in _paths(plan)
+
+
+def test_base_python_ci_installs_the_declared_optional_extra() -> None:
+    workflow = template_text("workflows/base-python-ci.yml")
+    assert "python -m pip install -e \".[dev]\"" in workflow
+    assert "python -m pip install -e \".[test]\"" in workflow
+    assert "python -m pip install -e \".[tests]\"" in workflow
+    assert "^\\s*dev\\s*=\\s*\\[" in workflow
+    assert "^\\s*test\\s*=\\s*\\[" in workflow
+    assert "^\\s*tests\\s*=\\s*\\[" in workflow
+    assert "^\\s*(dev|test|tests)\\s*=\\s*\\[" not in workflow
 
 
 def test_python_repo_with_python_named_ci_skipped(tmp_path: Path) -> None:
