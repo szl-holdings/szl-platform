@@ -22,9 +22,11 @@ jobs:
     steps:
       # Org policy: every action is pinned to a full-length commit SHA.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v6.0.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -46,10 +48,23 @@ jobs:
             exit 0
           fi
           if [ -f pyproject.toml ]; then
-            # Prefer the repo's own dev/test extra so test-time imports resolve
-            # the same way they do in that repo's primary CI.
-            if grep -qE '^\s*(dev|test|tests)\s*=\s*\[' pyproject.toml; then
-              python -m pip install -e ".[dev]"
+            # Select the optional dependency group that the repository actually
+            # declares. The previous combined regex detected test/tests but
+            # always installed .[dev], leaving required test dependencies absent.
+            extra="$(python - <<'PY'
+          from pathlib import Path
+          import tomllib
+
+          metadata = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+          optional = metadata.get("project", {}).get("optional-dependencies", {})
+          for candidate in ("dev", "test", "tests"):
+              if candidate in optional:
+                  print(candidate)
+                  break
+          PY
+          )"
+            if [ -n "$extra" ]; then
+              python -m pip install -e ".[${extra}]"
             else
               python -m pip install -e .
             fi
