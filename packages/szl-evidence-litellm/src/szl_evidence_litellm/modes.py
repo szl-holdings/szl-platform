@@ -126,13 +126,25 @@ class EvidencePolicy:
 
         ``SZL_FAIL_MODE`` (``fail_open``|``fail_closed``, default open),
         ``SZL_REQUIRE_RECEIPT`` (``1``/true), ``SZL_POLICY_NAME`` /
-        ``SZL_POLICY_VERSION`` override the identity fields.
+        ``SZL_POLICY_VERSION`` override the identity fields. The receipt
+        requirement is parsed strictly so a typo cannot silently downgrade an
+        intended fail-closed policy.
         """
         env = os.environ if environ is None else environ
+        require_raw = env.get("SZL_REQUIRE_RECEIPT", "")
+        require_value = require_raw.strip().lower()
+        if require_value in {"", "0", "false", "no"}:
+            require_receipt = False
+        elif require_value in {"1", "true", "yes"}:
+            require_receipt = True
+        else:
+            raise ValueError(
+                "SZL_REQUIRE_RECEIPT must be one of '', 0, false, no, 1, true, yes; "
+                f"got {require_raw!r}"
+            )
         return cls(
             name=env.get("SZL_POLICY_NAME", DEFAULT_POLICY_NAME),
             version=env.get("SZL_POLICY_VERSION", DEFAULT_POLICY_VERSION),
             fail_mode=FailMode.parse(env.get("SZL_FAIL_MODE")),
-            require_receipt_before_response=env.get("SZL_REQUIRE_RECEIPT", "").lower()
-            in {"1", "true", "yes"},
+            require_receipt_before_response=require_receipt,
         )
