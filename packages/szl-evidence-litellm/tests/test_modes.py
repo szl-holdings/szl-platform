@@ -89,3 +89,18 @@ class TestFromEnv:
         policy = EvidencePolicy.from_env({})
         assert policy.fail_mode is FailMode.FAIL_OPEN
         assert policy.require_receipt_before_response is False
+
+    @pytest.mark.parametrize("value", ["1", "true", "yes", " TRUE "])
+    def test_require_receipt_true_values(self, value):
+        policy = EvidencePolicy.from_env({"SZL_REQUIRE_RECEIPT": value})
+        assert policy.require_receipt_before_response is True
+
+    @pytest.mark.parametrize("value", ["", "0", "false", "no", " FALSE "])
+    def test_require_receipt_false_values(self, value):
+        policy = EvidencePolicy.from_env({"SZL_REQUIRE_RECEIPT": value})
+        assert policy.require_receipt_before_response is False
+
+    @pytest.mark.parametrize("value", ["tru", "2", "enabled"])
+    def test_require_receipt_rejects_unknown_values(self, value):
+        with pytest.raises(ValueError, match="SZL_REQUIRE_RECEIPT"):
+            EvidencePolicy.from_env({"SZL_REQUIRE_RECEIPT": value})
