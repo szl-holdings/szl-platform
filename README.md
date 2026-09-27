@@ -1,6 +1,6 @@
 # SZL Platform
 
-**Governed-AI engineering surface: every artifact ships with a receipt, every claim is re-computable, and `UNKNOWN` is never `PASS`.**
+**Governed-AI engineering surface: every artifact ships with a receipt, every claim in the receipt ledger is re-computable, and `UNKNOWN` is never `PASS`.**
 
 This monorepo is the Python engineering layer of the SZL Holdings estate. It exists so that
 anyone — an investor, an auditor, a new engineer, or an adversary — can clone one tree,
