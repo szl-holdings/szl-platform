@@ -10,8 +10,9 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
 apt-get install -y curl git python3 python3-pip ca-certificates
 
-# --- Ollama ---
-curl -fsSL https://ollama.com/install.sh | sh
+# --- Ollama (direct tarball install — no pipe-to-shell) ---
+curl -fsSL -o /tmp/ollama.tgz https://ollama.com/download/ollama-linux-amd64.tgz
+tar -xzf /tmp/ollama.tgz -C /usr
 nohup ollama serve > /root/ollama.log 2>&1 &
 for i in $(seq 1 60); do curl -sf http://127.0.0.1:11434/api/version && break; sleep 2; done
 ollama pull llama3.1:8b

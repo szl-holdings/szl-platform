@@ -169,6 +169,13 @@ class EvidenceSink:
             self._enqueue_thread(pending)
             return
         queue = self._require_queue()
+        # Self-healing invariant: enqueue on a running loop implies the flusher
+        # is alive. Callers (LiteLLM hooks) must never need to remember to
+        # await start() — a silently unfired flusher is a receipt black hole.
+        if self._flusher is None or self._flusher.done():
+            self._flusher = asyncio.get_running_loop().create_task(
+                self._flush_loop(), name=f"szl-evidence-flusher:{self.directory}"
+            )
         try:
             queue.put_nowait(pending)
         except asyncio.QueueFull:

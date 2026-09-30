@@ -224,3 +224,25 @@ class TestBootGateAndReads:
         assert report["ok"] is False
         assert report["sidecars"]["missing"] == 1
         assert any(f["code"] == "evidence-missing" for f in report["findings"])
+
+
+def test_async_enqueue_boots_flusher_without_explicit_start(tmp_path):
+    """Regression: enqueue() from a running loop with NO start() call must still
+    persist — found live on the vast.ai sovereign node where LiteLLM's proxy
+    fired async events but nothing ever called sink.start()."""
+    import asyncio
+
+    from conftest import make_pending, make_policy
+    from szl_evidence_litellm.sink import EvidenceSink
+
+    sink = EvidenceSink(tmp_path)
+
+    async def go():
+        sink.enqueue(make_pending(make_policy()))  # running loop, no start() — the bug case
+        deadline = asyncio.get_running_loop().time() + 5
+        while not (tmp_path / "receipts.jsonl").exists():
+            assert asyncio.get_running_loop().time() < deadline, "receipt never persisted"
+            await asyncio.sleep(0.1)
+
+    asyncio.run(go())
+    assert (tmp_path / "chain_head.json").exists()
