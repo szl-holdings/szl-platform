@@ -93,7 +93,10 @@ def _load_templates(root: Path) -> jinja2.Environment:
         raise ExportError(f"templates directory not found: {templates_dir}")
     return jinja2.Environment(
         loader=jinja2.FileSystemLoader(str(templates_dir)),
-        autoescape=False,  # markdown output, not HTML
+        # Markdown templates render unescaped; any HTML/XML template would be escaped.
+        autoescape=jinja2.select_autoescape(
+            enabled_extensions=("html", "htm", "xml"), default=False
+        ),
         keep_trailing_newline=True,
         trim_blocks=True,
         lstrip_blocks=True,

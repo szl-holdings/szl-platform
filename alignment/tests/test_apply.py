@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import subprocess  # noqa: S404 — fixed-argv git plumbing in tests
 from pathlib import Path
 
@@ -129,7 +130,7 @@ def test_fix_forbidden_needs_review_not_applied(command_lab_repo: Path, tmp_path
     assert 'host: "a11oy.com",' in content
     assert 'href: "https://a11oy.com",' in content
     assert "NEEDS REVIEW" in result.pr_body
-    assert "a-11-oy.com" in result.pr_body  # points the reviewer at the fix
+    assert re.search(r"\ba-11-oy\.com\b", result.pr_body)  # points the reviewer at the fix
 
 
 @needs_git
