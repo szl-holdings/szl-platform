@@ -20,6 +20,7 @@ license = { text = "Proprietary" }
 authors = [{ name = "SZL Holdings" }]
 keywords = ["receipts", "dsse", "in-toto", "rfc8785", "ed25519", "audit"]
 dependencies = ["cryptography>=42"]
+classifiers = ["Private :: Do Not Upload"]
 
 [project.optional-dependencies]
 dev = ["pytest"]
