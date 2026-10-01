@@ -27,6 +27,7 @@ dependencies = [
     "szl-receipts",
     "jinja2>=3.1",
 ]
+classifiers = ["Private :: Do Not Upload"]
 
 [project.optional-dependencies]
 dev = ["pytest"]

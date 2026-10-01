@@ -31,6 +31,7 @@ keywords = [
     "edge",
 ]
 dependencies = []
+classifiers = ["Private :: Do Not Upload"]
 
 [project.optional-dependencies]
 dev = ["pytest"]

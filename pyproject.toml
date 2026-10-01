@@ -16,6 +16,7 @@ license = { text = "Apache-2.0" }
 authors = [{ name = "SZL Holdings" }]
 
 # The root project ships no code itself; it exists to anchor shared tool config.
+classifiers = ["Private :: Do Not Upload"]
 [tool.setuptools]
 py-modules = []
 

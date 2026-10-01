@@ -25,6 +25,7 @@ dependencies = [
     "uvicorn>=0.29",
     "szl-receipts",
 ]
+classifiers = ["Private :: Do Not Upload"]
 
 [project.optional-dependencies]
 dev = ["pytest", "httpx"]

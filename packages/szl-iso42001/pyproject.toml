@@ -17,6 +17,7 @@ keywords = ["iso42001", "eu-ai-act", "ai-governance", "compliance", "aims"]
 # Everything else (hashing, JSON, CLI) is the standard library — the tool must
 # run fully offline on an auditor's laptop.
 dependencies = ["pyyaml>=6"]
+classifiers = ["Private :: Do Not Upload"]
 
 [project.optional-dependencies]
 dev = ["pytest"]

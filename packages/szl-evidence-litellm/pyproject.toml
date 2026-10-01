@@ -26,6 +26,7 @@ keywords = ["litellm", "receipts", "dsse", "audit", "evidence", "otel", "genai"]
 # install the sibling editable FIRST (pip install -e packages/szl-receipts).
 # pip then sees the requirement satisfied and never reaches for the network.
 dependencies = ["szl-receipts", "cryptography>=42"]
+classifiers = ["Private :: Do Not Upload"]
 
 [project.optional-dependencies]
 litellm = ["litellm>=1.40"]
