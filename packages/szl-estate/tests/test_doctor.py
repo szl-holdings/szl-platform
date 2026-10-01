@@ -4,6 +4,7 @@ runners, DNS resolvers, httpx, module imports). Nothing touches the network."""
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -89,7 +90,7 @@ class TestDns:
             resolver=lambda host: ["ns1.example.net", "ns2.example.net"]
         )
         assert result.status == "PASS"
-        assert "ns1.example.net" in result.evidence
+        assert re.search(r"\bns1\.example\.net\b", result.evidence)
 
     def test_a11oy_net_must_be_github_pages(self) -> None:
         pages = ["185.199.108.153", "185.199.111.153"]

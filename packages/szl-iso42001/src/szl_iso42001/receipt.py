@@ -177,18 +177,31 @@ def _emit_signed(
     try:
         receipt_module = szl_receipts.receipt
         build_receipt = receipt_module.build_receipt
+        # szl_receipts.receipt.build_receipt is keyword-only and GovernedAction/v1 shaped:
+        # actor/action/policy/outcome/rationale, subjects as {name, sha256} dicts. The policy
+        # is the bundled control catalogue, bound by the digest of its own bytes; the outcome
+        # is the closed PASS/WARN/FAIL vocabulary derived from the readiness band.
+        from .controls import CONTROLS_YAML
+
+        outcome = {
+            "READY_FOR_STAGE1_AUDIT": "PASS",
+            "PARTIAL": "WARN",
+        }.get(band, "FAIL")
+        answer_counts = {k: counts.get(k, 0) for k in ("yes", "partial", "no", "unknown")}
         receipt = build_receipt(
-            kind=RECEIPT_KIND,
             actor=f"szl-iso42001 {tool_version}",
             action="iso42001-readiness-assessment",
-            subjects=[("readiness-report.md", report_hash)],
-            metadata={
-                "band": band,
-                "control_count": control_count,
-                "answer_counts": {
-                    k: counts.get(k, 0) for k in ("yes", "partial", "no", "unknown")
-                },
+            policy={
+                "id": "iso42001-readiness-controls",
+                "version": tool_version,
+                "digest_sha256": hashlib.sha256(CONTROLS_YAML.encode("utf-8")).hexdigest(),
             },
+            outcome=outcome,
+            rationale=(
+                f"band={band}; controls={control_count}; "
+                + "; ".join(f"{k}={v}" for k, v in answer_counts.items())
+            ),
+            subjects=[{"name": "readiness-report.md", "sha256": report_hash}],
         )
         # Ask the library for its canonical filename; if it exposes one, use
         # it, otherwise derive a conservative default.

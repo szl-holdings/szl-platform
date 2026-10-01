@@ -29,7 +29,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 from pydantic import BaseModel, Field
 
 from szl_estate import (
@@ -351,8 +351,10 @@ def _load_repo_records(out: Path) -> list[RepoMetadata]:
 
 def _render_repo_audit(audit: RepoAudit) -> str:
     """Render one repo's markdown from the bundled Jinja2 template."""
-    env = Environment(  # noqa: S701 — markdown output, not HTML; no escaping wanted
+    env = Environment(
         loader=FileSystemLoader(str(_TEMPLATE_DIR)),
+        # Markdown templates (.j2) render unescaped; any HTML/XML template would be escaped.
+        autoescape=select_autoescape(enabled_extensions=("html", "htm", "xml"), default=False),
         keep_trailing_newline=True,
     )
     template = env.get_template("REPO_AUDIT.j2")

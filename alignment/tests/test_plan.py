@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 from szl_alignment.inspect import inspect_repo
@@ -98,7 +99,7 @@ def test_fix_forbidden_per_true_violation(command_lab_repo: Path) -> None:
         assert fix.needs_review is True
         assert fix.template == ""
         assert "MUST be reviewed" in fix.reason
-        assert "a-11-oy.com" in fix.reason
+        assert re.search(r"\ba-11-oy\.com\b", fix.reason)
     assert {f.path for f in fixes} == {
         "src/lib/publish.ts",
         "src/data/publish-map.json",
