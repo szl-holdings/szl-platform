@@ -64,4 +64,7 @@ it.
 Start with `packages/szl-receipts/README.md`. Everything else in the tree composes that
 one primitive. All packages: Python ≥ 3.11, typed, ruff-clean, tested offline.
 
+For the current solo-maintainer merge controls and how to verify them, see
+[`docs/CHANGE_CONTROL.md`](docs/CHANGE_CONTROL.md).
+
 License: Apache-2.0 unless a package states otherwise. See `LICENSE`.
