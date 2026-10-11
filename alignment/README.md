@@ -7,6 +7,8 @@ to one standard — the *"every repo fully styled"* layer:
 
 - **One header** — every README carries the doctrine header
   (`templates/README_HEADER.md`, idempotency marker `<!-- szl:header v1 -->`).
+  The current template uses the approved native Orbit v2 icon at an immutable
+  `szl-brand` revision, with plain product, proof and organization navigation.
 - **One security policy** — every repo ships `SECURITY.md`
   (`templates/SECURITY.md`).
 - **One CI gate** — every repo runs the release-blocking forbidden-domain
@@ -73,7 +75,8 @@ alignment/
 ├── README.md                  ← this file
 ├── pyproject.toml             ← package szl-alignment (src layout)
 ├── templates/                 ← drop-in governance files + workflows
-│   ├── README_HEADER.md       ← doctrine header (badges row + links)
+│   ├── README_HEADER.md       ← native Orbit identity, doctrine and navigation
+│   ├── README_HEADER.source.json ← immutable artwork provenance and placement
 │   ├── SECURITY.md            ← disclosure policy, supported versions, receipts
 │   ├── CONTRIBUTING.md        ← szl/<change> branches, conventional commits, sign-off
 │   ├── CODE_OF_CONDUCT.md
@@ -98,3 +101,22 @@ source checkout and editable installs); override with the
 `make align-inspect / align-plan / align-check` targets. It is **adopted
 manually** (merged into an existing Makefile by a human), never auto-planned:
 tooling must not clobber build files.
+
+## README identity and migration
+
+The header's 32 px icon is the approved small Orbit v2 cut, not a shrunken
+master. Its own paragraph provides separation from the title and doctrine;
+keep at least 8 px clear space on every side when placing it in another
+renderer. The source record pins its exact bytes and the authoritative suite
+rules. The mark identifies SZL Holdings; it carries no runtime or evidence
+verdict. Existing CI and release badges belong to their repository and stay
+outside this identity block.
+
+The v1 ownership marker remains compatible with the current inspector and
+planner. Existing marked headers and hand-maintained doctrine leads are still
+skipped by the alignment engine. This template update does not rewrite them
+or create another publisher. Reviewed consumer migrations may replace only
+the complete managed block, preserving all bytes outside it. For an unmarked
+README, choose the insertion boundary after inspecting its metadata, notices,
+protected lead and source-owned regions; record the before/after body hashes.
+Do not use a blanket insertion to move a protected lead or technical quickstart.
