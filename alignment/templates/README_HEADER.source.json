@@ -1,0 +1,20 @@
+{
+  "schema": "szl.readme-identity-source/v1",
+  "scope": "STATIC_PRESENTATION_ONLY",
+  "template": "README_HEADER.md",
+  "compatibility_marker": "<!-- szl:header v1 -->",
+  "brand": {
+    "repository": "szl-holdings/szl-brand",
+    "revision": "4309f6fce89179331b0b3ed8c99494e76c5be256",
+    "path": "kit/logos/orbit-v2/suite/szl-icon-32.svg",
+    "sha256": "6e2b7d72a3af3d9602b79de41df0194ede6496a9661f057108ec224c0efc92e6",
+    "placement_rules": "kit/logos/orbit-v2/suite/README.md",
+    "rendered_size_px": 32,
+    "minimum_clear_space_px": 8
+  },
+  "claims": {
+    "runtime_status": "NOT_ASSESSED",
+    "publication_status": "NOT_ATTESTED",
+    "technical_body_mutation": false
+  }
+}
