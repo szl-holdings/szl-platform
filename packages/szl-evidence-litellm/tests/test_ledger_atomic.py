@@ -156,6 +156,6 @@ def test_windows_sharing_violation_is_retried(sink_dir, policy, monkeypatch):
 def test_replace_keeps_the_ledger_mode(sink_dir, policy):
     sink = _sink(sink_dir, policy)
     sink._persist_batch(_batch(policy, "first"))
-    os.chmod(sink.log_path, 0o640)
+    os.chmod(sink.log_path, 0o600)
     sink._persist_batch(_batch(policy, "second"))
-    assert (sink.log_path.stat().st_mode & 0o777) == 0o640
+    assert (sink.log_path.stat().st_mode & 0o777) == 0o600
