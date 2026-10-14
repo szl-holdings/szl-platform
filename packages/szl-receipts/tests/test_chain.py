@@ -8,6 +8,7 @@ import copy
 
 import pytest
 from szl_receipts.chain import append, entry_digest_for, verify_chain
+from szl_receipts.receipt import compute_receipt_id, verify_receipt
 
 
 def _build_chain(make_receipt, n=5):
@@ -44,6 +45,130 @@ class TestConstruction:
 
 
 class TestAttacks:
+    @pytest.mark.parametrize("index", [0, 1, 2])
+    def test_stale_receipt_id_rejects_even_with_recomputed_entry_digest(self, make_receipt, index):
+        chain = _build_chain(make_receipt, 3)
+        chain[index]["receipt"]["actor"] = "changed-actor"
+        # Recompute the outer chain from the edit onward, leaving only the
+        # inner receipt identity stale. This is a consistency test, not a
+        # bypass of an authoritative external head anchor.
+        for i in range(index, len(chain)):
+            entry = chain[i]
+            entry["prev"] = chain[i - 1]["entry_digest"] if i else None
+            entry["entry_digest"] = entry_digest_for(entry["seq"], entry["receipt"], entry["prev"])
+
+        receipt_findings = verify_receipt(chain[index]["receipt"])
+        assert len(receipt_findings) == 1 and "receipt_id mismatch" in receipt_findings[0]
+        report = verify_chain(chain)
+        assert report.ok is False
+        assert report.findings == [{
+            "code": "invalid-receipt",
+            "message": f"seq {index + 1}: {receipt_findings[0]}",
+            "seq": index + 1,
+            "index": index,
+        }]
+
+    @pytest.mark.parametrize("substitute", ["other-receipt", "zeros", "uppercase", "not-hex"])
+    def test_substituted_receipt_id_rejects_even_with_recomputed_outer_chain(
+        self, make_receipt, substitute
+    ):
+        # The body is untouched; only the declared receipt_id is swapped, and
+        # the whole outer chain is rehashed so digest and linkage agree.
+        chain = _build_chain(make_receipt, 2)
+        receipt = chain[0]["receipt"]
+        receipt["receipt_id"] = {
+            "other-receipt": chain[1]["receipt"]["receipt_id"],
+            "zeros": "0" * 64,
+            "uppercase": receipt["receipt_id"].upper(),
+            "not-hex": "not-a-receipt-id",
+        }[substitute]
+        for i, entry in enumerate(chain):
+            entry["prev"] = chain[i - 1]["entry_digest"] if i else None
+            entry["entry_digest"] = entry_digest_for(entry["seq"], entry["receipt"], entry["prev"])
+
+        report = verify_chain(chain)
+        assert report.ok is False
+        assert [f["code"] for f in report.findings] == ["invalid-receipt"]
+        assert report.findings[0]["seq"] == 1
+        assert report.findings[0]["index"] == 0
+        assert "receipt_id" in report.findings[0]["message"]
+
+    @pytest.mark.parametrize("receipt", [None, [], [{}], "receipt", False, True, 7, 7.5])
+    def test_well_hashed_non_object_receipt_is_malformed(self, receipt):
+        entry = {"seq": 1, "receipt": receipt, "prev": None}
+        entry["entry_digest"] = entry_digest_for(1, receipt, None)
+        report = verify_chain([entry])
+        assert report.ok is False
+        assert len(report.findings) == 1
+        assert report.findings[0]["code"] == "malformed-entry"
+        assert report.findings[0]["index"] == 0
+        assert "receipt must be an object" in report.findings[0]["message"]
+
+    @pytest.mark.parametrize("bad,code", [
+        (None, "malformed-entry"),
+        (["not", "an", "object"], "malformed-entry"),
+        ("receipt", "malformed-entry"),
+        ({}, "invalid-receipt"),
+        ({"receipt_type": "GovernedAction/v1"}, "invalid-receipt"),
+    ])
+    def test_bad_inner_receipt_mid_chain_rejects_despite_relinked_outer_chain(
+        self, make_receipt, bad, code
+    ):
+        # Swap a mid-chain receipt for a non-object or schema-invalid value and
+        # rehash every entry from there on, so each entry_digest and prev link
+        # agrees. Only the inner receipt check can catch this.
+        chain = _build_chain(make_receipt, 3)
+        chain[1]["receipt"] = copy.deepcopy(bad)
+        for i in range(1, len(chain)):
+            entry = chain[i]
+            entry["prev"] = chain[i - 1]["entry_digest"]
+            entry["entry_digest"] = entry_digest_for(entry["seq"], entry["receipt"], entry["prev"])
+
+        report = verify_chain(chain)
+        assert report.ok is False
+        assert report.findings, "a bad inner receipt must not verify clean"
+        assert {f["code"] for f in report.findings} == {code}
+        assert {(f["seq"], f["index"]) for f in report.findings} == {(2, 1)}
+        assert report.head == chain[-1]["entry_digest"]
+
+    @pytest.mark.parametrize("receipt", [{}, {"receipt_type": "GovernedAction/v1"}])
+    def test_well_hashed_receipt_with_missing_fields_is_invalid(self, receipt):
+        entry = {"seq": 1, "receipt": receipt, "prev": None}
+        entry["entry_digest"] = entry_digest_for(1, receipt, None)
+        report = verify_chain([entry])
+        assert report.ok is False
+        expected = verify_receipt(receipt)
+        assert len(report.findings) == len(expected)
+        assert all(f["code"] == "invalid-receipt" for f in report.findings)
+        assert [f["message"] for f in report.findings] == [f"seq 1: {f}" for f in expected]
+
+    @pytest.mark.parametrize("field,value", [
+        ("actor", None), ("policy", []), ("decision", False),
+        ("subjects", [None]), ("evidence", ["evidence"]),
+    ])
+    def test_self_consistent_receipt_with_invalid_nested_data_rejects(
+        self, make_receipt, field, value
+    ):
+        receipt = make_receipt()
+        receipt[field] = value
+        receipt["receipt_id"] = compute_receipt_id(receipt)
+        entry = {"seq": 1, "receipt": receipt, "prev": None}
+        entry["entry_digest"] = entry_digest_for(1, receipt, None)
+        report = verify_chain([entry])
+        assert report.ok is False
+        assert all(f["code"] == "invalid-receipt" for f in report.findings)
+
+    @pytest.mark.parametrize("seq", [2, 7, 1000])
+    def test_complete_chain_must_start_at_sequence_one(self, make_receipt, seq):
+        entry = {"seq": seq, "receipt": make_receipt(), "prev": None}
+        entry["entry_digest"] = entry_digest_for(seq, entry["receipt"], None)
+        report = verify_chain([entry])
+        assert report.ok is False
+        assert len(report.findings) == 1
+        assert report.findings[0]["code"] == "genesis-seq-not-one"
+        assert report.findings[0]["seq"] == seq
+        assert report.findings[0]["index"] == 0
+
     def test_truncation_detected_via_anchor(self, make_receipt):
         chain = _build_chain(make_receipt, 5)
         truncated = chain[:3]  # attacker drops the newest entries
@@ -143,3 +268,9 @@ class TestAttacks:
         assert report.ok is True
         assert report.length == 0
         assert report.head is None
+
+    def test_empty_chain_fails_nonempty_external_anchors(self, make_receipt):
+        chain = _build_chain(make_receipt, 1)
+        report = verify_chain([], expected_entries=1, expected_head=chain[0]["entry_digest"])
+        assert report.ok is False
+        assert {f["code"] for f in report.findings} == {"truncated", "head-mismatch"}
