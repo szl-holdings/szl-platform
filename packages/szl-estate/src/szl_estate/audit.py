@@ -42,6 +42,7 @@ from szl_estate import (
 from szl_estate.enumerate import EnumerationError, enumerate_org
 
 _TEMPLATE_DIR = Path(__file__).resolve().parent / "templates"
+MAX_PR_PAGES = 100
 
 #: Stable column order for REPOSITORY_MATRIX.csv. Investors diff this file
 #: between runs; column order is therefore part of the contract.
@@ -126,25 +127,41 @@ def _run_gh(cmd: list[str]) -> subprocess.CompletedProcess[str]:
 
 
 def probe_open_prs(org: str, name: str) -> ProbeResult:
-    """Open PR count via `gh pr list`. UNKNOWN on any failure — never 0."""
-    try:
-        proc = _run_gh(
-            ["gh", "pr", "list", "-R", f"{org}/{name}", "--state", "open", "--json", "number"]
-        )
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        return ProbeResult(error=f"open-PR probe could not run: {exc}")
-    if proc.returncode != 0:
-        return ProbeResult(
-            error=f"gh pr list exited {proc.returncode}: {proc.stderr.strip()[:300]}"
-        )
-    try:
-        data = json.loads(proc.stdout)
-    except json.JSONDecodeError as exc:
-        return ProbeResult(error=f"gh pr list returned invalid JSON: {exc}")
-    if not isinstance(data, list):
-        return ProbeResult(error=f"gh pr list returned {type(data).__name__}, expected list")
-    # The one number we may report: the length of a list we just parsed.
-    return ProbeResult(value=len(data))
+    """Count a complete bounded PR inventory; never report a capped CLI list."""
+    seen: set[int] = set()
+    for page in range(1, MAX_PR_PAGES + 1):
+        endpoint = f"repos/{org}/{name}/pulls?state=open&per_page=100&page={page}"
+        try:
+            proc = _run_gh(["gh", "api", endpoint])
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            return ProbeResult(error=f"open-PR probe could not run page {page}: {exc}")
+        if proc.returncode != 0:
+            return ProbeResult(
+                error=f"open-PR page {page} exited {proc.returncode}: {proc.stderr.strip()[:300]}"
+            )
+        try:
+            data = json.loads(proc.stdout)
+        except json.JSONDecodeError as exc:
+            return ProbeResult(error=f"open-PR page {page} returned invalid JSON: {exc}")
+        if not isinstance(data, list) or len(data) > 100:
+            return ProbeResult(error=f"open-PR page {page} must be a list of at most 100 PRs")
+        for item in data:
+            if (
+                not isinstance(item, dict)
+                or type(item.get("number")) is not int
+                or item["number"] <= 0
+                or item.get("state") != "open"
+            ):
+                return ProbeResult(error=f"open-PR page {page} contains an invalid PR record")
+            number = item["number"]
+            if number in seen:
+                return ProbeResult(
+                    error=f"open-PR page {page} repeats PR {number}; inventory moved"
+                )
+            seen.add(number)
+        if len(data) < 100:
+            return ProbeResult(value=len(seen))
+    return ProbeResult(error=f"open-PR inventory exceeds discovery bound of {MAX_PR_PAGES} pages")
 
 
 def probe_ci_latest(org: str, name: str) -> ProbeResult:

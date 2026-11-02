@@ -146,7 +146,7 @@ class TestUnknownPropagation:
     def test_forbidden_link_finding_is_critical(self, monkeypatch: pytest.MonkeyPatch) -> None:
         def routing(cmd):  # noqa: ANN001, ANN202
             joined = " ".join(cmd)
-            if "pr" in cmd:
+            if any("/pulls?" in arg for arg in cmd):
                 return FakeProc(stdout="[]")
             if "run" in cmd:
                 return FakeProc(stdout='[{"conclusion": "success", "createdAt": "2026-08-30"}]')
@@ -169,8 +169,10 @@ class TestUnknownPropagation:
         self, monkeypatch: pytest.MonkeyPatch
     ) -> None:
         def routing(cmd):  # noqa: ANN001, ANN202
-            if "pr" in cmd:
-                return FakeProc(stdout=json.dumps([{"number": 1}, {"number": 2}, {"number": 3}]))
+            if any("/pulls?" in arg for arg in cmd):
+                return FakeProc(
+                    stdout=json.dumps([{"number": n, "state": "open"} for n in (1, 2, 3)])
+                )
             return FakeProc(returncode=1, stderr="boom")
 
         monkeypatch.setattr(audit, "_run_gh", routing)
@@ -217,7 +219,7 @@ def test_summary_lists_critical_first(tmp_path: Path, monkeypatch: pytest.Monkey
 
     def routing(cmd):  # noqa: ANN001, ANN202
         joined = " ".join(cmd)
-        if "pr" in cmd:
+        if any("/pulls?" in arg for arg in cmd):
             return FakeProc(stdout="[]")
         if "run" in cmd:
             return FakeProc(stdout='[{"conclusion": "failure", "createdAt": "2026-08-30"}]')
