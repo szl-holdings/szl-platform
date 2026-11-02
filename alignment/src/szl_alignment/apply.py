@@ -22,10 +22,11 @@ from __future__ import annotations
 
 import difflib
 import os
+import stat
 import subprocess  # noqa: S404 — subprocess is the only supported git transport
 from dataclasses import dataclass, field
 from enum import StrEnum
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 from szl_alignment.const import (
     ALIGNMENT_BRANCH,
@@ -84,6 +85,39 @@ class ApplyError(RuntimeError):
     """Refusal to apply (dirty tree, detached on default branch, git missing...).
 
     Never silently papered over: a refused apply is itself evidence."""
+
+
+def _safe_target(repo: Path, relative: str) -> Path:
+    """Reject unsafe plan targets before reading content or changing branches.
+
+    Plans use repository-relative POSIX paths. Existing links are not editable
+    alignment surfaces, even when they point back inside the repository.
+    This is a worktree preflight, not a sandbox against concurrent filesystem
+    mutation; callers must retain exclusive ownership of the worktree.
+    """
+    if (
+        not isinstance(relative, str)
+        or "\x00" in relative
+        or "\\" in relative
+        or PureWindowsPath(relative).drive
+        or any(part in {"", ".", ".."} for part in relative.split("/"))
+        or relative.split("/")[0].casefold() == ".git"
+    ):
+        raise ApplyError(f"unsafe alignment path: {relative!r}")
+    target = repo
+    parts = relative.split("/")
+    for index, part in enumerate(parts):
+        target = target / part
+        try:
+            mode = target.lstat().st_mode
+        except FileNotFoundError:
+            continue
+        except OSError as exc:
+            raise ApplyError(f"unsafe alignment path: {relative!r}: {exc}") from exc
+        expected = stat.S_ISREG if index == len(parts) - 1 else stat.S_ISDIR
+        if not expected(mode):
+            raise ApplyError(f"unsafe alignment path: {relative!r}: not a regular worktree path")
+    return target
 
 
 # ---------------------------------------------------------------------------
@@ -145,12 +179,12 @@ def _compute_change(
     """
     note_prefix_skip = "SKIP: "
     note_prefix_review = "NEEDS_REVIEW: "
+    target = _safe_target(repo, action.path)
 
     if action.kind is ActionKind.FIX_FORBIDDEN:
         # Prepared, never written: the correct fix (replace with a-11-oy.com
         # vs remove) is a context decision only a human can make.
         old = None
-        target = repo / action.path
         try:
             old = target.read_text(encoding="utf-8", errors="replace")
         except OSError:
@@ -174,6 +208,7 @@ def _compute_change(
             return action, None, new_text, (
                 "no README found — seeding README.md with the doctrine header"
             )
+        readme_path = _safe_target(repo, readme_path.relative_to(repo).as_posix())
         old_text = readme_path.read_text(encoding="utf-8", errors="replace")
         if HEADER_MARKER in old_text:
             return action, None, None, (
@@ -189,7 +224,6 @@ def _compute_change(
         return action, old_text, new_text, "insert doctrine header after first H1"
 
     if action.kind in {ActionKind.ADD_FILE, ActionKind.ADD_WORKFLOW}:
-        target = repo / action.path
         if target.exists():
             existing = target.read_text(encoding="utf-8", errors="replace")
             if existing == template:
@@ -430,14 +464,15 @@ def apply_plan(
         # to reason about and guarantees what we write is what we diffed
         effective, _, new, note = _compute_change(repo, item.action)
         item.action = effective
-        target = repo / effective.path
-        target.parent.mkdir(parents=True, exist_ok=True)
         if new is None:
             # became a skip between compute and write (e.g. another path shot first)
             item.status = ApplyStatus.SKIPPED
             item.detail = note.removeprefix("SKIP: ").removeprefix("NEEDS_REVIEW: ")
             item.diff = ""
             continue
+        target = _safe_target(repo, effective.path)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target = _safe_target(repo, effective.path)
         target.write_text(new, encoding="utf-8")
 
     result.commit_sha = _commit(repo, [i.action for i in result.items])
