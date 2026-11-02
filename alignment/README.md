@@ -56,6 +56,11 @@ Every command supports `--help`; `inspect`/`plan`/`apply` support `--json`.
 ## Safety contract
 
 - Dry-run by default; `--apply` is required to change anything.
+- Plan targets must be repository-relative POSIX paths. Parent traversal,
+  Git metadata paths, symlinks (including dangling links and linked parents),
+  and nonregular target files are rejected before content reads or branch changes.
+  The worktree must remain exclusively owned during apply; this preflight is
+  not a sandbox against another process replacing paths concurrently.
 - Never touches the default branch: real applies happen on `szl/alignment-v14`
   and the tool aborts if it somehow lands on `main`/`master`.
 - Never force-pushes, never deletes files, never overwrites an existing file
