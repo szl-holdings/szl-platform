@@ -25,6 +25,7 @@ head digest out-of-band).
 
 from __future__ import annotations
 
+from copy import deepcopy
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -53,8 +54,11 @@ def append(chain: list[dict[str, Any]], receipt: dict[str, Any]) -> dict[str, An
 
     The chain is an in-memory list of entry dicts; persistence (one JSON file
     per entry, a JSONL stream, …) is the caller's choice. The receipt is
-    validated before it touches the chain: a chain containing an invalid
-    receipt is a chain that lies with confidence, so append refuses.
+    snapshotted and validated before it touches the chain, so later changes
+    to the caller's receipt cannot rewrite already-admitted history. The
+    returned entry is still the entry stored in the caller-owned chain;
+    direct edits to either remain detectable by verify_chain. This does not
+    provide an atomic snapshot against concurrent caller mutation.
 
     Raises ValueError listing verification findings if the receipt is
     invalid — that is programmer/workflow error, since receipts should be
@@ -62,6 +66,7 @@ def append(chain: list[dict[str, Any]], receipt: dict[str, Any]) -> dict[str, An
     """
     if not isinstance(chain, list):
         raise TypeError("chain must be a list of entry dicts")
+    receipt = deepcopy(receipt)
     findings = verify_receipt(receipt)
     if findings:
         raise ValueError(
