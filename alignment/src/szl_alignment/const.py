@@ -27,9 +27,14 @@ FORBIDDEN_PATTERN = r"(?<!-)a11oy\.com"
 FORBIDDEN_RE = re.compile(FORBIDDEN_PATTERN)
 
 # A forbidden-regex hit is ALLOWED when the same line is a prohibition/guard
-# context — doctrine notes, blocklist entries, guard assertions.
+# context — doctrine notes, blocklist entries, guard assertions, and the
+# estate's documented disavowals ("do not treat", "do not add", "not
+# affiliated"; added to the workflow gate in d82d6d7 so negative-control copy
+# on proof surfaces is not flagged as promotion). The workflow template must
+# carry this exact alternation; tests/test_forbidden_domain_template.py checks.
 ALLOWLIST_PATTERN = (
     r"never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist"
+    r"|do not treat|do not add|not affiliated"
 )
 ALLOWLIST_RE = re.compile(ALLOWLIST_PATTERN, re.IGNORECASE)
 

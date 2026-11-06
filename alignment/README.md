@@ -30,15 +30,24 @@ A line matching the forbidden regex is **allowed** when it is a
 prohibition/guard context — i.e. the same line also matches:
 
 ```text
-/(never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist)/i
+/(never|forbidden|not in|assertNotIn|does not appear|is not a surface|blocklist|do not treat|do not add|not affiliated)/i
 ```
 
 ("never use the forbidden domain", `assertNotIn(...)` guards, "is not a
-surface of this project", blocklist entries). This classification was
-validated on the live org. Guard lines are counted as `guard_mentions`;
-everything else is a true violation and becomes a `FIX_FORBIDDEN` action —
-**prepared as a diff, flagged NEEDS_REVIEW, never auto-applied** (the right
-fix — replace with `a-11-oy.com` or remove — is a human decision).
+surface of this project", blocklist entries, and documented disavowals such
+as "not affiliated"). This classification was validated on the live org.
+Guard lines are counted as `guard_mentions`; everything else is a true
+violation and becomes a `FIX_FORBIDDEN` action — **prepared as a diff,
+flagged NEEDS_REVIEW, never auto-applied** (the right fix — replace with
+`a-11-oy.com` or remove — is a human decision).
+
+The workflow template (`templates/workflows/forbidden-domain.yml`) runs the
+same rule with GNU grep and **fails closed**: a scanner error (grep exit > 1,
+or the tool missing) stops the gate instead of reporting clean.
+`tests/test_forbidden_domain_template.py` executes the template's scan script
+and checks that its pattern and guard list equal `szl_alignment.const`.
+`apply` never overwrites an existing workflow file, so a repo that already
+carries an older copy of the gate has to be updated by hand.
 
 ## Usage
 
