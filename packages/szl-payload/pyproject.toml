@@ -29,8 +29,14 @@ dependencies = [
 ]
 classifiers = ["Private :: Do Not Upload"]
 
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform/tree/main/packages/szl-payload"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
+
 [project.optional-dependencies]
 dev = ["pytest"]
+test = ["pytest"]
 
 [project.scripts]
 szl-payload = "szl_payload.cli:main"

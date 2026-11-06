@@ -1,7 +1,7 @@
 # szl-alignment — the org alignment engine for the szl-holdings estate.
 # Independently installable: pip install -e alignment/
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -10,9 +10,17 @@ version = "14.0.0"
 description = "szl-holdings org alignment engine: inspect, plan, apply, and report repo governance alignment across the estate."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
 authors = [{ name = "SZL Holdings" }]
 classifiers = ["Private :: Do Not Upload"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform/tree/main/alignment"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
 
 [project.scripts]
 szl-alignment = "szl_alignment.cli:main"

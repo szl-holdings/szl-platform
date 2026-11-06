@@ -7,7 +7,7 @@ PY ?= python3
 # It is not published to any index, so it must be editable-installed FIRST.
 PACKAGES := packages/szl-receipts $(filter-out packages/szl-receipts,$(wildcard packages/*)) alignment
 
-.PHONY: install test lint verify audit doctor clean
+.PHONY: install test lint verify idempotent audit doctor clean
 
 ## install: editable-install every package that has a pyproject.toml
 install:
@@ -28,9 +28,10 @@ test:
 		fi; \
 	done; exit $$fail
 
-## lint: ruff across all packages
+## lint: ruff across every installable package (packages/* and alignment/;
+## each directory's own pyproject.toml config applies)
 lint:
-	$(PY) -m ruff check packages
+	$(PY) -m ruff check packages alignment
 
 ## verify: receipts must verify, payload must rebuild byte-identical
 verify: test
@@ -44,13 +45,19 @@ idempotent:
 		$(PY) -m szl_payload.build --root packages/szl-payload && diff -q /tmp/_p1.md packages/szl-payload/dist/SZL_MASTER_PAYLOAD_V14.md; \
 	else echo "szl-payload not present yet"; fi
 
-## audit: read-only estate audit (requires GH_TOKEN in env)
+## audit: read-only estate audit (requires GH_TOKEN in env). Findings are
+## audit output and still exit 0; a non-zero exit means the audit itself broke.
+## Rewrites the committed snapshot under artifacts/audits.
 audit:
-	$(PY) -m szl_estate.audit --org szl-holdings --out artifacts/audits || true
+	$(PY) -m szl_estate.audit --org szl-holdings --out artifacts/audits
 
-## doctor: environment, credentials, DNS, tunnels — exits non-zero on FATAL
+## doctor: environment, credentials, DNS, tunnels — exits 1 if any check is FAIL.
+## To run every daily target even after a FAIL: make -k doctor audit verify
 doctor:
-	@$(PY) -m szl_estate.doctor || true
+	@$(PY) -m szl_estate.doctor
 
+## clean: remove build/test caches only — never tracked files (artifacts/ is
+## committed evidence; regenerate it with `make audit`, do not delete it)
 clean:
-	rm -rf dist artifacts/audits .pytest_cache **/__pycache__
+	rm -rf packages/szl-payload/dist .pytest_cache .ruff_cache
+	find . -path ./.git -prune -o -type d \( -name __pycache__ -o -name .pytest_cache \) -exec rm -rf {} +

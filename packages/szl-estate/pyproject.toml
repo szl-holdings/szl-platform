@@ -7,7 +7,7 @@
 # pyproject.toml; this file intentionally carries no [tool.ruff] section so the
 # root lint policy (E, F, I, W, UP, B, S) applies verbatim to this package.
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -16,7 +16,7 @@ version = "0.1.0"
 description = "Estate control plane: two-source GitHub org enumeration that must agree, per-repo audits, environment doctor, and claim re-computation. UNKNOWN is never PASS."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
 authors = [{ name = "SZL Holdings" }]
 keywords = ["governance", "audit", "github", "receipts", "szl-holdings"]
 dependencies = [
@@ -27,8 +27,14 @@ dependencies = [
 ]
 classifiers = ["Private :: Do Not Upload"]
 
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform/tree/main/packages/szl-estate"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
+
 [project.optional-dependencies]
 dev = ["pytest"]
+test = ["pytest"]
 
 [project.scripts]
 szl-estate = "szl_estate.cli:main"
