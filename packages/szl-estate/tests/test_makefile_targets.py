@@ -1,3 +1,6 @@
+"""Contract checks for the root Makefile's failure propagation."""
+
+
 from __future__ import annotations
 
 from pathlib import Path
