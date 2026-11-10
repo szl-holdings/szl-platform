@@ -51,6 +51,7 @@ import stat
 import threading
 import time
 from collections.abc import Iterator
+from copy import deepcopy
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
@@ -184,10 +185,16 @@ class EvidenceSink:
     def enqueue(self, pending: PendingReceipt) -> None:
         """Synchronously queue a signed receipt for persistence. Never blocks.
 
+        The queue owns a snapshot of the receipt and evidence document, so
+        caller edits after this method returns cannot change accepted payloads.
+        Copying is synchronous, not atomic against simultaneous caller mutation;
+        a copy failure propagates before any queue or worker is created.
+
         FAIL_CLOSED + full queue → :class:`EvidenceBackpressure`.
         FAIL_OPEN   + full queue → drop, count it, and log it loudly once
         per drop-streak. Both outcomes are explicit; there is no third.
         """
+        pending = deepcopy(pending)
         try:
             asyncio.get_running_loop()
         except RuntimeError:
