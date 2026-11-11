@@ -193,7 +193,10 @@ class EvidenceSink:
         FAIL_CLOSED + full queue → :class:`EvidenceBackpressure`.
         FAIL_OPEN   + full queue → drop, count it, and log it loudly once
         per drop-streak. Both outcomes are explicit; there is no third.
+        Read-only sinks reject before copying payloads or starting a writer.
         """
+        if self.read_only:
+            raise RuntimeError("read-only sinks inspect; they do not accept receipts")
         pending = deepcopy(pending)
         try:
             asyncio.get_running_loop()
