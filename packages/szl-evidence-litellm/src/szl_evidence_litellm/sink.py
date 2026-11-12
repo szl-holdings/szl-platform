@@ -419,7 +419,18 @@ class EvidenceSink:
             batch = [first]
             while len(batch) < self.batch_size and not queue.empty():
                 batch.append(queue.get_nowait())
-            await asyncio.to_thread(self._persist_batch, batch)
+            # The batch is off the queue, so it is owed to the ledger. aclose()
+            # cancels this task; cancelling the to_thread future directly would
+            # also cancel a persist job the executor has not started, and
+            # aclose() would then see an empty queue and return with these
+            # receipts gone and dropped_counter still 0. Shield the job and
+            # finish it before honouring the cancel.
+            persist = asyncio.ensure_future(asyncio.to_thread(self._persist_batch, batch))
+            try:
+                await asyncio.shield(persist)
+            except asyncio.CancelledError:
+                await persist
+                raise
 
     def _persist_until_empty(self) -> None:
         queue = self._queue

@@ -65,7 +65,7 @@ Full evidence with citations: `docs/COMPETITIVE_TEARDOWN.md`.
 
 ## 5. Standing operating loop (this is the cadence, not a roadmap)
 
-- **Daily:** `make doctor audit verify` in this repo. Any FAIL/DRIFT is the day's first work item.
+- **Daily:** `make -k doctor audit verify` in this repo (`-k` runs all three even after a FAIL; make still exits non-zero). Any FAIL/DRIFT is the day's first work item.
 - **Weekly:** `python -m szl_adversarial run` — publish the report, pass or fail. `python -m szl_estate verify-claims` — the org README may never go stale again; the claims API serves the result.
 - **Per release:** forbidden-domain gate (`alignment/templates/workflows/forbidden-domain.yml`) runs on every PR org-wide.
 - **Per artifact:** no artifact without a receipt; unsigned artifacts are honestly named `*.unsigned.json`.

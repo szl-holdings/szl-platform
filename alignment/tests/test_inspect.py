@@ -174,6 +174,21 @@ def test_forbidden_assertnotin_line_is_guard(tmp_path: Path) -> None:
     assert scan.guard_mentions == 1
 
 
+def test_forbidden_documented_disavowals_are_guards(tmp_path: Path) -> None:
+    """The workflow gate accepts these since d82d6d7; the engine must agree."""
+    repo = _write_lines(
+        tmp_path,
+        [
+            "SZL Holdings is not affiliated with a11oy.com.",
+            "Do not treat a11oy.com as a canonical surface.",
+            "Do not add a11oy.com to any link map.",
+        ],
+    )
+    scan = scan_forbidden(repo)
+    assert scan.violations == []
+    assert scan.guard_mentions == 3
+
+
 def test_forbidden_mixed_lines(tmp_path: Path) -> None:
     repo = _write_lines(
         tmp_path,

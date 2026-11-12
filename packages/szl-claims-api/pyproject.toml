@@ -27,8 +27,14 @@ dependencies = [
 ]
 classifiers = ["Private :: Do Not Upload"]
 
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform/tree/main/packages/szl-claims-api"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
+
 [project.optional-dependencies]
 dev = ["pytest", "httpx"]
+test = ["pytest", "httpx"]
 
 [project.scripts]
 szl-claims-api = "szl_claims_api.cli:main"

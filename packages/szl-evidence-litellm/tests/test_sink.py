@@ -271,3 +271,43 @@ def test_async_enqueue_boots_flusher_without_explicit_start(tmp_path):
 
     asyncio.run(go())
     assert (tmp_path / "chain_head.json").exists()
+
+
+def test_aclose_persists_a_batch_the_flusher_already_dequeued(sink_dir, policy):
+    """Regression: aclose() cancelled the flusher while its persist job was
+    still queued on the executor, the job was cancelled with it, and a receipt
+    the flusher had already taken off the queue vanished with dropped == 0.
+    test_litellm_integration lost its terminal receipt this way in roughly one
+    run in six. Holding the only executor worker busy makes the race certain.
+    """
+    import asyncio
+    import threading
+    from concurrent.futures import ThreadPoolExecutor
+
+    from conftest import make_pending
+    from szl_evidence_litellm.sink import EvidenceSink
+
+    sink = EvidenceSink(sink_dir, policy=policy, flush_interval_s=0.05)
+    release = threading.Event()
+
+    async def scenario():
+        loop = asyncio.get_running_loop()
+        loop.set_default_executor(ThreadPoolExecutor(max_workers=1))
+        blocker = loop.run_in_executor(None, release.wait)  # occupy the only worker
+        await sink.start()
+        sink.enqueue(make_pending(policy))
+        for _ in range(1000):  # let the flusher dequeue the receipt and park on to_thread
+            await asyncio.sleep(0)
+            if sink._queue.empty():  # noqa: SLF001
+                break
+        assert sink._queue.empty(), "flusher never picked the receipt up"  # noqa: SLF001
+        closing = asyncio.create_task(sink.aclose())
+        for _ in range(20):  # aclose() cancels the flusher while the persist job waits
+            await asyncio.sleep(0)
+        release.set()
+        await blocker
+        await asyncio.wait_for(closing, timeout=10)
+
+    asyncio.run(scenario())
+    assert len(list(sink.iterate())) == 1, "a dequeued receipt was lost on aclose()"
+    assert sink.stats()["dropped_counter"] == 0
