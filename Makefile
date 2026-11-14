@@ -46,11 +46,11 @@ idempotent:
 
 ## audit: read-only estate audit (requires GH_TOKEN in env)
 audit:
-	$(PY) -m szl_estate.audit --org szl-holdings --out artifacts/audits || true
+	$(PY) -m szl_estate.audit --org szl-holdings --out artifacts/audits
 
 ## doctor: environment, credentials, DNS, tunnels — exits non-zero on FATAL
 doctor:
-	@$(PY) -m szl_estate.doctor || true
+	@$(PY) -m szl_estate.doctor
 
 clean:
 	rm -rf dist artifacts/audits .pytest_cache **/__pycache__
