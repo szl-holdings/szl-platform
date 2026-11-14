@@ -81,3 +81,5 @@ For the current solo-maintainer merge controls and how to verify them, see
 [`docs/CHANGE_CONTROL.md`](docs/CHANGE_CONTROL.md).
 
 License: Apache-2.0 unless a package states otherwise. See `LICENSE`.
+
+Estate on Hugging Face: models, datasets and Spaces are published under the [SZLHOLDINGS](https://huggingface.co/SZLHOLDINGS) org.
