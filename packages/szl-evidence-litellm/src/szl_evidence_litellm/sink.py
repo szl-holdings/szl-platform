@@ -1,4 +1,4 @@
-"""The evidence sink: sign synchronously, persist asynchronously, chain always.
+﻿"""The evidence sink: sign synchronously, persist asynchronously, chain always.
 
 Shape of the thing:
 
@@ -16,7 +16,7 @@ Shape of the thing:
   mid-batch leaves the previous ledger, never a truncated or torn one.
 * On restart the sink re-reads ``receipts.jsonl`` and offers it to
   :func:`szl_receipts.verify_chain`. **A corrupt on-disk chain refuses to
-  boot** — continuing to append onto a tampered tail would manufacture
+  boot** â€” continuing to append onto a tampered tail would manufacture
   false confidence. ``read_only=True`` opens the sink for inspection
   (``stats``, ``iterate``) without booting a flusher; verification that only
   reads should use :func:`verify_sink`, which needs no event loop at all.
@@ -31,11 +31,11 @@ never do.
 
 Files in the sink directory:
 
-* ``receipts.jsonl`` — one chain entry per line (append-only chain, replaced atomically)
-* ``evidence/<digest>.json`` — content-addressed evidence documents
-* ``bodies/<digest>.json`` — captured bodies, only when capture is enabled
-* ``chain_head.json`` — checkpoint {seq, entry_digest, entries} after each batch
-* ``drops.jsonl`` — one line per drop-streak, only when FAIL_OPEN drops occur
+* ``receipts.jsonl`` â€” one chain entry per line (append-only chain, replaced atomically)
+* ``evidence/<digest>.json`` â€” content-addressed evidence documents
+* ``bodies/<digest>.json`` â€” captured bodies, only when capture is enabled
+* ``chain_head.json`` â€” checkpoint {seq, entry_digest, entries} after each batch
+* ``drops.jsonl`` â€” one line per drop-streak, only when FAIL_OPEN drops occur
 """
 
 from __future__ import annotations
@@ -78,7 +78,7 @@ CHAIN_HEAD_FILE = "chain_head.json"
 DROPS_LOG_FILE = "drops.jsonl"
 
 #: Default bound on in-flight receipts. At ~2 KB per chained entry this is
-#: ~20 MB of queued evidence — enough to absorb a flusher stall, small enough
+#: ~20 MB of queued evidence â€” enough to absorb a flusher stall, small enough
 #: that a wedged sink cannot eat the process.
 DEFAULT_QUEUE_MAXSIZE = 10_000
 
@@ -190,8 +190,8 @@ class EvidenceSink:
         Copying is synchronous, not atomic against simultaneous caller mutation;
         a copy failure propagates before any queue or worker is created.
 
-        FAIL_CLOSED + full queue → :class:`EvidenceBackpressure`.
-        FAIL_OPEN   + full queue → drop, count it, and log it loudly once
+        FAIL_CLOSED + full queue â†’ :class:`EvidenceBackpressure`.
+        FAIL_OPEN   + full queue â†’ drop, count it, and log it loudly once
         per drop-streak. Both outcomes are explicit; there is no third.
         Read-only sinks reject before copying payloads or starting a writer.
         """
@@ -206,7 +206,7 @@ class EvidenceSink:
         queue = self._require_queue()
         # Self-healing invariant: enqueue on a running loop implies the flusher
         # is alive. Callers (LiteLLM hooks) must never need to remember to
-        # await start() — a silently unfired flusher is a receipt black hole.
+        # await start() â€” a silently unfired flusher is a receipt black hole.
         if self._flusher is None or self._flusher.done():
             self._flusher = asyncio.get_running_loop().create_task(
                 self._flush_loop(), name=f"szl-evidence-flusher:{self.directory}"
@@ -260,7 +260,7 @@ class EvidenceSink:
 
     def _worker_loop(self) -> None:
         """Batch-draining worker for the no-event-loop lane."""
-        assert self._tqueue is not None  # noqa: S101 — set before thread start
+        assert self._tqueue is not None  # noqa: S101 â€” set before thread start
         while not self._worker_stop.is_set():
             try:
                 first = self._tqueue.get(timeout=self.flush_interval_s)
@@ -281,7 +281,7 @@ class EvidenceSink:
             "event": "RECEIPT_DROPPED_FAIL_OPEN",
             "message": (
                 "evidence queue full; receipts are being dropped and counted. "
-                "This IS data loss in the audit trail — investigate the sink."
+                "This IS data loss in the audit trail â€” investigate the sink."
             ),
             "queue_maxsize": self.maxsize,
         }
@@ -297,7 +297,7 @@ class EvidenceSink:
         asyncio.Queues became loop-unbound in modern Python, so we track the
         owning loop ourselves: a sink reused across *different* loops (test
         harnesses do this) gets a fresh queue rather than silently mixing
-        loops — but within one loop the queue is created exactly once.
+        loops â€” but within one loop the queue is created exactly once.
         """
         loop = asyncio.get_running_loop()
         if self._queue is None or self._queue_loop is not loop:
@@ -413,7 +413,7 @@ class EvidenceSink:
         """Batch receipts (size `batch_size` or age `flush_interval_s`) and persist.
 
         The blocking file IO runs via ``asyncio.to_thread`` so the event loop
-        — which is usually the *user's LLM request loop* — never stalls on an
+        â€” which is usually the *user's LLM request loop* â€” never stalls on an
         fsync for the audit trail.
         """
         while True:
@@ -439,7 +439,7 @@ class EvidenceSink:
             try:
                 await asyncio.shield(persist)
             except asyncio.CancelledError:
-                persist_outcome = await persist
+                persist_outcome = await persist  # noqa: F841 - finish the in-flight persist before honouring the cancel
                 raise
 
     def _persist_until_empty(self) -> None:
@@ -458,7 +458,7 @@ class EvidenceSink:
         """Chain *batch* onto the tail in memory, then replace the ledger atomically.
 
         Returns the persisted count. The in-memory chain is read back fresh
-        from disk each batch — the ledger file is the single source of truth.
+        from disk each batch â€” the ledger file is the single source of truth.
         The full new ledger is written and fsynced to a temp file, then
         renamed over ``receipts.jsonl`` (:meth:`_replace_ledger`), so a crash
         at any point, including in the middle of this batch, leaves either
@@ -575,7 +575,7 @@ class EvidenceSink:
                     out.append(json.loads(line))
                 except json.JSONDecodeError as exc:
                     raise SinkBootError(
-                        f"{path}:{lineno}: unreadable chain line ({exc}) — "
+                        f"{path}:{lineno}: unreadable chain line ({exc}) â€” "
                         "the ledger may be torn; refusing to continue"
                     ) from exc
         return out
@@ -632,7 +632,7 @@ class EvidenceSink:
 def verify_sink(path: str | Path) -> dict[str, Any]:
     """Verify the on-disk chain at *path* and return a report dict.
 
-    Synchronous, loop-free, read-only — safe to call from a CLI or a health
+    Synchronous, loop-free, read-only â€” safe to call from a CLI or a health
     endpoint. ``ok`` mirrors :func:`szl_receipts.verify_chain`; the report is
     findings-rich so an auditor reads *which* attack pattern fired.
 
