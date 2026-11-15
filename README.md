@@ -142,3 +142,5 @@ What they do **not** establish:
 License: Apache-2.0 (`LICENSE`) unless a package states otherwise. Six package manifests
 (`szl-receipts`, `szl-payload`, `szl-adversarial`, `szl-beacon`, `szl-claims-api`,
 `szl-evidence-litellm`) currently declare `Proprietary`.
+License: Apache-2.0 unless a package states otherwise. See `LICENSE`.
+Estate on Hugging Face: models, datasets and Spaces are published under the [SZLHOLDINGS](https://huggingface.co/SZLHOLDINGS) org.
