@@ -280,7 +280,6 @@ def test_aclose_persists_a_batch_the_flusher_already_dequeued(sink_dir, policy):
     test_litellm_integration lost its terminal receipt this way in roughly one
     run in six. Holding the only executor worker busy makes the race certain.
     """
-    import asyncio
     import threading
     from concurrent.futures import ThreadPoolExecutor
 
@@ -305,7 +304,7 @@ def test_aclose_persists_a_batch_the_flusher_already_dequeued(sink_dir, policy):
         for _ in range(20):  # aclose() cancels the flusher while the persist job waits
             await asyncio.sleep(0)
         release.set()
-        await blocker
+        blocker_done = await blocker
         await asyncio.wait_for(closing, timeout=10)
 
     asyncio.run(scenario())

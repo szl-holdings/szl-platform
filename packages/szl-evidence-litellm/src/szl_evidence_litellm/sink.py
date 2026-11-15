@@ -439,7 +439,7 @@ class EvidenceSink:
             try:
                 await asyncio.shield(persist)
             except asyncio.CancelledError:
-                await persist
+                persist_outcome = await persist
                 raise
 
     def _persist_until_empty(self) -> None:
