@@ -304,7 +304,7 @@ def test_aclose_persists_a_batch_the_flusher_already_dequeued(sink_dir, policy):
         for _ in range(20):  # aclose() cancels the flusher while the persist job waits
             await asyncio.sleep(0)
         release.set()
-                assert await blocker  # the executor worker must finish before close
+        assert await blocker  # the executor worker must finish before close
         await asyncio.wait_for(closing, timeout=10)
 
     asyncio.run(scenario())

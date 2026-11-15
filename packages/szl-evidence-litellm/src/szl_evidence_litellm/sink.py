@@ -439,7 +439,7 @@ class EvidenceSink:
             try:
                 await asyncio.shield(persist)
             except asyncio.CancelledError:
-                                persisted = await persist
+                persisted = await persist
                 if persisted != len(batch):
                     raise RuntimeError("evidence sink: persist during cancel lost receipts") from None
                 raise
