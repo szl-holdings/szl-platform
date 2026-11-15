@@ -204,7 +204,7 @@ def plan_alignment(report: RepoReport) -> list[Action]:
                 template="workflows/forbidden-domain.yml",
                 reason=(
                     "every repo runs the release-blocking forbidden-domain gate "
-                    "(rg-based, prohibition/guard allowlist)"
+                    "(GNU grep, fail-closed, prohibition/guard allowlist)"
                 ),
             )
         )

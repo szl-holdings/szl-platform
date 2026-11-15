@@ -1,5 +1,10 @@
 # SZL Holdings — Competitive Teardown: Executive Summary
 
+> **Note (2026-11-06):** `../../research/` and `../../discovery/` are the author's working
+> directories. They are not part of this repository or of any public szl-holdings repository,
+> so the evidence-file references below are plain text rather than (dead) links. Inline URLs
+> to public sources are unaffected.
+
 *2026-08-31. Full version: `COMPETITIVE_TEARDOWN.md`. Every number below is sourced inline there.*
 
 **Verdict.** In all four surfaces scanned, tamper-evident per-decision receipts are unoccupied — simultaneously, by everyone, with dated evidence:
@@ -7,17 +12,17 @@
 1. **AI governance** (Credo AI, OneTrust, Trustible, Saidot, Holistic AI, IBM, ServiceNow, ModelOp,
    ValidMind, Fairly/Asenion): none ships hash-chained/signed decision records. Closest: ServiceNow's
    containment-scope "immutable audit trail" and Credo's per-use-case audit log — operational logs,
-   not receipts ([takeaway](../../research/governance_landscape.md), [ServiceNow](https://www.servicenow.com/docs/r/intelligent-experiences/gov-sec-exploring-ai-agent-containment.html?contentId=jzxBt0lbrJ5IwyZqoErLyA), [Credo](https://www.credo.ai/glossary/credo-ai-audit-trail)).
+   not receipts (takeaway: `research/governance_landscape.md` (unpublished), [ServiceNow](https://www.servicenow.com/docs/r/intelligent-experiences/gov-sec-exploring-ai-agent-containment.html?contentId=jzxBt0lbrJ5IwyZqoErLyA), [Credo](https://www.credo.ai/glossary/credo-ai-audit-trail)).
 2. **LLM gateways/observability** (LiteLLM, Kong AI, Envoy AI GW, Portkey, OpenRouter, Helicone,
    Langfuse, Braintrust, OpenLLMetry, Phoenix): none of the ten documents a tamper-evident request
-   log ([takeaway](../../research/gateway_landscape.md)).
+   log (takeaway: `research/gateway_landscape.md` (unpublished)).
 3. **AI silicon + HRoT** (Tenstorrent, Groq, Cerebras, Etched, d-Matrix, Positron, FuriosaAI, NVIDIA
    CC, Intel TDX, AMD SEV-SNP, Caliptra, OpenTitan): no shipping accelerator has per-inference receipts
    or a datapath policy gate; attestation is boot/session-scope; Caliptra's mailbox is control-plane-only
-   by spec; the IETF AIR draft is application-layer TEE software, not silicon ([takeaway](../../research/silicon_landscape.md), [Caliptra spec](https://chipsalliance.github.io/Caliptra/2.0/specification/HEAD/), [Datatracker](https://datatracker.ietf.org/doc/draft-tsyrulnikov-rats-attested-inference-receipt/)).
+   by spec; the IETF AIR draft is application-layer TEE software, not silicon (takeaway: `research/silicon_landscape.md` (unpublished), [Caliptra spec](https://chipsalliance.github.io/Caliptra/2.0/specification/HEAD/), [Datatracker](https://datatracker.ietf.org/doc/draft-tsyrulnikov-rats-attested-inference-receipt/)).
 4. **C-UAS + maritime** (Anduril, Dedrone/Axon, Fortem, Epirus, Shield AI, AeroVironment, Saildrone,
    Windward, HawkEye 360, Darkhive): nobody publishes tamper-evident engagement logging; Dedrone's
-   forensic exports are closest ([takeaway](../../research/cuas_maritime_landscape.md), [brochure](https://sandstormdefence.com/wp-content/uploads/2024/03/Dedrone-DroneTracker-Software-EN.pdf)).
+   forensic exports are closest (takeaway: `research/cuas_maritime_landscape.md` (unpublished), [brochure](https://sandstormdefence.com/wp-content/uploads/2024/03/Dedrone-DroneTracker-Software-EN.pdf)).
 
 **What we adopt.** Credo's policy-pack UX → `szl-iso42001`; ServiceNow's CMDB-tied inventory → `szl-estate`;
 IBM's auto-factsheets → `szl-receipts`; ModelOp's system of record → `szl-claims-api`. Five gateway patterns

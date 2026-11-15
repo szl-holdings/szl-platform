@@ -33,8 +33,14 @@ keywords = [
 dependencies = []
 classifiers = ["Private :: Do Not Upload"]
 
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform/tree/main/packages/szl-beacon"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
+
 [project.optional-dependencies]
 dev = ["pytest"]
+test = ["pytest"]
 
 [tool.setuptools]
 package-dir = { "" = "src" }

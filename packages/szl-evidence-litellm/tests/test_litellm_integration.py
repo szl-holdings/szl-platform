@@ -8,6 +8,7 @@ installed — the package never hard-depends on it.
 from __future__ import annotations
 
 import asyncio
+import time
 
 import pytest
 
@@ -62,6 +63,27 @@ def _install(logger):
     litellm.callbacks = [logger]
 
 
+async def _wait_for_terminal_receipt(logger, timeout_s: float = 10.0) -> None:
+    """Wait until the terminal success receipt has been handed to the sink.
+
+    LiteLLM delivers success callbacks from a background logging worker
+    (asyncio.create_task -> GLOBAL_LOGGING_WORKER), so acompletion() returns
+    before ``call_success`` is emitted; leaving asyncio.run() first would
+    cancel that callback. This test used to pass or fail on how long
+    aclose() happened to yield. (Its intermittent failures were a sink bug,
+    fixed in EvidenceSink._flush_loop and pinned by
+    test_sink.test_aclose_persists_a_batch_the_flusher_already_dequeued.)
+    ``_receipts_by_call`` is written only after the terminal receipt is
+    enqueued. The failure path emits its terminal receipt before
+    acompletion() raises and needs no wait.
+    """
+    deadline = time.monotonic() + timeout_s
+    while not logger._receipts_by_call:  # noqa: SLF001 — written after the terminal enqueue
+        if time.monotonic() > deadline:
+            raise AssertionError(f"no terminal LiteLLM callback within {timeout_s}s")
+        await asyncio.sleep(0.01)
+
+
 def test_acompletion_mock_response_produces_verifiable_receipt(sink_dir):
     """The money test: a real litellm call lands in the chain, and it verifies."""
     policy = make_policy()
@@ -76,6 +98,7 @@ def test_acompletion_mock_response_produces_verifiable_receipt(sink_dir):
             messages=[{"role": "user", "content": "say hello"}],
             mock_response="hello",
         )
+        await _wait_for_terminal_receipt(logger)
         await sink.aclose()
         return response
 

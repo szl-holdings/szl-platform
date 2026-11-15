@@ -3,7 +3,7 @@
 # package under packages/. Each package also has its own pyproject.toml and is
 # independently installable (pip install -e packages/<name>).
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -12,11 +12,17 @@ version = "14.0.0"
 description = "SZL Holdings governed-AI platform: receipts, payload builder, estate control plane, KIDS golden simulator, evidence plugins."
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "Apache-2.0" }
+license = "Apache-2.0"
 authors = [{ name = "SZL Holdings" }]
 
 # The root project ships no code itself; it exists to anchor shared tool config.
 classifiers = ["Private :: Do Not Upload"]
+
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
+
 [tool.setuptools]
 py-modules = []
 

@@ -28,10 +28,16 @@ keywords = ["litellm", "receipts", "dsse", "audit", "evidence", "otel", "genai"]
 dependencies = ["szl-receipts", "cryptography>=42"]
 classifiers = ["Private :: Do Not Upload"]
 
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform/tree/main/packages/szl-evidence-litellm"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
+
 [project.optional-dependencies]
 litellm = ["litellm>=1.40"]
 proxy = ["fastapi>=0.110", "uvicorn>=0.29"]
 dev = ["pytest"]
+test = ["pytest"]
 
 [project.scripts]
 szl-evidence-litellm = "szl_evidence_litellm.cli:main"

@@ -12,14 +12,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.11", "3.12"]
+        python-version: ["3.11", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false  # nothing in this job talks to the remote
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install all packages
         run: make install
+      # Without the optional litellm extra, tests/test_litellm_integration.py
+      # skips ("litellm not installed"), so CI never exercised the plugin
+      # against the library it is named for.
+      - name: Install the LiteLLM extra (runs the integration suite)
+        run: python -m pip install -q -e 'packages/szl-evidence-litellm[litellm]'
       - name: Lint
         run: make lint
       - name: Test (offline, deterministic)

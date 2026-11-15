@@ -20,8 +20,14 @@ keywords = ["security", "adversarial", "receipts", "dsse", "audit", "redteam"]
 dependencies = ["szl-receipts>=14"]
 classifiers = ["Private :: Do Not Upload"]
 
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform/tree/main/packages/szl-adversarial"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
+
 [project.optional-dependencies]
 dev = ["pytest"]
+test = ["pytest"]
 
 [project.scripts]
 szl-adversarial = "szl_adversarial.cli:main"

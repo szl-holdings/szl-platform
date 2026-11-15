@@ -22,8 +22,14 @@ keywords = ["receipts", "dsse", "in-toto", "rfc8785", "ed25519", "audit"]
 dependencies = ["cryptography>=42"]
 classifiers = ["Private :: Do Not Upload"]
 
+[project.urls]
+Homepage = "https://github.com/szl-holdings/szl-platform/tree/main/packages/szl-receipts"
+Source = "https://github.com/szl-holdings/szl-platform"
+Issues = "https://github.com/szl-holdings/szl-platform/issues"
+
 [project.optional-dependencies]
 dev = ["pytest"]
+test = ["pytest"]
 
 [tool.setuptools]
 package-dir = { "" = "src" }

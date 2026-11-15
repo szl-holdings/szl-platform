@@ -9,6 +9,11 @@ same day; SZL-internal context comes from `../../discovery/fork_findings.md` (§
 inventory). Inline URLs are preserved verbatim from those files. `n.a.` = not confirmed from
 a fetched source.*
 
+> **Note (2026-11-06):** `../../research/` and `../../discovery/` are the author's working
+> directories. They are not part of this repository or of any public szl-holdings repository,
+> so the evidence-file references below are plain text rather than (dead) links. Inline URLs
+> to public sources are unaffected.
+
 *Written for two readers at once: an investor doing diligence (is the wedge real and
 unoccupied?) and an engineer deciding what to build (what do we adopt, what do we refuse,
 and where does each pattern land in the `szl-platform` monorepo?).*
@@ -21,17 +26,17 @@ Across **all four surfaces** we scanned, one capability is uniformly absent: **t
 cryptographically verifiable, per-decision receipts**. In AI governance platforms, no vendor
 ships hash-chained or signed decision records — the strongest adjacents are ServiceNow's
 immutable *containment* audit log and Credo AI's structured per-use-case audit trail, both
-operational logs, not cryptographic receipts ([research/governance_landscape.md](../../research/governance_landscape.md)).
+operational logs, not cryptographic receipts (`research/governance_landscape.md` (unpublished)).
 In LLM gateways/observability, **none of the ten projects documents a tamper-evident or
 immutable request log**; Portkey's enterprise audit logs and Langfuse's S3-first persistence
-come closest and neither is tamper-evident ([research/gateway_landscape.md](../../research/gateway_landscape.md)).
+come closest and neither is tamper-evident (`research/gateway_landscape.md` (unpublished)).
 In AI silicon, **no shipping accelerator offers per-inference cryptographic receipts or a
 policy gate in the compute datapath** — attestation everywhere is boot/session-scope, and the
 only per-inference receipt proposal (IETF AIR draft) is application-layer TEE software, not
-silicon ([research/silicon_landscape.md](../../research/silicon_landscape.md)).
+silicon (`research/silicon_landscape.md` (unpublished)).
 In C-UAS/maritime, **no entity publishes tamper-evident logging of autonomous engagements** —
 Dedrone's forensic-evidence exports are the nearest artifact and are not tamper-evident
-([research/cuas_maritime_landscape.md](../../research/cuas_maritime_landscape.md)).
+(`research/cuas_maritime_landscape.md` (unpublished)).
 The wedge is unoccupied in four adjacent markets simultaneously. The sections below show the
 evidence, what we copy, what we refuse, and what the wedge does *not* fix.
 
@@ -59,7 +64,7 @@ evidence, what we copy, what we refuse, and what the wedge does *not* fix.
 The research verdict: *"no vendor in this set ships cryptographic, tamper-evident,
 per-decision receipts (hash-chained or signed decision records)"* — the strongest adjacent
 capabilities are ServiceNow's containment log and Credo's audit trail, "both operational
-logs, not cryptographic receipts" ([governance_landscape.md, Table 1 takeaway](../../research/governance_landscape.md)).
+logs, not cryptographic receipts" (governance_landscape.md, Table 1 takeaway: `research/governance_landscape.md` (unpublished)).
 The one standards effort aimed at agent audit trails, IETF `draft-sharif-agent-audit-trail`,
 is an individual Internet-Draft at version -01 (19 Aug 2026) that the datatracker states
 verbatim is "**not endorsed by the IETF** and has **no formal standing**" and is adopted by no
@@ -260,7 +265,7 @@ and only then an ASIC decision (`discovery/fork_findings.md` §3).
 nearest artifacts are Dedrone's forensic-evidence exports (law-enforcement oriented, plain
 files, not tamper-evident), Shield AI's V&V/runtime-assurance investment, Windward's
 "explainable, evidence-based" marketing, and Darkhive's accredited software delivery
-([cuas_maritime_landscape.md, Section 1 takeaway](../../research/cuas_maritime_landscape.md)).
+(cuas_maritime_landscape.md, Section 1 takeaway: `research/cuas_maritime_landscape.md` (unpublished)).
 The differentiator is genuinely unoccupied — and the buyer is newly organized to want it.
 
 ### 5.3 The open windows (dated)
@@ -269,7 +274,7 @@ The differentiator is genuinely unoccupied — and the buyer is newly organized 
   interest include mobile C-UxS, fixed-site C-UAS, and C2; fixed-price contracts; **awards may
   be issued through end of 2028** ([DefenseScoop](https://defensescoop.com/2026/02/27/jiatf-401-commercial-solutions-opening-cso-counter-uas/)). The establishing memo (Aug 27, 2025) makes JIATF-401 the supported organization for C-sUAS **forensics, exploitation, and replication** — a forensics mandate written into the charter, with a 36-month sunset review ([memo PDF](https://media.defense.gov/2025/Aug/28/2003790021/-1/-1/0/ESTABLISHMENT-OF-JOINT-INTERAGENCY-TASK-FORCE-401.PDF)). A receipts capability answers the charter text directly.
 - **DoW FY26 Release 5 SBIR topics (open now).** Opened Aug 26, 2026, **close Sept 23, 2026
-  12:00 ET** ([DARPA SBIR/STTR topics](https://www.darpa.mil/work-with-us/communities/small-business/sbir-sttr-topics)). Closest topic: OSD "Collaborative Distributed Swarm Radar" (OSW26BZ05-DV019, closes Sept 23) ([SBIR.gov topic 12846](https://www.sbir.gov/topics/12846)). **No open topic specifically on C-UAS assurance or autonomy-evidence/tamper-evident logging exists** — per the research, "the theme is unfunded and uncontested in the current solicitation set" ([cuas_maritime_landscape.md](../../research/cuas_maritime_landscape.md)). (The Navy C-UAS CSO closed Jul 22, 2026 and the Release-4 swarm topics closed Aug 19, 2026 — those windows are gone; the swarm-defense topic was Army, not MDA: [Army SBIR topic](https://armysbir.army.mil/topics/asymmetric-collaborative-counter-swarm/).)
+  12:00 ET** ([DARPA SBIR/STTR topics](https://www.darpa.mil/work-with-us/communities/small-business/sbir-sttr-topics)). Closest topic: OSD "Collaborative Distributed Swarm Radar" (OSW26BZ05-DV019, closes Sept 23) ([SBIR.gov topic 12846](https://www.sbir.gov/topics/12846)). **No open topic specifically on C-UAS assurance or autonomy-evidence/tamper-evident logging exists** — per the research, "the theme is unfunded and uncontested in the current solicitation set" (cuas_maritime_landscape.md: `research/cuas_maritime_landscape.md` (unpublished)). (The Navy C-UAS CSO closed Jul 22, 2026 and the Release-4 swarm topics closed Aug 19, 2026 — those windows are gone; the swarm-defense topic was Army, not MDA: [Army SBIR topic](https://armysbir.army.mil/topics/asymmetric-collaborative-counter-swarm/).)
 - **CyLab Partners Conference, Oct 20–21, 2026**, Rangos Ballroom, CMU; invited guests/partners
   ([CyLab 2026](https://www.cylab.cmu.edu/events/partners_conference/2026/index.html)).
   CyLab's Cyber Autonomy Initiative (announced Mar 23, 2026 at RSAC, co-director Vyas Sekar)
