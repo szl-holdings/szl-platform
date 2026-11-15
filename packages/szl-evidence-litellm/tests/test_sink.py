@@ -1,4 +1,4 @@
-﻿"""Sink tests: batching, backpressure, drop signaling, checkpointing, boot gate."""
+"""Sink tests: batching, backpressure, drop signaling, checkpointing, boot gate."""
 
 from __future__ import annotations
 
@@ -86,7 +86,7 @@ class TestBackpressure:
 
     def test_fail_closed_raises_backpressure(self, sink_dir, closed_policy):
         closed = EvidenceSink(sink_dir, policy=closed_policy, maxsize=4)
-        # No flusher started: the queue stays full â€” that IS the stall scenario.
+        # No flusher started: the queue stays full — that IS the stall scenario.
         async def scenario():
             for i in range(4):
                 closed.enqueue(make_pending(closed_policy, call_id=f"ok-{i}"))
@@ -253,7 +253,7 @@ class TestBootGateAndReads:
 
 def test_async_enqueue_boots_flusher_without_explicit_start(tmp_path):
     """Regression: enqueue() from a running loop with NO start() call must still
-    persist â€” found live on the vast.ai sovereign node where LiteLLM's proxy
+    persist — found live on the vast.ai sovereign node where LiteLLM's proxy
     fired async events but nothing ever called sink.start()."""
     import asyncio
 
@@ -263,7 +263,7 @@ def test_async_enqueue_boots_flusher_without_explicit_start(tmp_path):
     sink = EvidenceSink(tmp_path)
 
     async def go():
-        sink.enqueue(make_pending(make_policy()))  # running loop, no start() â€” the bug case
+        sink.enqueue(make_pending(make_policy()))  # running loop, no start() — the bug case
         deadline = asyncio.get_running_loop().time() + 5
         while not (tmp_path / "receipts.jsonl").exists():
             assert asyncio.get_running_loop().time() < deadline, "receipt never persisted"
