@@ -3,11 +3,10 @@
 Dated, citable position statements filed by SZL Holdings on third-party
 standards drafts in the agent-audit / agent-memory space. Each position is
 authored against the specific revision named in its filename and linked to
-the SZL artifacts that realize it in running code.
+the SZL artifacts that realize it in running code. Every position below was
+verified against the full draft text before filing.
 
-## Standing positions (unchanged across drafts)
-
-SZL advocates, on every audit-record or agent-memory format proposal:
+## Standing positions (advocated on every audit-record or agent-memory format proposal)
 
 1. **DSSE-style envelopes.** Audit records and memory events should be
    wrapped as detached-signature envelopes (RFC 9052/COSE-compatible,
@@ -19,15 +18,15 @@ SZL advocates, on every audit-record or agent-memory format proposal:
 3. **Offline verification.** A verifier or regulator MUST be able to verify
    exported artifacts with no network access to the producing system.
 4. **Memory governance.** Writes to and recalls from persistent agent memory
-   are first-class audit events (the Memory Covenant position — the gap none
-   of the current audit drafts cover).
+   are first-class audit events (the Memory Covenant position — the gap no
+   current audit draft covers normatively).
 
 ## Index
 
 | Date | Draft | Position |
 |---|---|---|
-| 2026-11-17 | [draft-sharif-agent-audit-trail-09](2026-11-17-aat-09.md) | Support with required changes |
-| 2026-11-17 | [draft-infantado-agent-memory-architecture-00](2026-11-17-infantado-agent-memory-architecture-00.md) | Support with extensions |
+| 2026-11-17 | [draft-sharif-agent-audit-trail-09](2026-11-17-aat-09.md) | Support — convergence with standing positions 1–3 acknowledged; extensions requested |
+| 2026-11-17 | [draft-infantado-agent-memory-architecture-00](2026-11-17-infantado-agent-memory-architecture-00.md) | Support with extensions (integrity currently optional per 8.7/15.6) |
 | 2026-11-17 | [Proposed AUDIT WG](2026-11-17-audit-wg-note.md) | Charter-shaping input |
 | 2026-11-17 | [Weekly watch record](2026-11-17-watch-record.md) | Landscape snapshot |
 
