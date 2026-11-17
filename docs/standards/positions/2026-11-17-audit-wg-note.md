@@ -39,3 +39,7 @@
   witness countersigning; mutation-tested verifiers).
 - TEE-free inference-receipt precedent: [draft-rotzin-spice-afir-profile](https://datatracker.ietf.org/doc/draft-rotzin-spice-afir-profile/)
   after [draft-mw-spice-inference-chain](https://datatracker.ietf.org/doc/draft-mw-spice-inference-chain/) expired.
+
+## Status update (2026-11-17)
+
+The BoF request is posted: [bofreq-kuhlewind-audit-agent-use-of-delegation-and-interaction-traceability](https://datatracker.ietf.org/doc/bofreq-kuhlewind-audit-agent-use-of-delegation-and-interaction-traceability/) — WG forming, proposed chair Yaroslav Rosomakho, proponents M. Kühlewind (Ericsson), H. Birkholz (Fraunhofer SIT), P. Dingle (Microsoft); side meeting at IETF 126; draft charter text public; discussion on [audit@ietf.org](https://mailarchive.ietf.org/arch/browse/audit/). The input above maps directly onto the charter's audit-record data-model scope; SZL will engage on the list and at IETF 126.

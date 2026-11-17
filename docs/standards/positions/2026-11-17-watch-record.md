@@ -9,7 +9,7 @@ covering agent memory provenance or agent audit (Memory Covenant gap).
 **Tracked drafts**
 
 - [draft-sato-soos-gar](https://datatracker.ietf.org/doc/draft-sato-soos-gar/) — **unchanged at -08 (2026-09-07)**. GAR is now framed as a SCITT application (RFC 9943) with Authority Lifecycle Events and a tamper-evident event log; SZL's governed-action-receipt draft already composes with SCITT.
-- [draft-piehl-agent-rule-provenance](https://datatracker.ietf.org/doc/html/draft-piehl-agent-rule-provenance-00) — **-00 published 2026-10-11** (first sighting this cycle). Rule-provenance lineage for autonomous-agent audit records; individual, Experimental. Position filing deferred to next cycle unless owner directs sooner.
+- [draft-piehl-agent-rule-provenance](https://datatracker.ietf.org/doc/html/draft-piehl-agent-rule-provenance-00) — **-00 published 2026-10-11** (first sighting this cycle). An AAT (sharif-06) profile governing rules end-to-end: versioned rule records, independent-recorder receipts, recomputable policy snapshots, REQUIRED external anchoring, fail-closed defaults, denial-dominant precedence. Strongest convergence in the watch set; note it pins base -06 while AAT is at -09. → [SZL position filed 2026-11-17](2026-11-17-piehl-agent-rule-provenance-00.md) (owner-directed same-cycle filing).
 - [draft-sharif-agent-audit-trail](https://datatracker.ietf.org/doc/draft-sharif-agent-audit-trail/) — **-09 (2026-10-26)**, three revisions since late September, still individual, no WG. → [SZL position filed](2026-11-17-aat-09.md).
 - [draft-mw-spice-inference-chain](https://datatracker.ietf.org/doc/draft-mw-spice-inference-chain/) — **-00, now EXPIRED** (no -01 posted). TEE-free post-quantum profile appeared: [draft-rotzin-spice-afir-profile](https://datatracker.ietf.org/doc/draft-rotzin-spice-afir-profile/). Offline-verification angle live; SZL position deferred to next cycle.
 
@@ -20,6 +20,8 @@ covering agent memory provenance or agent audit (Memory Covenant gap).
 - [The Agent Record](https://www.ietf.org/archive/id/draft-maintainer-1f916-agent-record-01.html) (-01) — witness-countersigned Merkle event logs including memory integrity; converges with Covenant approach. Tracking.
 - [draft-khandelwal-bmwg-agent-memory-integrity](https://datatracker.ietf.org/doc/html/draft-khandelwal-bmwg-agent-memory-integrity-02) — benchmarking method for memory-at-rest integrity (-02). Tracking.
 - [draft-gilda-audit-agent-audit-record-03](https://datatracker.ietf.org/doc/draft-gilda-audit-agent-audit-record/) — offered as the data model for a **proposed AUDIT working group**; status signal for the whole lane. → [SZL charter input filed](2026-11-17-audit-wg-note.md).
+- **AUDIT BoF is now WG-forming** ([bofreq-kuhlewind](https://datatracker.ietf.org/doc/bofreq-kuhlewind-audit-agent-use-of-delegation-and-interaction-traceability/)): proposed chair Yaroslav Rosomakho; proponents Kühlewind (Ericsson), Birkholz (Fraunhofer SIT), Dingle (Microsoft); side meeting at IETF 126; draft charter text public; discussion on audit@ietf.org. Next cycle: engage on the list and at IETF 126.
+- New adjacent drafts this cycle: [draft-zhang-audit-record-limits-00](https://www.ietf.org/archive/id/draft-zhang-audit-record-limits-00.html) (2026-10-27; what an audit record can and cannot establish — evidence-honesty lane converging on SZL doctrine), [draft-sergeev-audit-task-requirements-00](https://datatracker.ietf.org/doc/html/draft-sergeev-audit-task-requirements-00) (2026-10-15; task-relative evidence requirements). Also cited by piehl -00's related-work section: MIH Agent Action Capsules (SCITT), NELSON signed authorization receipts, VAP provenance framework. [draft-kuehlewind-audit-architecture-00](https://datatracker.ietf.org/doc/draft-kuehlewind-audit-architecture/) expires 2026-11-19 — watch for -01 or BoF adoption.
 
 **Mailing-list debate:** no substantive list discussion of tamper-evidence, DSSE envelopes, hash-chaining, or memory governance on these drafts surfaced this cycle.
 
@@ -29,6 +31,7 @@ covering agent memory provenance or agent audit (Memory Covenant gap).
 2. infantado-agent-memory-architecture-00 position filed (support with extensions).
 3. AUDIT-WG charter-shaping input filed.
 4. GAR and SPICE lanes: no filing; unchanged/expired respectively.
+5. piehl-agent-rule-provenance-00 position filed (support with extensions) — owner-directed same-cycle filing after full-text verification.
 
 ## Post-filing correction (2026-11-17, same day)
 
