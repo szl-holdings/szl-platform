@@ -27,6 +27,7 @@ verified against the full draft text before filing.
 |---|---|---|
 | 2026-11-17 | [draft-sharif-agent-audit-trail-09](2026-11-17-aat-09.md) | Support — convergence with standing positions 1–3 acknowledged; extensions requested |
 | 2026-11-17 | [draft-infantado-agent-memory-architecture-00](2026-11-17-infantado-agent-memory-architecture-00.md) | Support with extensions (integrity currently optional per 8.7/15.6) |
+| 2026-11-17 | [draft-piehl-agent-rule-provenance-00](2026-11-17-piehl-agent-rule-provenance-00.md) | Support — rule layer realizes standing positions 1–3; memory-governance extension requested |
 | 2026-11-17 | [Proposed AUDIT WG](2026-11-17-audit-wg-note.md) | Charter-shaping input |
 | 2026-11-17 | [Weekly watch record](2026-11-17-watch-record.md) | Landscape snapshot |
 

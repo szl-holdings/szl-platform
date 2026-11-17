@@ -9,7 +9,7 @@ covering agent memory provenance or agent audit (Memory Covenant gap).
 **Tracked drafts**
 
 - [draft-sato-soos-gar](https://datatracker.ietf.org/doc/draft-sato-soos-gar/) — **unchanged at -08 (2026-09-07)**. GAR is now framed as a SCITT application (RFC 9943) with Authority Lifecycle Events and a tamper-evident event log; SZL's governed-action-receipt draft already composes with SCITT.
-- [draft-piehl-agent-rule-provenance](https://datatracker.ietf.org/doc/html/draft-piehl-agent-rule-provenance-00) — **-00 published 2026-10-11** (first sighting this cycle). Rule-provenance lineage for autonomous-agent audit records; individual, Experimental. Position filing deferred to next cycle unless owner directs sooner.
+- [draft-piehl-agent-rule-provenance](https://datatracker.ietf.org/doc/html/draft-piehl-agent-rule-provenance-00) — **-00 published 2026-10-11** (first sighting this cycle). An AAT (sharif-06) profile governing rules end-to-end: versioned rule records, independent-recorder receipts, recomputable policy snapshots, REQUIRED external anchoring, fail-closed defaults, denial-dominant precedence. Strongest convergence in the watch set; note it pins base -06 while AAT is at -09. → [SZL position filed 2026-11-17](2026-11-17-piehl-agent-rule-provenance-00.md) (owner-directed same-cycle filing).
 - [draft-sharif-agent-audit-trail](https://datatracker.ietf.org/doc/draft-sharif-agent-audit-trail/) — **-09 (2026-10-26)**, three revisions since late September, still individual, no WG. → [SZL position filed](2026-11-17-aat-09.md).
 - [draft-mw-spice-inference-chain](https://datatracker.ietf.org/doc/draft-mw-spice-inference-chain/) — **-00, now EXPIRED** (no -01 posted). TEE-free post-quantum profile appeared: [draft-rotzin-spice-afir-profile](https://datatracker.ietf.org/doc/draft-rotzin-spice-afir-profile/). Offline-verification angle live; SZL position deferred to next cycle.
 
@@ -29,6 +29,7 @@ covering agent memory provenance or agent audit (Memory Covenant gap).
 2. infantado-agent-memory-architecture-00 position filed (support with extensions).
 3. AUDIT-WG charter-shaping input filed.
 4. GAR and SPICE lanes: no filing; unchanged/expired respectively.
+5. piehl-agent-rule-provenance-00 position filed (support with extensions) — owner-directed same-cycle filing after full-text verification.
 
 ## Post-filing correction (2026-11-17, same day)
 
