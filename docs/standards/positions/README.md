@@ -1,0 +1,41 @@
+# SZL Positions on External Standards Drafts
+
+Dated, citable position statements filed by SZL Holdings on third-party
+standards drafts in the agent-audit / agent-memory space. Each position is
+authored against the specific revision named in its filename and linked to
+the SZL artifacts that realize it in running code.
+
+## Standing positions (unchanged across drafts)
+
+SZL advocates, on every audit-record or agent-memory format proposal:
+
+1. **DSSE-style envelopes.** Audit records and memory events should be
+   wrapped as detached-signature envelopes (RFC 9052/COSE-compatible,
+   DSSE-style) so a verifier checks the exact bytes signed — never a
+   re-serialization.
+2. **Chain digests.** Each record carries the digest of its predecessor;
+   logs publish periodic signed Merkle checkpoints (RFC 6962-style signed
+   tree heads) for efficient tamper-evidence.
+3. **Offline verification.** A verifier or regulator MUST be able to verify
+   exported artifacts with no network access to the producing system.
+4. **Memory governance.** Writes to and recalls from persistent agent memory
+   are first-class audit events (the Memory Covenant position — the gap none
+   of the current audit drafts cover).
+
+## Index
+
+| Date | Draft | Position |
+|---|---|---|
+| 2026-11-17 | [draft-sharif-agent-audit-trail-09](2026-11-17-aat-09.md) | Support with required changes |
+| 2026-11-17 | [draft-infantado-agent-memory-architecture-00](2026-11-17-infantado-agent-memory-architecture-00.md) | Support with extensions |
+| 2026-11-17 | [Proposed AUDIT WG](2026-11-17-audit-wg-note.md) | Charter-shaping input |
+| 2026-11-17 | [Weekly watch record](2026-11-17-watch-record.md) | Landscape snapshot |
+
+## Realizing artifacts
+
+- `draft-lutar-governed-action-receipt-00` — SZL's individual I-D
+  ([DOI 10.5281/zenodo.22217725](https://doi.org/10.5281/zenodo.22217725))
+- [Memory Covenant spec](https://github.com/szl-holdings/szl-frontier/tree/main/covenant-spec)
+- governed-receipt-spec + `szl-receipt-dsse` reference implementation
+- khipu-consensus BFT witness countersigning; szl-eclipse mutation-tested
+  verifiers
