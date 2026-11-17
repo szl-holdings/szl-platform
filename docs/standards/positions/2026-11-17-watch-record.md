@@ -29,3 +29,25 @@ covering agent memory provenance or agent audit (Memory Covenant gap).
 2. infantado-agent-memory-architecture-00 position filed (support with extensions).
 3. AUDIT-WG charter-shaping input filed.
 4. GAR and SPICE lanes: no filing; unchanged/expired respectively.
+
+## Post-filing correction (2026-11-17, same day)
+
+Full-text review of both drafts (downloaded and grepped locally) corrected
+the initial positions before any outbound comment was sent:
+
+- **AAT -09** already contains mandatory tamper-evident chaining (JCS/RFC
+  8785 + prev_hash, Section 6), a signature envelope with hybrid PQ mode
+  (6.2), optional RFC 6962 Merkle batch anchoring (6.4), graded recording
+  independence (Section 5: self-recording only L0/L1), SCITT anchoring
+  (MAY), and reference implementations with offline chain verification.
+  SZL's earlier "required changes" are retired and the convergence recorded;
+  remaining asks are normative offline verification, level-tied anchoring
+  strength, an envelope-carriage profile, and the memory-governance
+  extension. The IAM Insights self-attestation critique is partially
+  addressed by Section 5's graded recording independence.
+- **PAMSPEC (infantado) -00** explicitly does NOT mandate a cryptographic
+  integrity mechanism (8.7, 15.6: "may be used ... does not mandate"), and
+  Section 16.3 already resolves erasure-vs-append-only via content-free
+  tombstones. Position retargeted at the PAMSPEC-Ledger conformance profile
+  (Section 18) as the vehicle for mandating envelopes, chain digests,
+  checkpoints, and offline verification.
