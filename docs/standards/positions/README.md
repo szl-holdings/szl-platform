@@ -31,6 +31,7 @@ verified against the full draft text before filing.
 | 2026-11-17 | [Proposed AUDIT WG](2026-11-17-audit-wg-note.md) | Charter-shaping input |
 | 2026-11-17 | [Weekly watch record](2026-11-17-watch-record.md) | Landscape snapshot |
 | 2026-11-23 | [draft-sharif-agent-audit-trail-11](2026-11-23-aat-11.md) | Support reaffirmed — -10/-11 diffs verified; four requested extensions all still open |
+| 2026-11-23 | [draft-gilda-audit-agent-audit-record-04](2026-11-23-gilda-04.md) | Support — envelopes + offline verification adopted normatively (positions 1 & 3); set-level completeness statement and memory-governance event class requested |
 | 2026-11-23 | [Weekly watch record](2026-11-23-watch-record.md) | AUDIT BoF held at IETF 127; list closed until Dec 3; gilda-04 adopts DSSE envelopes normatively |
 
 ## Realizing artifacts
