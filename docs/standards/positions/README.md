@@ -30,11 +30,16 @@ verified against the full draft text before filing.
 | 2026-11-17 | [draft-piehl-agent-rule-provenance-00](2026-11-17-piehl-agent-rule-provenance-00.md) | Support — rule layer realizes standing positions 1–3; memory-governance extension requested |
 | 2026-11-17 | [Proposed AUDIT WG](2026-11-17-audit-wg-note.md) | Charter-shaping input |
 | 2026-11-17 | [Weekly watch record](2026-11-17-watch-record.md) | Landscape snapshot |
+| 2026-11-23 | [draft-sharif-agent-audit-trail-11](2026-11-23-aat-11.md) | Support reaffirmed — -10/-11 diffs verified; four requested extensions all still open |
+| 2026-11-23 | [Weekly watch record](2026-11-23-watch-record.md) | AUDIT BoF held at IETF 127; list closed until Dec 3; gilda-04 adopts DSSE envelopes normatively |
 
 ## Realizing artifacts
 
-- `draft-lutar-governed-action-receipt-00` — SZL's individual I-D
-  ([DOI 10.5281/zenodo.22217725](https://doi.org/10.5281/zenodo.22217725))
+- Governed Action Receipt (GAR) draft — **Zenodo-published only, not
+  registered with the IETF datatracker as of 2026-11-23**
+  ([DOI 10.5281/zenodo.22217725](https://doi.org/10.5281/zenodo.22217725));
+  datatracker submission and an acronym de-collision (vs draft-sato-soos-gar,
+  Governance Audit Record) are open owner actions.
 - [Memory Covenant spec](https://github.com/szl-holdings/szl-frontier/tree/main/covenant-spec)
 - governed-receipt-spec + `szl-receipt-dsse` reference implementation
 - khipu-consensus BFT witness countersigning; szl-eclipse mutation-tested
